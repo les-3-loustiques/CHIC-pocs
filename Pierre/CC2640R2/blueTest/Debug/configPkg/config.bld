@@ -1,0 +1,21 @@
+/* THIS IS A GENERATED FILE -- DO NOT EDIT */
+
+/* configuro was passed a config.bld file */
+xdc.includeFile("D:/Utilisateurs/Pierre/Mes documents/Prog/CHIC-pocs/CC2640R2/blueTest/xdc/rov/runtime/config.bld");
+var target;    /* the target used for this build */
+
+/* use just the first target from config.bld */
+if (Build.targets.length == 0) {
+    if (this.configbld) {
+        throw new Error("no targets defined in " + this.configbld);
+    }
+    else {
+        throw new Error("no config.bld found: please name a target using the -t option of configuro");
+    }
+}
+target = Build.targets[0].$orig; /* use .$orig to access fields not defined by xdc.bld.ITarget */
+
+/* configuro was passed the target's rootDir explicitly */
+target.rootDir = 'C:/Program Files (x86)/ti/ccs730/ccsv7/tools/compiler/ti-cgt-arm_16.9.4.LTS';
+
+Build.targets = [target];
