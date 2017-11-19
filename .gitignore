@@ -107,3 +107,9 @@ ENV/
 # intellij
 .idea
 
+.jxbrowser-data/
+.metadata/
+.launches/
+.settings/
+.project
+
