@@ -3,14 +3,14 @@
 
 #define ESP8266_LED 5 // the blue led
 
-ESP8266WebServer server(80);
+
 myWifi wiObject;
 
 
-const char *ssid = "Sunrise_2.4GHz_709CD0";
-const char *pass = "Y94xEkcvc96t";
+const char *ssid = "UPC616BF3F";
+const char *pass = "etW5aaf8Gbnk";
 
-
+ESP8266WebServer server(80);
 void handleRoot() {
   server.send(200, "text/html", "<h1>You are connected</h1>");
 }
@@ -22,19 +22,16 @@ void ledOff(){
   server.send(200, "text/html", "<h1>LED off</h1>");
   digitalWrite(ESP8266_LED, HIGH);  
 }
-
 void setup() {
   pinMode(ESP8266_LED, OUTPUT);
   Serial.begin(9600); // setup the serial communication for debuging
-  wiObject.setupWifi(ssid,pass);
-
-  server.on("/", handleRoot);
+  wiObject.setupWifi(ssid,pass); // setup the wifi connection
+  server.on("/", handleRoot);   
   server.on("/led_on", ledOn);
   server.on("/led_off", ledOff);
   server.begin();
   Serial.println("HTTP server started");
 }
-
 void loop() {
   server.handleClient();
 }

@@ -64,6 +64,8 @@ class MyCallbacks: public BLECharacteristicCallbacks {
     }
 };
 
+int led = 5;
+
 
 void setup() {
   Serial.begin(115200);
@@ -99,9 +101,16 @@ void setup() {
   // Start advertising
   pServer->getAdvertising()->start();
   Serial.println("Waiting a client connection to notify...");
+
+  pinMode(led, OUTPUT);
 }
 
 void loop() {
+
+  digitalWrite(led, HIGH);
+  delay(500);
+  digitalWrite(led, LOW);
+  delay(500);
 
   if (deviceConnected) {
     Serial.printf("*** Sent Value: %d ***\n", txValue);
