@@ -1,3 +1,0 @@
-js: "D:/Utilisateurs/Pierre/Mes documents/Prog/CHIC-pocs/CC2640R2/blueTest/xdc/rov/runtime/config.bld", line 13: xdc.services.global.XDCException: xdc.PACKAGE_NOT_FOUND: can't locate the package 'ti.targets.arm.elf' along the path: 'C:/PROGRA~2/ti/ccs730/xdctools_3_50_03_33_core/packages;..;'. Ensure that the package path is set correctly.
-    "./config.bld", line 4
-xdctools_3_50_03_33_core\gmake.exe: *** No rule to make target `.configuro'.  Stop.
