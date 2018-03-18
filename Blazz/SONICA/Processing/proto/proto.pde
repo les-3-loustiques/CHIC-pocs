@@ -10,6 +10,7 @@ NetAddress sonicPi;
 Serial myPort;  // Create object from Serial class
 String valAccel;     // Data received from the serial port
 List<Float> datasAccel = new ArrayList<Float>(); // all datas from accelerometer
+float difference;
 
 // Acceleration computation
 float currentValue = 0; // current value of the acceleration (normal vector)
@@ -21,12 +22,12 @@ int ySize = 200;
 
 
 void setup() {
-  //oscP5 = new OscP5(this, 8000);
-  //sonicPi = new NetAddress("127.0.0.1",4559);
+  oscP5 = new OscP5(this, 8000);
+  sonicPi = new NetAddress("127.0.0.1",4559);
   myPort = new Serial(this, "/tmp/cu.LightBlue-Bean", 57600);
   
   // for drawing a graph
-  size(600,500);
+  size(600,800);
   frameRate(100); // speed of draw function
   drawStuff();
 }
@@ -36,41 +37,44 @@ void setup() {
   Main function
 */
 void draw() {
-  
-  gettingValues();
-  while(datasAccel.size()>=xSize){
-    datasAccel.remove(0);
+  gettingValues();  
+  //processList();
+  checkValue();
+}
+
+void checkValue(){
+  if(currentValue > 50){
+    sendOscPulse(currentValue);  
+    currentValue=0;
+    delay(100);
   }
-  if(datasAccel.size()>=2){
-    clear();
-    drawStuff();
-      for (int i=1 ; i < datasAccel.size() ; i++){
-        line((i-1),500-(datasAccel.get(i-1)),i,500-(datasAccel.get(i)));
-      }
-    } 
+  //sendOscNote(Float.valueOf(vals[0]).floatValue(),Float.valueOf(vals[1]).floatValue(),Float.valueOf(vals[2]).floatValue()); //send the mx and my values to SP
 }
 
 void gettingValues(){
-  //while(true){
+    
     if ( myPort.available() > 0) 
     {  // If data is available,
       valAccel = myPort.readStringUntil('$'); // read it and store it in val (10)
-    } 
-     
+    }  
      // get values 
     if(valAccel != null && !valAccel.isEmpty() && !valAccel.equals("null")){ 
       String[] vals = valAccel.split(","); 
       currentValue = calculateNorm(Float.valueOf(vals[0]).floatValue(),Float.valueOf(vals[1]).floatValue(),Float.valueOf(vals[2]).floatValue());
-      float difference = calculateDifference(currentValue,oldValue);
-      println(difference);
-      datasAccel.add(difference);
-      oldValue = currentValue;
-     /*       
-      sendOscNote(Float.valueOf(vals[0]).floatValue(),Float.valueOf(vals[1]).floatValue(),Float.valueOf(vals[2]).floatValue()); //send the mx and my values to SP 
-      */
+      //difference = calculateDifference(currentValue,oldValue);
+      println(currentValue);
+      //datasAccel.add(currentValue);
+      //oldValue = currentValue;
     }
-    //delay(100);
-  //}
+}
+/*
+  This function allow to send a OSC pulse to Sonic Pi
+*/
+void sendOscPulse(float pulse) {
+  OscMessage toSend = new OscMessage("/notesend");
+  toSend.add(pulse); //add mx and my values as floating numbers
+  oscP5.send(toSend, sonicPi);
+  //println(toSend);
 }
 
 /*
@@ -82,7 +86,7 @@ void sendOscNote(float mx, float my, float mz) {
   toSend.add(my); //add mx and my values as floating numbers
   toSend.add(mz); //add mx and my values as floating numbers 
   oscP5.send(toSend, sonicPi);
-  println(toSend);
+  //println(toSend);
 }
 
 /*
@@ -113,10 +117,23 @@ void drawStuff() {
     line(i, height, i, 0);
   }
   // horizontale 
-  for (int j = 0; j < height; j += 33) {
+  for (int j = 0; j < height; j += 50) {
     fill(0, 255, 0);
     text(6-j/(height/6), 0, j);
     stroke(255);
     line(0, j, width, j);
   }
+}
+void processList(){
+  while(datasAccel.size()>=xSize){
+    datasAccel.remove(0);
+  }
+  if(datasAccel.size()>=2){
+    clear();
+    drawStuff();
+    stroke(0,255,0);
+    for (int i=1 ; i < datasAccel.size() ; i++){
+      line((i-1),800-(datasAccel.get(i-1)*5),i,800-(datasAccel.get(i)*5));
+    }
+  } 
 }
