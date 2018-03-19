@@ -27,9 +27,10 @@ void setup() {
   myPort = new Serial(this, "/tmp/cu.LightBlue-Bean", 57600);
   
   // for drawing a graph
-  size(600,800);
+  //size(600,800);
+  size(1,1);
   frameRate(100); // speed of draw function
-  drawStuff();
+  //drawStuff();
 }
 
 
@@ -38,7 +39,6 @@ void setup() {
 */
 void draw() {
   gettingValues();  
-  //processList();
   checkValue();
 }
 
@@ -48,11 +48,9 @@ void checkValue(){
     currentValue=0;
     delay(100);
   }
-  //sendOscNote(Float.valueOf(vals[0]).floatValue(),Float.valueOf(vals[1]).floatValue(),Float.valueOf(vals[2]).floatValue()); //send the mx and my values to SP
 }
 
 void gettingValues(){
-    
     if ( myPort.available() > 0) 
     {  // If data is available,
       valAccel = myPort.readStringUntil('$'); // read it and store it in val (10)
@@ -61,10 +59,7 @@ void gettingValues(){
     if(valAccel != null && !valAccel.isEmpty() && !valAccel.equals("null")){ 
       String[] vals = valAccel.split(","); 
       currentValue = calculateNorm(Float.valueOf(vals[0]).floatValue(),Float.valueOf(vals[1]).floatValue(),Float.valueOf(vals[2]).floatValue());
-      //difference = calculateDifference(currentValue,oldValue);
       println(currentValue);
-      //datasAccel.add(currentValue);
-      //oldValue = currentValue;
     }
 }
 /*

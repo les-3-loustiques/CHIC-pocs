@@ -43,7 +43,18 @@ void loop() {
   axeX = abs(acceleration.xAxis); 
   axeY = abs(acceleration.yAxis); 
   axeZ = abs(acceleration.zAxis);  
-  
+
+ if(sqrt(axeX*axeX + axeY*axeY + axeZ*axeZ) > threshold){
+      String stringToPrint = String();
+      stringToPrint = "$";
+      Serial.println(stringToPrint);  
+      Bean.setLed(0,0,255);
+      analogWrite(PWM,150); 
+      Bean.sleep(50); 
+      analogWrite(PWM,0);      
+      Bean.sleep(50); //120  en tout 
+  }
+  /*
   if((axeX>threshold) || (axeY>threshold) || (axeZ>threshold)){
       String stringToPrint = String();
       stringToPrint = stringToPrint + axeX + "," + axeY + "," + axeZ + "," + "$";
@@ -53,7 +64,7 @@ void loop() {
       Bean.sleep(50); 
       analogWrite(PWM,0);      
       Bean.sleep(50); //120  en tout 
-  }
+  }*/
 }
 
 
