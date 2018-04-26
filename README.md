@@ -12,5 +12,5 @@ Guido is a unique toy helping child to enhance their musical skill and help them
 
 For now, it's look like:
 
-![picture](guido_mech)
+![picture](guido_mech.png)
 
