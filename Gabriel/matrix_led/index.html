@@ -1,0 +1,17 @@
+<html>
+  <head>
+  </head>
+  <body>
+  Number of rows:<br>
+  <input type="number" name="rows" id="rows" min="1" max="40" value="40" oninput="sizeChanged()" required><br>
+  Number of columns:<br>
+  <input type="number" name="columns" id="columns" min="1" max="80" value="20" oninput="sizeChanged()" required><br>
+  Select your color:
+  <input type="color" name="colorSelector" value="#ffffff" id="colorSelector" oninput="changeColor()"/><br/>
+  <input type="checkbox" name="quinconce" value="quainconce">quainconce</input>
+  <br/>
+  <br/>
+  </body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.1/p5.js"></script>
+    <script src="sketch.js"></script>
+</html>
