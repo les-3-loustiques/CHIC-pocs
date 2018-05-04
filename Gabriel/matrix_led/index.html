@@ -3,12 +3,15 @@
   </head>
   <body>
   Number of rows:<br>
-  <input type="number" name="rows" id="rows" min="1" max="40" value="40" oninput="sizeChanged()" required><br>
+  <input type="number" name="rows" id="rows" min="1" max="40" value="20" oninput="sizeChanged()" required><br>
   Number of columns:<br>
-  <input type="number" name="columns" id="columns" min="1" max="80" value="20" oninput="sizeChanged()" required><br>
+  <input type="number" name="columns" id="columns" min="1" max="80" value="40" oninput="sizeChanged()" required><br>
   Select your color:
-  <input type="color" name="colorSelector" value="#ffffff" id="colorSelector" oninput="changeColor()"/><br/>
-  <input type="checkbox" name="quinconce" value="quainconce">quainconce</input>
+  <input type="color" name="colorSelector" value="#00ff00" id="colorSelector" oninput="changeColor()"/><br/>
+  <label for="quainconce">quainconce</label>
+  <input type="checkbox" name="quinconce" id="quinconce" oninput="quainc()"/>
+  <label for="gomme">gomme</label>
+  <input type="checkbox" name="gomme" id="gomme" oninput="gomme()"/>
   <br/>
   <br/>
   </body>
