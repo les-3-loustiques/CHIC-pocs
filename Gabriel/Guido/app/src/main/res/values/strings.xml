@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Guido</string>
     <string name="ble_not_supported">BLE not supported</string>
+    <string name="b_not_supported">Bluetooth not supported</string>
+    <string name="startScanBluetooth">Scan bluetooth devices</string>
+    <string name="stopScanBluetooth">Stop scanning</string>
+    <string name="tstopScanBluetooth">Scanning in progress…</string>
+    <string name="tstartScanBluetooth"> </string>
 </resources>
