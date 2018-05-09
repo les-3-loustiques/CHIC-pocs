@@ -18,16 +18,27 @@ import android.content.IntentFilter
 import android.content.BroadcastReceiver
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
+import android.bluetooth.BluetoothManager
+import android.support.v4.content.ContextCompat
+import android.Manifest
+import android.support.v4.app.ActivityCompat
+import android.widget.TextView
+import android.view.ViewGroup
+import android.widget.LinearLayout
+
+
+
 
 const val REQUEST_ENABLE_BT = 1
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBluetoothAdapter: BluetoothAdapter
+    private lateinit var mBluetoothManager: BluetoothManager
 
     private val mReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
-            Log.d("moi", "into intent")
+            Log.d("moi", intent.action)
             val action = intent.action
             when(action){
                 BluetoothAdapter.ACTION_DISCOVERY_STARTED ->{
@@ -42,6 +53,13 @@ class MainActivity : AppCompatActivity() {
                     // Discovery has found a device. Get the BluetoothDevice
                     // object and its info from the Intent.
                     val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+
+                    var newText = TextView(this@MainActivity)
+                    newText.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                    newText.text = "name device: ${device.name}\nname hardware : ${device.name}\n\n"
+
+                    ll_mainlayout.addView(newText)
+
                     val deviceName = device.name
                     val deviceHardwareAddress = device.address // MAC address
                     Log.d("moi", " name device : $deviceName")
@@ -69,7 +87,31 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Initializes Bluetooth adapter.
-        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
+        mBluetoothManager =  getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        mBluetoothAdapter = mBluetoothManager.adapter
+
+        // check for Bluetooth location permission. if not, ask. otherwise app doesn't work
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Permission is not granted
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            Manifest.permission.ACCESS_COARSE_LOCATION)) {
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),1)
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+
+        }
 
         // Ensures Bluetooth is enabled. If not,
         // displays a dialog requesting user permission to enable Bluetooth.
@@ -87,7 +129,6 @@ class MainActivity : AppCompatActivity() {
         filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
         filter.addAction(BluetoothDevice.ACTION_FOUND)
         registerReceiver(mReceiver, filter)
-        Log.d("moi", "blabla")
     }
 
     /**
