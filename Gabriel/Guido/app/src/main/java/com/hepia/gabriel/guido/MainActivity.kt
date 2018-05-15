@@ -27,8 +27,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 
 
-
-
 const val REQUEST_ENABLE_BT = 1
 
 class MainActivity : AppCompatActivity() {
@@ -54,14 +52,17 @@ class MainActivity : AppCompatActivity() {
                     // object and its info from the Intent.
                     val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
 
+                    val deviceName = device.name
+                    val deviceHardwareAddress = device.address // MAC address
+
+                    // create a new textfield
                     var newText = TextView(this@MainActivity)
                     newText.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                    newText.text = "name device: ${device.name}\nname hardware : ${device.name}\n\n"
+                    newText.text = "name device: ${device.name}\n" +
+                            "name hardware : ${device.address}\n\n"
 
                     ll_mainlayout.addView(newText)
 
-                    val deviceName = device.name
-                    val deviceHardwareAddress = device.address // MAC address
                     Log.d("moi", " name device : $deviceName")
                     Log.d("moi", " name hardware : $deviceHardwareAddress")
                 }
@@ -87,8 +88,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Initializes Bluetooth adapter.
-        mBluetoothManager =  getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-        mBluetoothAdapter = mBluetoothManager.adapter
+        // mBluetoothManager =  getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+        // mBluetoothAdapter = mBluetoothManager.adapter
+        mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter()
 
         // check for Bluetooth location permission. if not, ask. otherwise app doesn't work
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -123,6 +125,23 @@ class MainActivity : AppCompatActivity() {
         // Discovery is run as system and is not an activity so its preferable to cancel any discovery
         if(mBluetoothAdapter.isDiscovering) {
             mBluetoothAdapter.cancelDiscovery()
+        }
+
+        val pairedDevices = mBluetoothAdapter.bondedDevices
+
+        if (pairedDevices.size > 0) {
+            // There are paired devices. Get the name and address of each paired device.
+            for (device in pairedDevices) {
+
+                // create a new textfield
+                var newText = TextView(this@MainActivity)
+                newText.layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+                newText.text = "name device: ${device.name}\n" +
+                        "name hardware : ${device.address}\n" +
+                        "device uuid : ${device.uuids}\n\n"
+
+                ll_mainlayout.addView(newText)
+            }
         }
 
         var filter = IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED)
