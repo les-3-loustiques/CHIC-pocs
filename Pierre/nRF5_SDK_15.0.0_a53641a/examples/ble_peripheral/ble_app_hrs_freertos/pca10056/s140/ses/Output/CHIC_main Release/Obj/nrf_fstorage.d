@@ -1,7 +1,7 @@
 Output/CHIC_main\ Release/Obj/nrf_fstorage.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage.c \
  ../config/sdk_config.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
  ../../../../../../components/libraries/util/sdk_errors.h \

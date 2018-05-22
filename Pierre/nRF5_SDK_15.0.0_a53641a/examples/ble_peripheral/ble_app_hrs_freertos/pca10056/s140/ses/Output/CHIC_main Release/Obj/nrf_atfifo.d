@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/nrf_atfifo.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\atomic_fifo\nrf_atfifo.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\atomic_fifo\nrf_atfifo.c \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/string.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/__crossworks.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
@@ -20,7 +20,7 @@ Output/CHIC_main\ Release/Obj/nrf_atfifo.o: \
  ../../../../../../modules/nrfx/mdk/nrf51_to_nrf52840.h \
  ../../../../../../modules/nrfx/mdk/nrf52_to_nrf52840.h \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\atomic_fifo\nrf_atfifo.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\atomic_fifo\nrf_atfifo.h \
  ../config/sdk_config.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
@@ -29,7 +29,7 @@ Output/CHIC_main\ Release/Obj/nrf_atfifo.o: \
  ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\atomic_fifo\nrf_atfifo_internal.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\atomic_fifo\nrf_atfifo_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log.h \
  ../../../../../../components/libraries/util/sdk_common.h \
  ../../../../../../components/libraries/util/sdk_os.h \

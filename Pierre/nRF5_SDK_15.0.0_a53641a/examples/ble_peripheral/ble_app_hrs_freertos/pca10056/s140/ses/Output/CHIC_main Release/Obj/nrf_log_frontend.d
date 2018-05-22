@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/nrf_log_frontend.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\experimental_log\src\nrf_log_frontend.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\experimental_log\src\nrf_log_frontend.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
@@ -46,7 +46,7 @@ Output/CHIC_main\ Release/Obj/nrf_log_frontend.o: \
  ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\experimental_log\src\nrf_log_internal.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\experimental_log\src\nrf_log_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_ctrl.h \
  ../../../../../../components/libraries/experimental_log/src/nrf_log_ctrl_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_backend_interface.h \

@@ -2,7 +2,10 @@
 <session>
  <Bookmarks/>
  <Breakpoints groups="Breakpoints" active_group="Breakpoints">
-  <BreakpointListItem trigger="" line="1052" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="../../../main.c" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="1051" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="../../../main.c" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="24" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="p_lib/p_lm.c" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="50" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="p_lib/p_lm.c" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="102" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="2" filename="p_lib/p_lm.h" useHWbreakpoint="false"/>
   <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
  </Breakpoints>
  <ExecutionProfileWindow/>
@@ -73,9 +76,10 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1051" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../main.c" debugPath="../../../main.c" selected="1" top="1011" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="26" y="15" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_lm.c" debugPath="p_lib/p_lm.c" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="27" y="21" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_lm.h" debugPath="p_lib/p_lm.h" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1011" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../main.c" debugPath="../../../main.c" selected="0" top="1014" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="36" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_lm.c" debugPath="p_lib/p_lm.c" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="31" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_lm.h" debugPath="p_lib/p_lm.h" selected="1" top="6" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="16" y="3011" useTextEdit="1" useBinaryEdit="0" left="0" path="../config/sdk_config.h" debugPath="../config/sdk_config.h" selected="0" top="3372" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="ble_app_hrs_freertos_pca10056_s140" fileDialogDefaultFilter="" autoConnectTarget="J-Link" buildConfiguration="Release" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/shinra/Desktop/nRF5_SDK_15.0.0_a53641a/modules/nrfx/drivers/src" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <ARMCrossStudioWindow activeProject="CHIC_main" fileDialogDefaultFilter="" autoConnectTarget="J-Link" buildConfiguration="Release" debugSearchFileMap="C:/Users/shinra/Desktop/nRF5_SDK_15.0.0_a53641a/examples/ble_peripheral/ble_app_hrs_freertos/main.c&#xa;C:/Users/shinra/CHIC-pocs/Pierre/nRF5_SDK_15.0.0_a53641a/examples/peripheral/twi_scanner/main.c" fileDialogInitialDirectory="C:/Users/shinra/CHIC-pocs/Pierre/nRF5_SDK_15.0.0_a53641a/examples/peripheral/twi_scanner" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

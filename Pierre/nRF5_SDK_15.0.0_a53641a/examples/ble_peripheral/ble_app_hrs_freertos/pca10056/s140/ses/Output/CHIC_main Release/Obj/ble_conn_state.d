@@ -1,6 +1,6 @@
 Output/CHIC_main\ Release/Obj/ble_conn_state.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\common\ble_conn_state.c \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\common\ble_conn_state.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\common\ble_conn_state.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\common\ble_conn_state.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  ../../../../../../components/softdevice/s140/headers/ble.h \

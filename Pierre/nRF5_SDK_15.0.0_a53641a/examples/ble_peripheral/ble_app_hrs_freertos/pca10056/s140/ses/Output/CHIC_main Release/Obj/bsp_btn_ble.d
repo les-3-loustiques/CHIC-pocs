@@ -1,6 +1,6 @@
 Output/CHIC_main\ Release/Obj/bsp_btn_ble.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp_btn_ble.c \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp_btn_ble.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp_btn_ble.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp_btn_ble.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  ../../../../../../components/softdevice/s140/headers/ble.h \
  ../../../../../../components/softdevice/s140/headers/nrf_svc.h \
@@ -26,7 +26,7 @@ Output/CHIC_main\ Release/Obj/bsp_btn_ble.o: \
  ../../../../../../modules/nrfx/mdk/nrf52_to_nrf52840.h \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/softdevice/s140/headers/ble_gatts.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
  ../../../../../../components/boards/boards.h \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \

@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/nrf_fstorage_sd.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage_sd.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage_sd.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
@@ -27,8 +27,8 @@ Output/CHIC_main\ Release/Obj/nrf_fstorage_sd.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage_sd.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage_sd.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\fstorage\nrf_fstorage.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
  ../../../../../../components/libraries/util/nordic_common.h \

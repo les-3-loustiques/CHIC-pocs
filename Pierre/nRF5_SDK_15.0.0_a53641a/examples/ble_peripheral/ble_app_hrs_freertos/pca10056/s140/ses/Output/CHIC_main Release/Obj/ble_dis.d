@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/ble_dis.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\ble_services\ble_dis\ble_dis.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\ble_services\ble_dis\ble_dis.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
@@ -27,7 +27,7 @@ Output/CHIC_main\ Release/Obj/ble_dis.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\ble_services\ble_dis\ble_dis.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\ble_services\ble_dis\ble_dis.h \
  ../../../../../../components/ble/common/ble_srv_common.h \
  ../../../../../../components/softdevice/s140/headers/ble_types.h \
  ../../../../../../components/libraries/util/app_util.h \

@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/app_timer_freertos.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\timer\app_timer_freertos.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\timer\app_timer_freertos.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
@@ -50,7 +50,7 @@ Output/CHIC_main\ Release/Obj/app_timer_freertos.o: \
  ../../../../../../external/freertos/source/include/list.h \
  ../../../../../../external/freertos/source/include/timers.h \
  ../../../../../../external/freertos/source/include/task.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\timer\app_timer.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\timer\app_timer.h \
  ../../../../../../components/libraries/util/app_error.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdlib.h

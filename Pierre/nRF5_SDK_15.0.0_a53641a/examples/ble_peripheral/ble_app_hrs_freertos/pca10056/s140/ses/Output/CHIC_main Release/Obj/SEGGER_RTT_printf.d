@@ -1,7 +1,7 @@
 Output/CHIC_main\ Release/Obj/SEGGER_RTT_printf.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\external\segger_rtt\SEGGER_RTT_printf.c \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\external\segger_rtt\SEGGER_RTT.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\external\segger_rtt\SEGGER_RTT_Conf.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\external\segger_rtt\SEGGER_RTT_printf.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\external\segger_rtt\SEGGER_RTT.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\external\segger_rtt\SEGGER_RTT_Conf.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/libraries/util/app_util_platform.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \

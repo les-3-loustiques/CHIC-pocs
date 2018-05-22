@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/main.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\examples\ble_peripheral\ble_app_hrs_freertos\main.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\examples\ble_peripheral\ble_app_hrs_freertos\main.c \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/string.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/__crossworks.h \

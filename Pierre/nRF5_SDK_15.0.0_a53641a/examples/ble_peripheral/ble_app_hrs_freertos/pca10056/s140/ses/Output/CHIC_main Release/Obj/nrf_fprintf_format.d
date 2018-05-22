@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/nrf_fprintf_format.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\external\fprintf\nrf_fprintf_format.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\external\fprintf\nrf_fprintf_format.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
@@ -29,5 +29,5 @@ Output/CHIC_main\ Release/Obj/nrf_fprintf_format.o: \
  ../../../../../../components/libraries/util/nrf_assert.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdarg.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\external\fprintf\nrf_fprintf.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\external\fprintf\nrf_fprintf_format.h
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\external\fprintf\nrf_fprintf.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\external\fprintf\nrf_fprintf_format.h

@@ -1,7 +1,7 @@
 Output/CHIC_main\ Release/Obj/nrf_drv_clock.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\integration\nrfx\legacy\nrf_drv_clock.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\integration\nrfx\legacy\nrf_drv_clock.c \
  ../../../../../../components/libraries/util/nordic_common.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\integration\nrfx\legacy\nrf_drv_clock.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\integration\nrfx\legacy\nrf_drv_clock.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_clock.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \

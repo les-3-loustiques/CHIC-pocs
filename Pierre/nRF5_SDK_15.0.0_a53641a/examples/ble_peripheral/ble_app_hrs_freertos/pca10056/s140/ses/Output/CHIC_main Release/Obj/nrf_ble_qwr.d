@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/nrf_ble_qwr.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\nrf_ble_qwr\nrf_ble_qwr.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\nrf_ble_qwr\nrf_ble_qwr.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
@@ -28,7 +28,7 @@ Output/CHIC_main\ Release/Obj/nrf_ble_qwr.o: \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdlib.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\nrf_ble_qwr\nrf_ble_qwr.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\nrf_ble_qwr\nrf_ble_qwr.h \
  ../../../../../../components/libraries/util/nordic_common.h \
  ../../../../../../components/softdevice/s140/headers/ble.h \
  ../../../../../../components/softdevice/s140/headers/nrf_svc.h \

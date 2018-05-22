@@ -1,7 +1,7 @@
 Output/CHIC_main\ Release/Obj/nrf_sdh_freertos.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\softdevice\common\nrf_sdh_freertos.c \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\softdevice\common\nrf_sdh_freertos.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\softdevice\common\nrf_sdh.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\softdevice\common\nrf_sdh_freertos.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\softdevice\common\nrf_sdh_freertos.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\softdevice\common\nrf_sdh.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
  ../config/sdk_config.h \
  ../../../../../../components/libraries/util/sdk_errors.h \

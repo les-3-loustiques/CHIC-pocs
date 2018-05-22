@@ -1029,7 +1029,6 @@ int main(void)
 
     // Activate deep sleep mode.
     SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
-
     // Configure and initialize the BLE stack.
     ble_stack_init();
 

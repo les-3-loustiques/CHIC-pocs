@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/hardfault_implementation.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\hardfault\hardfault_implementation.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\hardfault\hardfault_implementation.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
@@ -27,7 +27,7 @@ Output/CHIC_main\ Release/Obj/hardfault_implementation.o: \
  ../../../../../../modules/nrfx/mdk/compiler_abstraction.h \
  ../../../../../../components/libraries/util/sdk_macros.h \
  ../../../../../../components/libraries/util/nrf_assert.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\hardfault\hardfault.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\hardfault\hardfault.h \
  ../../../../../../components/libraries/util/app_util_platform.h \
  ../../../../../../components/softdevice/s140/headers/nrf_soc.h \
  ../../../../../../components/softdevice/s140/headers/nrf_svc.h \

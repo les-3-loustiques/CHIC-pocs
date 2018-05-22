@@ -1,5 +1,5 @@
 Output/CHIC_main\ Release/Obj/peer_manager.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_manager.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_manager.c \
  ../../../../../../components/libraries/util/sdk_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
@@ -29,7 +29,7 @@ Output/CHIC_main\ Release/Obj/peer_manager.o: \
  ../../../../../../components/libraries/util/nrf_assert.h \
  ../../../../../../components/softdevice/s140/headers/ble_err.h \
  ../../../../../../components/softdevice/s140/headers/nrf_error.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_manager.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_manager.h \
  ../../../../../../components/softdevice/s140/headers/ble.h \
  ../../../../../../components/softdevice/s140/headers/nrf_svc.h \
  ../../../../../../components/softdevice/s140/headers/ble_err.h \
@@ -42,7 +42,7 @@ Output/CHIC_main\ Release/Obj/peer_manager.o: \
  ../../../../../../components/softdevice/s140/headers/ble_gattc.h \
  ../../../../../../components/softdevice/s140/headers/ble_gatts.h \
  ../../../../../../components/softdevice/s140/headers/ble_gap.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_manager_types.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_manager_types.h \
  ../../../../../../components/softdevice/s140/headers/ble_hci.h \
  ../../../../../../components/ble/common/ble_gatt_db.h \
  ../../../../../../components/softdevice/s140/headers/ble_gattc.h \
@@ -54,15 +54,15 @@ Output/CHIC_main\ Release/Obj/peer_manager.o: \
  ../../../../../../components/libraries/util/app_error.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdio.h \
  ../../../../../../components/libraries/util/app_error_weak.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_database.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_manager_internal.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_database.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_manager_internal.h \
  ../../../../../../components/libraries/util/sdk_errors.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\security_manager.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\security_dispatcher.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\gatt_cache_manager.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\gatts_cache_manager.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_data_storage.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\id_manager.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\security_manager.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\security_dispatcher.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\gatt_cache_manager.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\gatts_cache_manager.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\peer_data_storage.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\ble\peer_manager\id_manager.h \
  ../../../../../../components/ble/common/ble_conn_state.h \
  ../../../../../../components/libraries/atomic/nrf_atomic.h \
  ../../../../../../components/softdevice/common/nrf_sdh_ble.h \
