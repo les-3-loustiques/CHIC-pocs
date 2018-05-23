@@ -14,30 +14,22 @@ static volatile bool spi1_xfer_done;  /**< Flag used to indicate that SPI instan
 
 #define TEST_STRING "0b11111000"
 static uint8_t       m_tx_buf[] = TEST_STRING;           /**< TX buffer. */
-static uint8_t       m_rx_buf[sizeof(TEST_STRING) + 1];    /**< RX buffer. */
+static uint8_t       m_rx_buf[1];    /**< RX buffer. */
 static uint8_t m_length;        /**< Transfer length. */
 
 #define COLUMNS  40
 #define COLUMNSBYSPI  20
-#define LINES 20
-#define MAXLUMINOSITYSHIFTS 4
+#define ROWS 20
+#define LEDNUMBER (COLUMNS*ROWS)
+#define RESETOFFSET 40
+#define MATRIXSIZEWITHOUTOFFSET (LEDNUMBER*15)
+#define MAXLUMINOSITYSHIFTS 0
+#define MATRIXSIZE (MATRIXSIZEWITHOUTOFFSET + RESETOFFSET)
 
 #define LM_SPI0_SS_PIN 0xFFFFFFFF
 #define LM_SPI0_MISO_PIN 25
 #define LM_SPI0_MOSI_PIN 23
 #define LM_SPI0_SCK_PIN 21
-
-typedef struct
-{
-  uint8_t brg[15];
-} led;
-//least significant bits for g
-//most significant bits for b
-
-typedef struct
-{
-  union led matrix[COLUMNS * 20];
-} matrix;
 
 //look at sdk_config.h to enable other SPI: "NRFX_SPIM0_ENABLED" and "NRFX_SPI0_ENABLED"
 
@@ -99,7 +91,7 @@ void lm_spi_send();
 void lm_setSingleLedColor(int x, int y, int color);
 void lm_setLedColor(int color);
 
-void lm_ledColorBuilder(int c, led *led);
+void lm_ledColorBuilder(int c, uint8_t *led);
 char lm_oneZeroTranslation(bool one);
 int lm_colorBuilder(char r, char g, char b);
 

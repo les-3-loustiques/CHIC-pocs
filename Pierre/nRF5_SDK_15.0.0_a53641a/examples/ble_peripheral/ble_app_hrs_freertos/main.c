@@ -1044,6 +1044,7 @@ int main(void)
     peer_manager_init();
     application_timers_start();
     lm_init(LM_SPI0_INSTANCE, LM_SPI1_INSTANCE);
+    lm_setLedColor(lm_colorBuilder(0,100,0));
     lm_spi_send();
 
     // Create a FreeRTOS task for the BLE stack.
