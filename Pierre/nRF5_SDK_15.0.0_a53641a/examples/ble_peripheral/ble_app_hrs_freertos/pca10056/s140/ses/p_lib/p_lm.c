@@ -15,20 +15,18 @@ bool lm_init(int spiChannel0, int spiChannel1) {
   spi_config0.frequency= NRF_SPI_FREQ_4M;
   spi_config0.bit_order= NRF_DRV_SPI_BIT_ORDER_MSB_FIRST;
   APP_ERROR_CHECK(nrf_drv_spi_init(&spi0, &spi_config0, lm_spi0_event_handler, NULL));
-  lm_setLedColor(lm_colorBuilder(255,255,255));
+  lm_setLedColor(lm_colorBuilder(0,0,0));
   for (int i = 0; i < RESETOFFSET; i++){
     m[i] = 0; //reset bytes to be sent before each frame
   }
 }
-
 /**
  * @brief SPI user event handler.
  * @param event
  */
 void lm_spi0_event_handler(nrf_drv_spi_evt_t const *p_event,
     void *p_context) {
-  //spi0_xfer_done = true;
-  APP_ERROR_CHECK(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1));
+  spi0_xfer_done = true;
   NRF_LOG_INFO("Transfer completed.");
   if (m_rx_buf[0] != 0) {
     NRF_LOG_INFO(" Received:");

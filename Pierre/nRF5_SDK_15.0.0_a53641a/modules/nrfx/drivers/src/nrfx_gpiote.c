@@ -661,13 +661,14 @@ uint32_t nrfx_gpiote_in_event_addr_get(nrfx_gpiote_pin_t pin)
     return nrf_gpiote_event_addr_get(event);
 }
 
-
+/*
 void nrfx_gpiote_irq_handler(void)
 {
     uint32_t status            = 0;
     uint32_t input[GPIO_COUNT] = {0};
 
     /* collect status of all GPIOTE pin events. Processing is done once all are collected and cleared.*/
+    /*
     uint32_t            i;
     nrf_gpiote_events_t event = NRF_GPIOTE_EVENTS_IN_0;
     uint32_t            mask  = (uint32_t)NRF_GPIOTE_INT_IN0_MASK;
@@ -682,11 +683,13 @@ void nrfx_gpiote_irq_handler(void)
         mask <<= 1;
         /* Incrementing to next event, utilizing the fact that events are grouped together
          * in ascending order. */
+         /*
         event = (nrf_gpiote_events_t)((uint32_t)event + sizeof(uint32_t));
     }
 
     /* collect PORT status event, if event is set read pins state. Processing is postponed to the
      * end of interrupt. */
+     /*
     if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_PORT))
     {
         nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_PORT);
@@ -695,6 +698,7 @@ void nrfx_gpiote_irq_handler(void)
     }
 
     /* Process pin events. */
+    /*
     if (status & NRF_GPIOTE_INT_IN_MASK)
     {
         mask = (uint32_t)NRF_GPIOTE_INT_IN0_MASK;
@@ -720,6 +724,7 @@ void nrfx_gpiote_irq_handler(void)
     if (status & (uint32_t)NRF_GPIOTE_INT_PORT_MASK)
     {
         /* Process port event. */
+        /*
         uint32_t port_idx;
         uint8_t  repeat                  = 0;
         uint32_t toggle_mask[GPIO_COUNT] = {0};
@@ -820,7 +825,7 @@ void nrfx_gpiote_irq_handler(void)
         while (repeat);
     }
 }
-
+*/
 
 /*lint -restore*/
 #endif // NRFX_CHECK(NRFX_GPIOTE_ENABLED)

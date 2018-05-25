@@ -49527,7 +49527,7 @@ ble_advdata_appearance_find:
 	.uleb128 0xa3
 	.4byte	.LASF11418
 	.byte	0
-	.section	.debug_macro,"G",%progbits,wm4.sdk_config.h.42.fc4b8b07c31eca1690042649cc8c77ff,comdat
+	.section	.debug_macro,"G",%progbits,wm4.sdk_config.h.42.2f12c1a3dc01a00207e06c563580b871,comdat
 .Ldebug_macro28:
 	.2byte	0x4
 	.byte	0
@@ -59057,6 +59057,8 @@ ble_advdata_appearance_find:
 	.ascii	"UARTE_INTENCLR_TXSTOPPED_Disabled (0UL)\000"
 .LASF2810:
 	.ascii	"I2S_PSEL_SCK_CONNECT_Pos (31UL)\000"
+.LASF11986:
+	.ascii	"TWI_ENABLED 1\000"
 .LASF11037:
 	.ascii	"ER3 ER[3]\000"
 .LASF1263:
@@ -64737,7 +64739,7 @@ ble_advdata_appearance_find:
 .LASF3457:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR26_Pos (26UL)\000"
 .LASF11784:
-	.ascii	"NRFX_SPI2_ENABLED 0\000"
+	.ascii	"NRFX_SPI2_ENABLED 1\000"
 .LASF11462:
 	.ascii	"BLE_NUS_C_ENABLED 0\000"
 .LASF9671:
@@ -66524,7 +66526,7 @@ ble_advdata_appearance_find:
 .LASF2323:
 	.ascii	"EGU_INTENSET_TRIGGERED3_Enabled (1UL)\000"
 .LASF11761:
-	.ascii	"NRFX_SPIM2_ENABLED 0\000"
+	.ascii	"NRFX_SPIM2_ENABLED 1\000"
 .LASF1146:
 	.ascii	"SCB_SHCSR_BUSFAULTACT_Pos 1U\000"
 .LASF5903:
@@ -74620,6 +74622,8 @@ ble_advdata_appearance_find:
 	.ascii	"TWIS_INTENSET_TXSTARTED_Pos (20UL)\000"
 .LASF11779:
 	.ascii	"NRFX_SPIS_CONFIG_INFO_COLOR 0\000"
+.LASF11993:
+	.ascii	"TWI1_ENABLED 1\000"
 .LASF13176:
 	.ascii	"keys_own\000"
 .LASF4919:
@@ -79000,8 +79004,6 @@ ble_advdata_appearance_find:
 	.ascii	"NFCT_EVENTS_RXFRAMEEND_EVENTS_RXFRAMEEND_Pos (0UL)\000"
 .LASF1150:
 	.ascii	"SCB_CFSR_USGFAULTSR_Pos 16U\000"
-.LASF11993:
-	.ascii	"TWI1_ENABLED 0\000"
 .LASF2941:
 	.ascii	"LPCOMP_REFSEL_REFSEL_Ref6_8Vdd (5UL)\000"
 .LASF7782:
@@ -81585,7 +81587,7 @@ ble_advdata_appearance_find:
 .LASF11679:
 	.ascii	"NRFX_PRS_CONFIG_INFO_COLOR 0\000"
 .LASF11994:
-	.ascii	"TWI1_USE_EASY_DMA 0\000"
+	.ascii	"TWI1_USE_EASY_DMA 1\000"
 .LASF12015:
 	.ascii	"APP_SCHEDULER_ENABLED 0\000"
 .LASF2313:
@@ -83928,8 +83930,6 @@ ble_advdata_appearance_find:
 	.ascii	"SD_BLE_GATTS_SERVICE_ADD\000"
 .LASF11330:
 	.ascii	"PPI_CHG3_CH3_Excluded PPI_CHG_CH3_Excluded\000"
-.LASF11986:
-	.ascii	"TWI_ENABLED 0\000"
 .LASF8548:
 	.ascii	"SPI_ENABLE_ENABLE_Pos (0UL)\000"
 .LASF4778:
