@@ -1,4 +1,17 @@
-#include "lib_touch_panel.h"
+#include "g_lib_touch_panel.h"
+
+void touchpanel_init(){
+    twi_init(); // init the two wire interface for touch panel
+    gpiote_init_TP(); // init Config[0] of gpiote for touch panel
+    gpio_init_TP(); // set reset and enable of DC-DC converter for touchpanel
+}
+
+touchpoints_t touchpoints = {0,
+                                {{PUTDOWN, 0, 0, 0},
+                                {PUTDOWN, 0, 0, 0},
+                                {PUTDOWN, 0, 0, 0},
+                                {PUTDOWN, 0, 0, 0},
+                                {PUTDOWN, 0, 0, 0}}};
 
 ret_code_t touchpanel_get_values_of_touches(touchpoints_t* touchpoints, nrf_drv_twi_t* m_twi){
 	
@@ -49,10 +62,13 @@ void touchpanel_parse_touches(touchpoints_t* touchpoints, uint8_t* to_parse){
 	}
 }
 
-uint8_t touchpanel_get_pressed_buttons(touchpoints_t* touchpoints){
+uint8_t touchpanel_get_pressed_buttons(){
+
+        touchpanel_get_values_of_touches(&touchpoints, &m_twi);
+
 	uint8_t buttons_pressed = 0;
-	for(int i = 0; i < touchpoints->number_of_touchpoints; i++){
-		buttons_pressed |= 1 << (touchpoints->touchpoint[i].pos_x / (TOUCHPANEL_WIDTH >> 3));
+	for(int i = 0; i < touchpoints.number_of_touchpoints; i++){
+		buttons_pressed |= 1 << (touchpoints.touchpoint[i].pos_x / (TOUCHPANEL_WIDTH >> 3));
 	}
 	return buttons_pressed;
 }

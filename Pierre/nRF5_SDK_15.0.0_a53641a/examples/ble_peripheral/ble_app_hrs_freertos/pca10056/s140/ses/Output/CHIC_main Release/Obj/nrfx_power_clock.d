@@ -1,7 +1,7 @@
 Output/CHIC_main\ Release/Obj/nrfx_power_clock.o: \
  C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\nrfx_power_clock.c \
- ../../../../../../modules/nrfx/nrfx.h \
- ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
+ ../../../../../../modules/nrfx/nrfx.h ../config/nrfx_config.h \
+ ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stddef.h \

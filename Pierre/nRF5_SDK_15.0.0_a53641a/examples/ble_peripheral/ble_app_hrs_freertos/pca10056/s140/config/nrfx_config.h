@@ -42,6 +42,7 @@
 #define NRFX_CONFIG_H__
 
 // TODO - temporary redirection
+
 #include <sdk_config.h>
 
 #endif // NRFX_CONFIG_H__

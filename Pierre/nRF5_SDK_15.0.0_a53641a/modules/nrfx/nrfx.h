@@ -45,5 +45,9 @@
 #include <drivers/nrfx_common.h>
 #include <nrfx_glue.h>
 #include <drivers/nrfx_errors.h>
+#define NRFX_SPIM2_ENABLED 1
+#define NRFX_TWIM0_ENABLED 1
+#define NRFX_SPIM0_ENABLED 0
+#define NRFX_TWIM1_ENABLED 0
 
 #endif // NRFX_H__

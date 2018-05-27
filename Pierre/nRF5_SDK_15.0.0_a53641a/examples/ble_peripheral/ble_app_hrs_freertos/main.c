@@ -71,7 +71,6 @@
 #include "nrf_sdh_ble.h"
 #include "nrf_sdh_freertos.h"
 #include "nrf_sdh_soc.h"
-#include "p_lm.h"
 #include "p_game.h"
 #include "peer_manager.h"
 #include "semphr.h"
@@ -84,19 +83,23 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-
+//#include "g_gpiote.h"
 
 /* Gabriel =======================================================================================*/
-#include <stdio.h>
+/*#include <stdio.h>
 #include "boards.h"
 #include "app_util_platform.h"
 #include "nrf_drv_twi.h"
 #include "nrf_gpiote.h"
-#include "nrf_gpio.h"
+#include "g_gpio.h"
 #include "lib_touch_panel.h"
+#include "g_twim.h"
+#include "g_gpiote.h"
+
 
 
 /*=======================================================================================*/
+
 
 #define DEVICE_NAME "Guido"       /**< Name of device. Will be included in the advertising data. */
 #define MANUFACTURER_NAME "Ikare" /**< Manufacturer. Will be passed to Device Information Service. */
@@ -145,85 +148,6 @@
 #define DEAD_BEEF 0xDEADBEEF /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 
 #define OSTIMER_WAIT_FOR_QUEUE 2 /**< Number of ticks to wait for the timer queue to be ready */
-
-
-
-
-/* Gabriel ======================================================================================*/
-
-
-/* TWI instance ID. */
-
-#if TWI0_ENABLED
-#define TWI_INSTANCE_ID     0
-#elif TWI1_ENABLED
-#define TWI_INSTANCE_ID     1
-#endif
-
- /* Number of possible TWI addresses. */
- 
- #define TWI_ADDRESSES      127
-
-#define INT_TOUCHPANEL_PORT 1
-#define INT_TOUCHPANEL_PIN 10
-#define EN_TP_POWER_PIN 47
-#define RESET_TP_PIN 45
-#define ADDRESS_TOUCHPANEL_I2C 0x38
-
-/* TWI instance. */
-
-static const nrf_drv_twi_t m_twi = NRF_DRV_TWI_INSTANCE(TWI_INSTANCE_ID);
-uint8_t gpiote_irq_throwed = false; 
-
-/**
- * @brief TWI initialization.
- */
- /*
-void twi_init (void)
-{
-    ret_code_t err_code;
-
-    const nrf_drv_twi_config_t twi_config = {
-       .scl                = 6,
-       .sda                = 5,
-       .frequency          = NRF_DRV_TWI_FREQ_400K,
-       .interrupt_priority = APP_IRQ_PRIORITY_HIGH,
-       .clear_bus_init     = false
-    };
-
-    err_code = nrf_drv_twi_init(&m_twi, &twi_config, NULL, NULL);
-    APP_ERROR_CHECK(err_code);
-
-    nrf_drv_twi_enable(&m_twi);
-}
-
-void GPIOTE_IRQHandler(void)
-{
-	if(nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)){
-		gpiote_irq_throwed = true;
-		nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_0);
-	}
-}
-
-void gpiote_init(){
-	// define config for interrupt channel for the touch panel's interrupt with mode event, port, pin, polarity and outinit (no effect on event mode)
-	NRF_GPIOTE->CONFIG[0] = GPIOTE_CONFIG_MODE_Event << GPIOTE_CONFIG_MODE_Pos |
-                            INT_TOUCHPANEL_PIN << GPIOTE_CONFIG_PSEL_Pos |
-                            INT_TOUCHPANEL_PORT << GPIOTE_CONFIG_PORT_Pos |
-                            GPIOTE_CONFIG_POLARITY_HiToLo << GPIOTE_CONFIG_POLARITY_Pos |
-                            GPIOTE_CONFIG_OUTINIT_Low << GPIOTE_CONFIG_OUTINIT_Pos;
-	
-	// Activate the interrupt for IN[0]
-    nrf_gpiote_int_enable(NRF_GPIOTE_INT_IN0_MASK);
-	// Activate IRQ for GPIOTE
-	NVIC_EnableIRQ(GPIOTE_IRQn);
-}
-
-
-
-
-
-/*======================================================================================*/
 
 BLE_BAS_DEF(m_bas);                 /**< Battery service instance. */
 BLE_HRS_DEF(m_hrs);                 /**< Heart rate service instance. */
@@ -563,7 +487,7 @@ static void gatt_init(void) {
 static void nrf_qwr_error_handler(uint32_t nrf_error) {
   APP_ERROR_HANDLER(nrf_error);
 }
-
+uint8_t gpiote_irq_throwed = false; // set if an interrupt have been throwed
 /**@brief Function for initializing services that will be used by the application.
  *
  * @details Initialize the Heart Rate, Battery and Device Information services.
@@ -1009,43 +933,12 @@ int main(void) {
   log_init();
   clock_init();
 
-
-  /*Gabriel ======================================================== */
-/*
-	// set pin EN_TP_POWER_PIN to 1
-    nrf_gpio_cfg_output(EN_TP_POWER_PIN);
-    nrf_gpio_pin_write(EN_TP_POWER_PIN, 1);
-
-	// set pin RESET_TP_PIN to 1 
-    nrf_gpio_cfg_output(RESET_TP_PIN);
-    nrf_gpio_pin_write(RESET_TP_PIN, 1);
-	
-
-    ret_code_t err_code;
-    uint8_t address;
-    uint8_t sample_data = 0;
-    bool detected_device = false;
-	touchpoints_t touchpoints = {0,
-                                    {{PUTDOWN, 0, 0, 0},
-                                    {PUTDOWN, 0, 0, 0},
-                                    {PUTDOWN, 0, 0, 0},
-                                    {PUTDOWN, 0, 0, 0},
-                                    {PUTDOWN, 0, 0, 0}}};
-
-    APP_ERROR_CHECK(NRF_LOG_INIT(NULL));
-
-    twi_init();
-    gpiote_init();
-
-
-  /*================================================================= */
-
   // Do not start any interrupt that uses system functions before system initialisation.
   // The best solution is to start the OS before any other initalisation.
 
 #if NRF_LOG_ENABLED
   // Start execution.
-  if (pdPASS != xTaskCreate(logger_thread, "LOGGER", 256, NULL, 1, &m_logger_thread)) {
+  if (pdPASS != xTaskCreate(logger_thread, "LOGGER", 50, NULL, 1, &m_logger_thread)) {
     APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
   }
 #endif
@@ -1070,7 +963,7 @@ int main(void) {
 
   // Create a FreeRTOS task for the BLE stack.
   // The task will run advertising_start() before entering its loop.
-  //nrf_sdh_freertos_init(advertising_start, &erase_bonds);
+  nrf_sdh_freertos_init(advertising_start, &erase_bonds);
 
   NRF_LOG_INFO("HRS FreeRTOS example started.");
 
@@ -1078,15 +971,6 @@ int main(void) {
   // Start FreeRTOS scheduler.
   vTaskStartScheduler();
   for (;;) {
-  /*
-    if(gpiote_irq_throwed){
-        touchpanel_get_values_of_touches(&touchpoints, &m_twi);
-
-        int v = touchpanel_get_pressed_buttons(&touchpoints);
-        printf(" buttons pressed : %x\n", v);
-        gpiote_irq_throwed = false;
-    }
-*/
     APP_ERROR_HANDLER(NRF_ERROR_FORBIDDEN);
   }
 }

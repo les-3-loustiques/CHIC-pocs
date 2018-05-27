@@ -106,6 +106,7 @@
       <file file_name="../../../../../../integration/nrfx/legacy/nrf_drv_twi.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_twi.c" />
       <file file_name="../../../../../../modules/nrfx/drivers/src/nrfx_twim.c" />
+      <file file_name="../../../../../../modules/nrfx/nrfx.h" />
     </folder>
     <folder Name="Board Support">
       <file file_name="../../../../../../components/libraries/bsp/bsp.c" />
@@ -125,9 +126,16 @@
         <file file_name="p_lib/p_game.h" />
       </folder>
       <folder Name="g_lib">
-        <file file_name="g_lib/lib_touch_panel.c" />
-        <file file_name="g_lib/lib_touch_panel.h" />
+        <file file_name="g_lib/g_twim.c" />
+        <file file_name="g_lib/g_twim.h" />
+        <file file_name="g_lib/g_gpiote.c" />
+        <file file_name="g_lib/g_gpiote.h" />
+        <file file_name="g_lib/g_gpio.c" />
+        <file file_name="g_lib/g_gpio.h" />
+        <file file_name="g_lib/g_lib_touch_panel.h" />
+        <file file_name="g_lib/g_lib_touch_panel.c" />
       </folder>
+      <file file_name="../config/nrfx_config.h" />
     </folder>
     <folder Name="nRF_Segger_RTT">
       <file file_name="../../../../../../external/segger_rtt/SEGGER_RTT.c" />

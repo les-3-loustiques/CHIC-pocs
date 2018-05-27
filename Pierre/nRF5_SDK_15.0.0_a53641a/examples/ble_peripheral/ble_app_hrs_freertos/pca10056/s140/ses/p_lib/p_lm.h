@@ -7,7 +7,7 @@
 #include "nrf_log_default_backends.h"
 
 #define LM_SPI0_INSTANCE  1 /**< SPI instance index. */
-#define LM_SPI1_INSTANCE  3 /**< SPI instance index. */
+#define LM_SPI1_INSTANCE  2 /**< SPI instance index. */
 static const nrf_drv_spi_t spi0 = NRF_DRV_SPI_INSTANCE(LM_SPI0_INSTANCE);  /**< SPI instance. */
 static const nrf_drv_spi_t spi1 = NRF_DRV_SPI_INSTANCE(LM_SPI1_INSTANCE);  /**< SPI instance. */
 static volatile bool spi0_xfer_done;  /**< Flag used to indicate that SPI instance completed the transfer. */
@@ -18,11 +18,11 @@ static uint8_t       m_tx_buf[] = TEST_STRING;           /**< TX buffer. */
 static uint8_t       m_rx_buf[1];    /**< RX buffer. */
 static uint8_t m_length;        /**< Transfer length. */
 
-#define COLUMNS  20
+#define COLUMNS  40
 #define COLUMNSBYSPI  20
 #define ROWS 20
 #define LEDNUMBER (COLUMNS*ROWS)
-#define RESETOFFSET 5
+#define RESETOFFSET 10
 #define MATRIXSIZEWITHOUTOFFSET (LEDNUMBER*15)
 #define MAXLUMINOSITYSHIFTS 2
 #define MATRIXSIZE (MATRIXSIZEWITHOUTOFFSET + RESETOFFSET)
@@ -95,5 +95,7 @@ void lm_setLedColor(int color);
 void lm_ledColorBuilder(int c, uint8_t *led);
 char lm_oneZeroTranslation(bool one);
 int lm_colorBuilder(char r, char g, char b);
+
+void lm_waitForDataSent();
 
 #endif

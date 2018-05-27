@@ -3,8 +3,8 @@ Output/CHIC_main\ Release/Obj/p_game.o: \
  C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\examples\ble_peripheral\ble_app_hrs_freertos\pca10056\s140\ses\p_lib\p_game.h \
  C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\examples\ble_peripheral\ble_app_hrs_freertos\pca10056\s140\ses\p_lib\p_lm.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_spi.h \
- ../../../../../../modules/nrfx/nrfx.h \
- ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
+ ../../../../../../modules/nrfx/nrfx.h ../config/nrfx_config.h \
+ ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stddef.h \
@@ -84,4 +84,34 @@ Output/CHIC_main\ Release/Obj/p_game.o: \
  ../../../../../../external/freertos/source/include/task.h \
  ../../../../../../external/freertos/source/include/list.h \
  ../../../../../../external/freertos/source/include/timers.h \
- ../../../../../../external/freertos/source/include/task.h
+ ../../../../../../external/freertos/source/include/task.h \
+ ../../../../../../components/ble/peer_manager/peer_manager.h \
+ ../../../../../../components/softdevice/s140/headers/ble.h \
+ ../../../../../../components/softdevice/s140/headers/ble_err.h \
+ ../../../../../../components/softdevice/s140/headers/ble_gap.h \
+ ../../../../../../components/softdevice/s140/headers/ble_hci.h \
+ ../../../../../../components/softdevice/s140/headers/ble_ranges.h \
+ ../../../../../../components/softdevice/s140/headers/ble_types.h \
+ ../../../../../../components/softdevice/s140/headers/ble_l2cap.h \
+ ../../../../../../components/softdevice/s140/headers/ble_gatt.h \
+ ../../../../../../components/softdevice/s140/headers/ble_gattc.h \
+ ../../../../../../components/softdevice/s140/headers/ble_gatts.h \
+ ../../../../../../components/softdevice/s140/headers/ble_gap.h \
+ ../../../../../../components/ble/peer_manager/peer_manager_types.h \
+ ../../../../../../components/softdevice/s140/headers/ble_hci.h \
+ ../../../../../../components/ble/common/ble_gatt_db.h \
+ ../../../../../../components/softdevice/s140/headers/ble_gattc.h \
+ ../../../../../../components/ble/peer_manager/peer_database.h \
+ ../../../../../../components/ble/peer_manager/peer_manager_internal.h \
+ ../../../../../../external/freertos/source/include/semphr.h \
+ ../../../../../../external/freertos/source/include/queue.h \
+ ../../../../../../components/libraries/delay/nrf_delay.h \
+ g_lib/g_gpiote.h ../../../../../../modules/nrfx/hal/nrf_gpiote.h \
+ g_lib/g_lib_touch_panel.h \
+ ../../../../../../integration/nrfx/legacy/nrf_drv_twi.h \
+ ../../../../../../modules/nrfx/drivers/include/nrfx_twim.h \
+ ../../../../../../modules/nrfx/hal/nrf_twim.h \
+ ../../../../../../modules/nrfx/drivers/include/nrfx_twi.h \
+ ../../../../../../modules/nrfx/hal/nrf_twi.h g_lib/g_gpiote.h \
+ g_lib/g_twim.h g_lib/g_gpio.h \
+ ../../../../../../modules/nrfx/hal/nrf_gpio.h g_lib/g_lib_touch_panel.h

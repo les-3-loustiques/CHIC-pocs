@@ -1,9 +1,9 @@
 <!DOCTYPE CrossStudio_Session_File>
 <session>
  <Bookmarks/>
- <Breakpoints groups="Breakpoints" active_group="Breakpoints">
-  <BreakpointListItem trigger="" line="497" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="4" filename="../../../../../../integration/nrfx/legacy/nrf_drv_spi.h" useHWbreakpoint="false"/>
-  <BreakpointListItem trigger="" line="104" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="4" filename="p_lib/p_lm.h" useHWbreakpoint="false"/>
+ <Breakpoints groups="Breakpoints;V7M Exceptions" active_group="Breakpoints">
+  <BreakpointListItem trigger="" line="498" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="4" filename="../../../../../../integration/nrfx/legacy/nrf_drv_spi.h" useHWbreakpoint="false"/>
+  <BreakpointListItem trigger="" line="679" counter="0" hardwareBreakpoint="" isFunctionBreakpoint="false" action="" expression="" group="Breakpoints" type="Breakpoint" state="4" filename="../../../../../../modules/nrfx/drivers/src/nrfx_gpiote.c" useHWbreakpoint="false"/>
   <Exceptions set="MemManage;UsageFault_Coprocessor;UsageFault_CheckingError;UsageFault_StateError;BusFault;ExceptionEntryReturnFault;HardFault"/>
  </Breakpoints>
  <ExecutionProfileWindow/>
@@ -30,6 +30,7 @@
   <ProjectSessionItem path="CHIC_main"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;Application"/>
+  <ProjectSessionItem path="CHIC_main;CHIC_main;Application;g_lib"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;Application;p_lib"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;Board Definition"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;Board Support"/>
@@ -39,6 +40,7 @@
   <ProjectSessionItem path="CHIC_main;CHIC_main;nRF_Drivers"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;nRF_Libraries"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;nRF_Log"/>
+  <ProjectSessionItem path="CHIC_main;CHIC_main;nRF_Segger_RTT"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;nRF_SoftDevice"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;Segger Startup Files"/>
   <ProjectSessionItem path="CHIC_main;CHIC_main;Third Parties"/>
@@ -81,26 +83,35 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="1031" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../main.c" debugPath="../../../main.c" selected="1" top="1011" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="30" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_lm.c" debugPath="p_lib/p_lm.c" selected="0" top="12" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="23" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_lm.h" debugPath="p_lib/p_lm.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="3011" useTextEdit="1" useBinaryEdit="0" left="0" path="../config/sdk_config.h" debugPath="../config/sdk_config.h" selected="0" top="2921" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="507" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../integration/nrfx/legacy/nrf_drv_spi.h" debugPath="../../../../../../integration/nrfx/legacy/nrf_drv_spi.h" selected="0" top="485" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="55" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../config/FreeRTOSConfig.h" debugPath="../../../config/FreeRTOSConfig.h" selected="0" top="27" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="432" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/experimental_log/src/nrf_log_frontend.c" debugPath="../../../../../../components/libraries/experimental_log/src/nrf_log_frontend.c" selected="0" top="328" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="492" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/drivers/src/nrfx_spim.c" debugPath="../../../../../../modules/nrfx/drivers/src/nrfx_spim.c" selected="0" top="472" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="183" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/drivers/include/nrfx_spim.h" debugPath="../../../../../../modules/nrfx/drivers/include/nrfx_spim.h" selected="0" top="142" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="22" useTextEdit="1" useBinaryEdit="0" left="0" path="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/stddef.h" debugPath="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/stddef.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="658" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/hal/nrf_spim.h" debugPath="../../../../../../modules/nrfx/hal/nrf_spim.h" selected="0" top="626" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="36" useTextEdit="1" useBinaryEdit="0" left="0" path="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/__crossworks.h" debugPath="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/__crossworks.h" selected="0" top="0" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="440" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/softdevice/s140/headers/nrf_nvic.h" debugPath="../../../../../../components/softdevice/s140/headers/nrf_nvic.h" selected="0" top="414" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="254" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/portable/CMSIS/nrf52/port_cmsis_systick.c" debugPath="../../../../../../external/freertos/portable/CMSIS/nrf52/port_cmsis_systick.c" selected="0" top="228" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="98" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/util/app_error_weak.c" debugPath="../../../../../../components/libraries/util/app_error_weak.c" selected="0" top="72" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="72" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/util/app_error.c" debugPath="../../../../../../components/libraries/util/app_error.c" selected="0" top="64" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="530" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/source/timers.c" debugPath="../../../../../../external/freertos/source/timers.c" selected="0" top="530" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="146" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/portable/CMSIS/nrf52/port_cmsis.c" debugPath="../../../../../../external/freertos/portable/CMSIS/nrf52/port_cmsis.c" selected="0" top="120" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="240" useTextEdit="1" useBinaryEdit="0" left="0" path="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/source/thumb_crt0.s" debugPath="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/source/thumb_crt0.s" selected="0" top="214" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="430" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/hal/nrf_uarte.h" debugPath="../../../../../../modules/nrfx/hal/nrf_uarte.h" selected="0" top="404" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="928" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../main.c" debugPath="../../../main.c" selected="0" top="903" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="177" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_game.c" debugPath="p_lib/p_game.c" selected="0" top="144" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="18" y="11" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_game.h" debugPath="p_lib/p_game.h" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="50" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/hardfault/nrf52/handler/hardfault_handler_gcc.c" debugPath="../../../../../../components/libraries/hardfault/nrf52/handler/hardfault_handler_gcc.c" selected="0" top="9" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="98" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/util/app_error_weak.c" debugPath="../../../../../../components/libraries/util/app_error_weak.c" selected="0" top="58" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="174" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/source/list.c" debugPath="../../../../../../external/freertos/source/list.c" selected="0" top="148" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="557" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/source/timers.c" debugPath="../../../../../../external/freertos/source/timers.c" selected="0" top="531" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="146" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/portable/CMSIS/nrf52/port_cmsis.c" debugPath="../../../../../../external/freertos/portable/CMSIS/nrf52/port_cmsis.c" selected="0" top="117" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="72" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/util/app_error.c" debugPath="../../../../../../components/libraries/util/app_error.c" selected="0" top="46" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="240" useTextEdit="1" useBinaryEdit="0" left="0" path="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/source/thumb_crt0.s" debugPath="C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/source/thumb_crt0.s" selected="0" top="214" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="5" y="1900" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/source/tasks.c" debugPath="../../../../../../external/freertos/source/tasks.c" selected="0" top="1901" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="31" y="441" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/source/include/task.h" debugPath="../../../../../../external/freertos/source/include/task.h" selected="0" top="397" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="46" y="53" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/softdevice/common/nrf_sdh_freertos.c" debugPath="../../../../../../components/softdevice/common/nrf_sdh_freertos.c" selected="0" top="44" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="103" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../external/freertos/portable/GCC/nrf52/port.c" debugPath="../../../../../../external/freertos/portable/GCC/nrf52/port.c" selected="0" top="77" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="417" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/toolchain/cmsis/include/cmsis_gcc.h" debugPath="../../../../../../components/toolchain/cmsis/include/cmsis_gcc.h" selected="0" top="379" codecName=""/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="7286" useTextEdit="1" useBinaryEdit="0" left="0" path="../config/sdk_config.h" debugPath="../config/sdk_config.h" selected="0" top="7260" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="3" useTextEdit="1" useBinaryEdit="0" left="0" path="g_lib/g_gpio.h" debugPath="g_lib/g_gpio.h" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="43" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/hal/nrf_gpio.h" debugPath="../../../../../../modules/nrfx/hal/nrf_gpio.h" selected="0" top="522" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="15" y="45" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/nrfx.h" debugPath="../../../../../../modules/nrfx/nrfx.h" selected="0" top="18" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="3" useTextEdit="1" useBinaryEdit="0" left="0" path="g_lib/g_gpiote.h" debugPath="g_lib/g_gpiote.h" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="13" y="43" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/hal/nrf_gpiote.h" debugPath="../../../../../../modules/nrfx/hal/nrf_gpiote.h" selected="0" top="196" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="9" y="729" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/drivers/src/nrfx_gpiote.c" debugPath="../../../../../../modules/nrfx/drivers/src/nrfx_gpiote.c" selected="0" top="797" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="2" y="413" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../modules/nrfx/drivers/include/nrfx_gpiote.h" debugPath="../../../../../../modules/nrfx/drivers/include/nrfx_gpiote.h" selected="1" top="379" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../integration/nrfx/legacy/nrf_drv_gpiote.h" debugPath="../../../../../../integration/nrfx/legacy/nrf_drv_gpiote.h" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="17" y="39" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/bsp/bsp_btn_ble.c" debugPath="../../../../../../components/libraries/bsp/bsp_btn_ble.c" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="70" y="31" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/bsp/bsp.c" debugPath="../../../../../../components/libraries/bsp/bsp.c" selected="0" top="15" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="10" useTextEdit="1" useBinaryEdit="0" left="0" path="p_lib/p_game.h" debugPath="p_lib/p_game.h" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="3" useTextEdit="1" useBinaryEdit="0" left="0" path="g_lib/g_gpiote.h" debugPath="g_lib/g_gpiote.h" selected="0" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" useBinaryEdit="0" left="0" path="../../../../../../components/libraries/bsp/bsp_btn_ble.h" debugPath="../../../../../../components/libraries/bsp/bsp_btn_ble.h" selected="0" top="36" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="CHIC_main" fileDialogDefaultFilter="*.c" autoConnectTarget="J-Link" buildConfiguration="Release" debugSearchFileMap="C:/Users/shinra/Desktop/nRF5_SDK_15.0.0_a53641a/examples/ble_peripheral/ble_app_hrs_freertos/main.c&#xa;C:/Users/shinra/CHIC-pocs/Pierre/nRF5_SDK_15.0.0_a53641a/examples/peripheral/twi_scanner/main.c" fileDialogInitialDirectory="C:/Users/shinra/CHIC-pocs/Pierre/nRF5_SDK_15.0.0_a53641a/examples/peripheral/twi_scanner" debugSearchPath="" autoConnectCapabilities="3199"/>
+ <ARMCrossStudioWindow activeProject="CHIC_main" fileDialogDefaultFilter="" autoConnectTarget="J-Link" buildConfiguration="Release" debugSearchFileMap="C:/Users/shinra/Desktop/nRF5_SDK_15.0.0_a53641a/examples/ble_peripheral/ble_app_hrs_freertos/main.c&#xa;C:/Users/shinra/CHIC-pocs/Pierre/nRF5_SDK_15.0.0_a53641a/examples/peripheral/twi_scanner/main.c" fileDialogInitialDirectory="C:/Users/shinra/CHIC-pocs/Pierre/nRF5_SDK_15.0.0_a53641a/examples/ble_peripheral/ble_app_hrs_freertos/pca10056/s140/ses/g_lib" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>

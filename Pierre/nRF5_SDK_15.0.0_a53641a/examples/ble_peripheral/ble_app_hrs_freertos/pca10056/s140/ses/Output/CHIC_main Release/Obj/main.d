@@ -83,8 +83,7 @@ Output/CHIC_main\ Release/Obj/main.o: \
  ../../../../../../components/libraries/bsp/bsp.h \
  ../../../../../../components/boards/boards.h \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \
- ../../../../../../modules/nrfx/nrfx.h \
- ../../../../../../integration/nrfx/nrfx_config.h \
+ ../../../../../../modules/nrfx/nrfx.h ../config/nrfx_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
  ../../../../../../modules/nrfx/mdk/nrf_peripherals.h \
  ../../../../../../modules/nrfx/mdk/nrf52840_peripherals.h \
@@ -107,7 +106,8 @@ Output/CHIC_main\ Release/Obj/main.o: \
  ../../../../../../components/softdevice/common/nrf_sdh.h \
  ../../../../../../components/softdevice/common/nrf_sdh_freertos.h \
  ../../../../../../components/softdevice/common/nrf_sdh_soc.h \
- p_lib/p_lm.h ../../../../../../integration/nrfx/legacy/nrf_drv_spi.h \
+ p_lib/p_game.h p_lib/p_lm.h \
+ ../../../../../../integration/nrfx/legacy/nrf_drv_spi.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_spim.h \
  ../../../../../../modules/nrfx/hal/nrf_spim.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_spi.h \
@@ -126,7 +126,6 @@ Output/CHIC_main\ Release/Obj/main.o: \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_default_backends.h \
- p_lib/p_game.h p_lib/p_lm.h \
  ../../../../../../external/freertos/source/include/task.h \
  ../../../../../../external/freertos/source/include/list.h \
  ../../../../../../external/freertos/source/include/timers.h \
@@ -138,10 +137,13 @@ Output/CHIC_main\ Release/Obj/main.o: \
  ../../../../../../components/ble/peer_manager/peer_manager_internal.h \
  ../../../../../../external/freertos/source/include/semphr.h \
  ../../../../../../external/freertos/source/include/queue.h \
- ../../../../../../components/libraries/sensorsim/sensorsim.h \
+ ../../../../../../components/libraries/delay/nrf_delay.h \
+ g_lib/g_gpiote.h ../../../../../../modules/nrfx/hal/nrf_gpiote.h \
+ g_lib/g_lib_touch_panel.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_twi.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_twim.h \
  ../../../../../../modules/nrfx/hal/nrf_twim.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_twi.h \
- ../../../../../../modules/nrfx/hal/nrf_twi.h \
- ../../../../../../modules/nrfx/hal/nrf_gpiote.h g_lib/lib_touch_panel.h
+ ../../../../../../modules/nrfx/hal/nrf_twi.h g_lib/g_gpiote.h \
+ g_lib/g_twim.h g_lib/g_gpio.h g_lib/g_lib_touch_panel.h \
+ ../../../../../../components/libraries/sensorsim/sensorsim.h
