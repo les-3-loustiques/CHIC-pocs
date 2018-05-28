@@ -5,6 +5,8 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
 #define LM_SPI0_INSTANCE  1 /**< SPI instance index. */
 #define LM_SPI1_INSTANCE  2 /**< SPI instance index. */
@@ -84,7 +86,7 @@ static uint8_t m_length;        /**< Transfer length. */
 // <47=> 47 (P1.15) 
 // <0xFFFFFFFF=> Not connected 
 
-bool lm_init(int spiChannel0, int spiChannel1);
+bool lm_init(int spiChannel0, int spiChannel1, TaskHandle_t* handle);
 void lm_spi0_event_handler(nrf_drv_spi_evt_t const * p_event,
                        void *                    p_context);
 void lm_spi_send();
@@ -97,5 +99,6 @@ char lm_oneZeroTranslation(bool one);
 int lm_colorBuilder(char r, char g, char b);
 
 void lm_waitForDataSent();
+
 
 #endif

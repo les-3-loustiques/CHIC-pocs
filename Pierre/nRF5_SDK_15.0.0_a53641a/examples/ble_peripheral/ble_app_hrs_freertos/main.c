@@ -938,7 +938,7 @@ int main(void) {
 
 #if NRF_LOG_ENABLED
   // Start execution.
-  if (pdPASS != xTaskCreate(logger_thread, "LOGGER", 50, NULL, 1, &m_logger_thread)) {
+  if (pdPASS != xTaskCreate(logger_thread, "LOGGER", 20, NULL, 1, &m_logger_thread)) {
     APP_ERROR_HANDLER(NRF_ERROR_NO_MEM);
   }
 #endif

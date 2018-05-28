@@ -1,10 +1,11 @@
 #include "p_lm.h"
 
+TaskHandle_t* xDisplayManagerHandleSPI = NULL;
 static uint8_t m[MATRIXSIZE];
 //least significant bits for g
 //most significant bits for b
 
-bool lm_init(int spiChannel0, int spiChannel1) {
+bool lm_init(int spiChannel0, int spiChannel1, TaskHandle_t* handle) {
   nrf_drv_spi_config_t spi_config0 = NRF_DRV_SPI_DEFAULT_CONFIG;
   spi_config0.ss_pin = LM_SPI0_SS_PIN;
   spi_config0.miso_pin = LM_SPI0_MISO_PIN;
@@ -18,6 +19,7 @@ bool lm_init(int spiChannel0, int spiChannel1) {
   for (int i = 0; i < RESETOFFSET; i++) {
     m[i] = 0; //reset bytes to be sent before each frame
   }
+  xDisplayManagerHandleSPI = handle;
   lm_spi_send();
 }
 /**
@@ -26,22 +28,11 @@ bool lm_init(int spiChannel0, int spiChannel1) {
  */
 void lm_spi0_event_handler(nrf_drv_spi_evt_t const *p_event,
     void *p_context) {
-  spi0_xfer_done = true;
-  NRF_LOG_INFO("Transfer completed.");
-  if (m_rx_buf[0] != 0) {
-    NRF_LOG_INFO(" Received:");
-    //NRF_LOG_HEXDUMP_INFO(m_rx_buf, strlen((const char *)m_rx_buf));
-  }
+  xTaskNotifyFromISR(&xDisplayManagerHandleSPI, 0x2, eSetBits, pdFALSE);
 }
 
 void lm_spi_send() {
-  //memset(m_rx_buf, 0, m_length);
-  spi0_xfer_done = false;
-
   APP_ERROR_CHECK(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1));
-  while (!spi0_xfer_done) {
-  __WFE();
-  }
 }
 
 void lm_setSingleLedColor(int x, int y, int color) {

@@ -71,4 +71,14 @@ Output/CHIC_main\ Release/Obj/p_lm.o: \
  ../../../../../../components/libraries/experimental_memobj/nrf_memobj.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdlib.h \
  ../../../../../../components/libraries/balloc/nrf_balloc.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_default_backends.h
+ ../../../../../../components/libraries/experimental_log/nrf_log_default_backends.h \
+ ../../../../../../external/freertos/source/include/FreeRTOS.h \
+ ../../../config/FreeRTOSConfig.h \
+ ../../../../../../external/freertos/source/include/projdefs.h \
+ ../../../../../../external/freertos/source/include/portable.h \
+ ../../../../../../external/freertos/source/include/deprecated_definitions.h \
+ ../../../../../../external/freertos/portable/GCC/nrf52/portmacro.h \
+ ../../../../../../external/freertos/portable/CMSIS/nrf52/portmacro_cmsis.h \
+ ../../../../../../external/freertos/source/include/mpu_wrappers.h \
+ ../../../../../../external/freertos/source/include/task.h \
+ ../../../../../../external/freertos/source/include/list.h

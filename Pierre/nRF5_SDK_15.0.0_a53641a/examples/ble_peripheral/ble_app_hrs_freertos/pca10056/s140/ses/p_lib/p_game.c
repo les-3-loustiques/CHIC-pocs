@@ -1,10 +1,13 @@
 #include "p_game.h"
 
-BaseType_t xGReturned;
-TaskHandle_t xGHandle = NULL;
-BaseType_t xIdleReturned;
-TaskHandle_t xIdleHandle = NULL;
-uint8_t gpioteIRQ = false; // set if an interrupt have been throwed
+BaseType_t xGMainReturned;
+TaskHandle_t xGMainHandle = NULL;
+BaseType_t xDisplayManagerReturned;
+TaskHandle_t xDisplayManagerHandle = NULL;
+BaseType_t xTouchPanelReturned;
+TaskHandle_t xTouchPanelHandle = NULL;
+BaseType_t xSoundManagerReturned;
+TaskHandle_t xSoundManagerHandle = NULL;
 gameData gData;
 
 #define alphaPointNumber 30
@@ -50,51 +53,15 @@ int alpha[36][2][alphaPointNumber] = {
 int alphaWidth[36] = {5, 5, 5, 5, 5, 5, 5, 5, 1, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
 
 void game_initLedMatrix() {
-  lm_init(LM_SPI0_INSTANCE, LM_SPI1_INSTANCE);
+  lm_init(LM_SPI0_INSTANCE, LM_SPI1_INSTANCE, &xDisplayManagerHandle);
 }
 
 void game_initTouchScreen() {
   touchpanel_init();
 }
 
-void vIdleMode(void *pvParameters) {
-
-  /* The parameter value is expected to be 1 as 1 is passed in the
-    pvParameters value in the call to xTaskCreate() below. */
-  //configASSERT(((uint32_t)pvParameters) == 1);
-  gameData* gData = (gameData *) pvParameters;
-  /* Block for 50ms. */
-  const TickType_t xDelay = 10 / portTICK_PERIOD_MS;
-  int z = 0;
-  for (;;) {
-    if (gData->gameState == 1) {
-      for (int i = 0; i < COLUMNS; i++) {
-        for (int j = 0; j < ROWS; j++) {
-          lm_setSingleLedColor(i, j, lm_colorBuilder(i, j, z));
-          //lm_setLedColor(lm_colorBuilder(z,0,0));
-        }
-      }
-      z++;
-      if (z > 120) {
-        z = 0;
-      }
-      lm_spi_send();
-      vTaskDelay(xDelay);
-    } else {
-      taskYIELD();
-    }
-  }
-  /* Tasks must not attempt to return from their implementing
-      function or otherwise exit.  In newer FreeRTOS port
-      attempting to do so will result in an configASSERT() being
-      called if it is defined.  If it is necessary for a task to
-      exit then have the task call vTaskDelete( NULL ) to ensure
-      its exit is clean. */
-  vTaskDelete(NULL);
-}
-
 void game_splashScreen() {
-  const TickType_t xDelay = 10 / portTICK_PERIOD_MS;
+  const TickType_t xDelay = 500 / portTICK_PERIOD_MS;
   const TickType_t xDelay2 = 1500 / portTICK_PERIOD_MS;
   lm_setLedColor(lm_colorBuilder(4, 4, 4));
   int letterNumber = 5;
@@ -112,27 +79,36 @@ void game_splashScreen() {
       lm_setSingleLedColor(alpha[text[i]][0][j] + offsetX, alpha[text[i]][1][j] + offsetY - singleOffset, lm_colorBuilder(i * 3, j * 3, 50));
       //lm_setLedColor(lm_colorBuilder(20,30,40));
       lm_spi_send();
-      vTaskDelay(xDelay);
+      nrf_delay_ms(100); //problematic value, you can't use a freertos primitive outside a task even if the task directly call that function
     }
     offsetX += alphaWidth[text[i]] + 1;
   }
-  vTaskDelay(xDelay2);
+  //nrf_delay_ms(1500);
 }
 
+////////////////////////////////////////////////////TASKS
+
 void vGameMain(void *pvParameters) {
+  //32BIT NOTIFICATION REGISTER: bits 0-7 is for touch panel
   /* The parameter value is expected to be 1 as 1 is passed in the
     pvParameters value in the call to xTaskCreate() below. */
-  gameData* gData = (gameData *) pvParameters;
-  configASSERT(((uint32_t)pvParameters) == 1);
-  game_splashScreen();
-  gData->gameState = 1;
-  for (;;) {
-    if (gpioteIRQ) {
-      int v = touchpanel_get_pressed_buttons();
-      printf(" buttons pressed : %x\n", 4);
-      gpioteIRQ = false;
+  gameData *gData = (gameData *)pvParameters;
+  uint32_t ulNotifiedValue;
+  TickType_t xLastWakeTime;
+  const TickType_t xDelay = 1 / portTICK_PERIOD_MS;
+  while (gData->gameState == 1) {
+    xLastWakeTime = xTaskGetTickCount();
+    xTaskNotifyWait(0x00,
+        0xff,
+        &ulNotifiedValue, /* Notified value pass out in
+                                              ulNotifiedValue. */
+        0);               /* Block indefinitely. */
+
+    if ((ulNotifiedValue & 0xff) != 0) {
+      printf(" buttons pressed : %x\n", ulNotifiedValue);
     }
-    taskYIELD();
+    xTaskNotify(&xDisplayManagerHandle, 0x1, eSetBits); //send picture
+    vTaskDelayUntil(&xLastWakeTime, xDelay);
   }
 
   /* Tasks must not attempt to return from their implementing
@@ -144,43 +120,210 @@ void vGameMain(void *pvParameters) {
   vTaskDelete(NULL);
 }
 
+void vDisplayManager(void *pvParameters) {
+  //32BIT NOTIFICATION REGISTER: bit 0 is for main and bit 1 is for spi notifications
+  /* The parameter value is expected to be 1 as 1 is passed in the
+    pvParameters value in the call to xTaskCreate() below. */
+  gameData *gData = (gameData *)pvParameters;
+  uint32_t ulNotifiedValue;
+  TickType_t xLastWakeTime;
+  /* Block for 50ms. */
+  game_splashScreen();
+  while ((ulNotifiedValue & 0x02) == 0) {
+    /* Bit 0 was set - process whichever event is represented by bit 0. */
+    xTaskNotifyWait(0x00,
+        0x2,
+        &ulNotifiedValue, /* Notified value pass out in
+                                              ulNotifiedValue. */
+        portMAX_DELAY);   /* Block indefinitely. */
+  }
+  const TickType_t xDelay = 50 / portTICK_PERIOD_MS;
+  for (;;) {
+    if (gData->gameState == 1) {
+      while ((ulNotifiedValue & 0x01) == 0) {
+        /* Bit 0 was set - process whichever event is represented by bit 0. */
+        xTaskNotifyWait(0x00,
+            0x1,
+            &ulNotifiedValue, /* Notified value pass out in
+                                              ulNotifiedValue. */
+            portMAX_DELAY);   /* Block indefinitely. */
+      }
+      xLastWakeTime = xTaskGetTickCount();
+      /*for (int i = 0; i < COLUMNS; i++) {
+                                                    for (int j = 0; j < ROWS; j++) {
+                                                      lm_setSingleLedColor(i, j, lm_colorBuilder(i, j, z));
+                                                      //lm_setLedColor(lm_colorBuilder(z,0,0));
+                                                    }
+                                                  }
+                                                  z++;
+                                                  if (z > 120) {
+                                                    z = 0;
+                                                  }*/
+      lm_spi_send();
+      while ((ulNotifiedValue & 0x02) == 0) {
+        /* Bit 0 was set - process whichever event is represented by bit 0. */
+        xTaskNotifyWait(0x00,
+            0x2,
+            &ulNotifiedValue, /* Notified value pass out in
+                                              ulNotifiedValue. */
+            portMAX_DELAY);   /* Block indefinitely. */
+      }
+      vTaskDelayUntil(&xLastWakeTime, xDelay);
+    }
+  }
+  /* Tasks must not attempt to return from their implementing
+      function or otherwise exit.  In newer FreeRTOS port
+      attempting to do so will result in an configASSERT() being
+      called if it is defined.  If it is necessary for a task to
+      exit then have the task call vTaskDelete( NULL ) to ensure
+      its exit is clean. */
+  vTaskDelete(NULL);
+}
+
+void vTouchPanel(void *pvParameters) {
+  /* The parameter value is expected to be 1 as 1 is passed in the
+    pvParameters value in the call to xTaskCreate() below. */
+  gameData *gData = (gameData *)pvParameters;
+  while (gData->gameState == 1) {
+    ulTaskNotifyTake(pdTRUE,                                                                         /* Clear the notification value before exiting. */
+        portMAX_DELAY);                                                                              /* Block indefinitely. */
+    xTaskNotifyFromISR(&xGMainHandle, (uint8_t)touchpanel_get_pressed_buttons(), eSetBits, pdFALSE); //send picture
+  }
+
+  /* Tasks must not attempt to return from their implementing
+      function or otherwise exit.  In newer FreeRTOS port
+      attempting to do so will result in an configASSERT() being
+      called if it is defined.  If it is necessary for a task to
+      exit then have the task call vTaskDelete( NULL ) to ensure
+      its exit is clean. */
+  vTaskDelete(NULL);
+}
+
+void vSoundManager(void *pvParameters) {
+  /* The parameter value is expected to be 1 as 1 is passed in the
+    pvParameters value in the call to xTaskCreate() below. */
+  gameData *gData = (gameData *)pvParameters;
+  uint32_t ulNotifiedValue;
+  while (gData->gameState == 1) {
+    /* Block indefinitely (without a timeout, so no need to check the function's
+        return value) to wait for a notification.
+
+        Bits in this RTOS task's notification value are set by the notifying
+        tasks and interrupts to indicate which events have occurred. */
+    xTaskNotifyWait(0x00, /* Don't clear any notification bits on entry. */
+        0xff,             /* Reset the notification value to 0 on exit. */
+        &ulNotifiedValue, /* Notified value pass out in
+                                              ulNotifiedValue. */
+        portMAX_DELAY);   /* Block indefinitely. */
+
+    /* Process any events that have been latched in the notified value. */
+
+    if ((ulNotifiedValue & 0x01) != 0) {
+      /* Bit 0 was set - process whichever event is represented by bit 0. */
+    }
+
+    if ((ulNotifiedValue & 0x02) != 0) {
+      /* Bit 1 was set - process whichever event is represented by bit 1. */
+    }
+
+    if ((ulNotifiedValue & 0x04) != 0) {
+      /* Bit 2 was set - process whichever event is represented by bit 2. */
+    }
+
+    if ((ulNotifiedValue & 0x08) != 0) {
+      /* Bit 3 was set - process whichever event is represented by bit 3. */
+    }
+
+    if ((ulNotifiedValue & 0x10) != 0) {
+      /* Bit 4 was set - process whichever event is represented by bit 4. */
+    }
+
+    if ((ulNotifiedValue & 0x20) != 0) {
+      /* Bit 2 was set - process whichever event is represented by bit 5. */
+    }
+
+    if ((ulNotifiedValue & 0x40) != 0) {
+      /* Bit 2 was set - process whichever event is represented by bit 6. */
+    }
+
+    if ((ulNotifiedValue & 0x80) != 0) {
+      /* Bit 2 was set - process whichever event is represented by bit 7. */
+    }
+  }
+
+  /* Tasks must not attempt to return from their implementing
+      function or otherwise exit.  In newer FreeRTOS port
+      attempting to do so will result in an configASSERT() being
+      called if it is defined.  If it is necessary for a task to
+      exit then have the task call vTaskDelete( NULL ) to ensure
+      its exit is clean. */
+  vTaskDelete(NULL);
+}
+
+////////////////////////////////////////////////////TASKS END
+
 void game_initTasks() {
   game_initLedMatrix();
   game_initTouchScreen();
-
-  gData.gameState = 0;
+  gData.gameState = 1;
   /* Create the task, storing the handle. */
-    xGReturned = xTaskCreate(
-      vGameMain,        /* Function that implements the task. */
-      "Game Main",      /* Text name for the task. */
-      150,               /* Stack size in words, not bytes. */
-      &gData,        /* Parameter passed into the task. */
-      tskIDLE_PRIORITY, /* Priority at which the task is created. */
-      &xGHandle);       /* Used to pass out the created task's handle. */
+  xGMainReturned = xTaskCreate(
+      vGameMain,      /* Function that implements the task. */
+      "GameMain",     /* Text name for the task. */
+      50,             /* Stack size in words, not bytes. */
+      &gData,         /* Parameter passed into the task. */
+      2,              /* Priority at which the task is created. */
+      &xGMainHandle); /* Used to pass out the created task's handle. */
 
-  if (xGReturned != pdPASS) {
+  if (xGMainReturned != pdPASS) {
     printf("error creating a task");
-    vTaskDelete(xGHandle);
+    vTaskDelete(xGMainHandle);
   }
   /* Create the task, storing the handle. */
-  xIdleReturned = xTaskCreate(
-      vIdleMode,        /* Function that implements the task. */
-      "idleMode",       /* Text name for the task. */
-      150,               /* Stack size in words, not bytes. */
-      &gData,        /* Parameter passed into the task. */
-      tskIDLE_PRIORITY, /* Priority at which the task is created. */
-      &xIdleHandle);    /* Used to pass out the created task's handle. */
+  xDisplayManagerReturned = xTaskCreate(
+      vDisplayManager,         /* Function that implements the task. */
+      "DisplayManager",        /* Text name for the task. */
+      200,                     /* Stack size in words, not bytes. */
+      &gData,                  /* Parameter passed into the task. */
+      2,                       //tskIDLE_PRIORITY, /* Priority at which the task is created. */
+      &xDisplayManagerHandle); /* Used to pass out the created task's handle. */
 
-  if (xIdleReturned != pdPASS) {
+  if (xDisplayManagerReturned != pdPASS) {
     printf("error creating a task");
-    vTaskDelete(xIdleHandle);
+    vTaskDelete(xDisplayManagerHandle);
+  }
+  /* Create the task, storing the handle. */
+  xTouchPanelReturned = xTaskCreate(
+      vTouchPanel,         /* Function that implements the task. */
+      "TouchPanel",        /* Text name for the task. */
+      50,                  /* Stack size in words, not bytes. */
+      &gData,              /* Parameter passed into the task. */
+      2,                   //tskIDLE_PRIORITY, /* Priority at which the task is created. */
+      &xTouchPanelHandle); /* Used to pass out the created task's handle. */
+
+  if (xTouchPanelReturned != pdPASS) {
+    printf("error creating a task");
+    vTaskDelete(xTouchPanelHandle);
+  }
+  /* Create the task, storing the handle. */
+  xSoundManagerReturned = xTaskCreate(
+      vSoundManager,         /* Function that implements the task. */
+      "SoundManager",        /* Text name for the task. */
+      10,                    /* Stack size in words, not bytes. */
+      &gData,                /* Parameter passed into the task. */
+      2,                     //tskIDLE_PRIORITY, /* Priority at which the task is created. */
+      &xSoundManagerHandle); /* Used to pass out the created task's handle. */
+
+  if (xSoundManagerReturned != pdPASS) {
+    printf("error creating a task");
+    vTaskDelete(xSoundManagerHandle);
   }
 }
 
 // handler for GPIOTE
 void GPIOTE_IRQHandler(void) {
   if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)) {
-      gpioteIRQ = true;
+    vTaskNotifyGiveFromISR(xTouchPanelHandle, pdFALSE);
     nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_0);
   }
 }
