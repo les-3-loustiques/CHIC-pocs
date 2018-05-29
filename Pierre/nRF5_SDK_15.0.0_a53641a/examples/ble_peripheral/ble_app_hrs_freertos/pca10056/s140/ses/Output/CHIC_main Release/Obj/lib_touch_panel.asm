@@ -1306,6 +1306,52 @@ nrf_drv_twi_rx:
 	ldr	pc, [sp], #4
 .LFE264:
 	.size	nrf_drv_twi_rx, .-nrf_drv_twi_rx
+	.section	.rodata.m_twi,"a",%progbits
+	.align	2
+	.type	m_twi, %object
+	.size	m_twi, 16
+m_twi:
+	.byte	0
+	.space	3
+	.word	1073754112
+	.byte	0
+	.space	3
+	.byte	1
+	.space	3
+	.section	.text.touchpanel_init,"ax",%progbits
+	.align	1
+	.global	touchpanel_init
+	.syntax unified
+	.thumb
+	.thumb_func
+	.fpu fpv4-sp-d16
+	.type	touchpanel_init, %function
+touchpanel_init:
+.LFB320:
+	.file 3 "C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0.0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_freertos\\pca10056\\s140\\ses\\g_lib\\lib_touch_panel.c"
+	.loc 3 3 0
+	@ args = 0, pretend = 0, frame = 0
+	@ frame_needed = 0, uses_anonymous_args = 0
+	push	{r3, lr}
+.LCFI6:
+	.loc 3 4 0
+	bl	twi_init
+	.loc 3 5 0
+	bl	gpiote_init_TP
+	.loc 3 6 0
+	bl	gpio_init_TP
+	.loc 3 7 0
+	nop
+	pop	{r3, pc}
+.LFE320:
+	.size	touchpanel_init, .-touchpanel_init
+	.global	touchpoints
+	.section	.bss.touchpoints,"aw",%nobits
+	.align	2
+	.type	touchpoints, %object
+	.size	touchpoints, 32
+touchpoints:
+	.space	32
 	.section .rodata
 	.align	2
 .LC0:
@@ -1328,24 +1374,23 @@ nrf_drv_twi_rx:
 	.fpu fpv4-sp-d16
 	.type	touchpanel_get_values_of_touches, %function
 touchpanel_get_values_of_touches:
-.LFB270:
-	.file 3 "C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0.0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_freertos\\pca10056\\s140\\ses\\g_lib\\lib_touch_panel.c"
-	.loc 3 3 0
+.LFB321:
+	.loc 3 16 0
 	@ args = 0, pretend = 0, frame = 40
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{lr}
-.LCFI6:
-	sub	sp, sp, #52
 .LCFI7:
+	sub	sp, sp, #52
+.LCFI8:
 	str	r0, [sp, #12]
 	str	r1, [sp, #8]
-	.loc 3 5 0
+	.loc 3 18 0
 	movs	r3, #2
 	strb	r3, [sp, #46]
-	.loc 3 7 0
+	.loc 3 20 0
 	movs	r3, #1
 	strb	r3, [sp, #47]
-	.loc 3 10 0
+	.loc 3 23 0
 	add	r2, sp, #46
 	movs	r3, #0
 	str	r3, [sp]
@@ -1355,15 +1400,15 @@ touchpanel_get_values_of_touches:
 	bl	nrf_drv_twi_tx
 	mov	r3, r0
 	cmp	r3, #0
-	beq	.L54
-	.loc 3 11 0
-	ldr	r0, .L61
+	beq	.L55
+	.loc 3 24 0
+	ldr	r0, .L62
 	bl	printf
-	.loc 3 12 0
+	.loc 3 25 0
 	mov	r3, #-1
-	b	.L60
-.L54:
-	.loc 3 15 0
+	b	.L61
+.L55:
+	.loc 3 28 0
 	ldrb	r3, [sp, #47]	@ zero_extendqisi2
 	add	r2, sp, #16
 	movs	r1, #56
@@ -1371,27 +1416,27 @@ touchpanel_get_values_of_touches:
 	bl	nrf_drv_twi_rx
 	mov	r3, r0
 	cmp	r3, #0
-	beq	.L56
-	.loc 3 16 0
-	ldr	r0, .L61+4
+	beq	.L57
+	.loc 3 29 0
+	ldr	r0, .L62+4
 	bl	printf
-	.loc 3 17 0
+	.loc 3 30 0
 	mov	r3, #-1
-	b	.L60
-.L56:
-	.loc 3 19 0
+	b	.L61
+.L57:
+	.loc 3 32 0
 	ldrb	r2, [sp, #16]	@ zero_extendqisi2
 	ldr	r3, [sp, #12]
 	strb	r2, [r3]
-	.loc 3 21 0
+	.loc 3 34 0
 	ldr	r3, [sp, #12]
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	cmp	r3, #0
-	beq	.L57
-	.loc 3 22 0
+	beq	.L58
+	.loc 3 35 0
 	movs	r3, #3
 	strb	r3, [sp, #46]
-	.loc 3 25 0
+	.loc 3 38 0
 	ldr	r3, [sp, #12]
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	mov	r2, r3
@@ -1401,7 +1446,7 @@ touchpanel_get_values_of_touches:
 	uxtb	r3, r3
 	subs	r3, r3, #2
 	strb	r3, [sp, #47]
-	.loc 3 27 0
+	.loc 3 40 0
 	add	r2, sp, #46
 	movs	r3, #0
 	str	r3, [sp]
@@ -1411,15 +1456,15 @@ touchpanel_get_values_of_touches:
 	bl	nrf_drv_twi_tx
 	mov	r3, r0
 	cmp	r3, #0
-	beq	.L58
-	.loc 3 28 0
-	ldr	r0, .L61+8
+	beq	.L59
+	.loc 3 41 0
+	ldr	r0, .L62+8
 	bl	printf
-	.loc 3 29 0
+	.loc 3 42 0
 	mov	r3, #-1
-	b	.L60
-.L58:
-	.loc 3 32 0
+	b	.L61
+.L59:
+	.loc 3 45 0
 	ldrb	r3, [sp, #47]	@ zero_extendqisi2
 	add	r2, sp, #16
 	movs	r1, #56
@@ -1427,37 +1472,37 @@ touchpanel_get_values_of_touches:
 	bl	nrf_drv_twi_rx
 	mov	r3, r0
 	cmp	r3, #0
-	beq	.L59
-	.loc 3 33 0
-	ldr	r0, .L61+12
+	beq	.L60
+	.loc 3 46 0
+	ldr	r0, .L62+12
 	bl	printf
-	.loc 3 34 0
+	.loc 3 47 0
 	mov	r3, #-1
-	b	.L60
-.L59:
-	.loc 3 36 0
+	b	.L61
+.L60:
+	.loc 3 49 0
 	add	r3, sp, #16
 	mov	r1, r3
 	ldr	r0, [sp, #12]
 	bl	touchpanel_parse_touches
-.L57:
-	.loc 3 38 0
+.L58:
+	.loc 3 51 0
 	movs	r3, #0
-.L60:
-	.loc 3 39 0 discriminator 1
+.L61:
+	.loc 3 52 0 discriminator 1
 	mov	r0, r3
 	add	sp, sp, #52
-.LCFI8:
+.LCFI9:
 	@ sp needed
 	ldr	pc, [sp], #4
-.L62:
+.L63:
 	.align	2
-.L61:
+.L62:
 	.word	.LC0
 	.word	.LC1
 	.word	.LC2
 	.word	.LC3
-.LFE270:
+.LFE321:
 	.size	touchpanel_get_values_of_touches, .-touchpanel_get_values_of_touches
 	.section	.text.touchpanel_parse_touches,"ax",%progbits
 	.align	1
@@ -1468,25 +1513,25 @@ touchpanel_get_values_of_touches:
 	.fpu fpv4-sp-d16
 	.type	touchpanel_parse_touches, %function
 touchpanel_parse_touches:
-.LFB271:
-	.loc 3 41 0
+.LFB322:
+	.loc 3 54 0
 	@ args = 0, pretend = 0, frame = 16
 	@ frame_needed = 0, uses_anonymous_args = 0
 	@ link register save eliminated.
 	sub	sp, sp, #16
-.LCFI9:
+.LCFI10:
 	str	r0, [sp, #4]
 	str	r1, [sp]
-	.loc 3 42 0
+	.loc 3 55 0
 	movs	r3, #0
 	strb	r3, [sp, #11]
 .LBB2:
-	.loc 3 43 0
+	.loc 3 56 0
 	movs	r3, #0
 	str	r3, [sp, #12]
-	b	.L64
-.L65:
-	.loc 3 44 0 discriminator 3
+	b	.L65
+.L66:
+	.loc 3 57 0 discriminator 3
 	ldr	r3, [sp, #12]
 	uxtb	r3, r3
 	mov	r2, r3
@@ -1494,7 +1539,7 @@ touchpanel_parse_touches:
 	add	r3, r3, r2
 	lsls	r3, r3, #1
 	strb	r3, [sp, #11]
-	.loc 3 45 0 discriminator 3
+	.loc 3 58 0 discriminator 3
 	ldrb	r3, [sp, #11]	@ zero_extendqisi2
 	ldr	r2, [sp]
 	add	r3, r3, r2
@@ -1511,7 +1556,7 @@ touchpanel_parse_touches:
 	adds	r3, r3, #2
 	mov	r2, r0
 	strb	r2, [r3]
-	.loc 3 46 0 discriminator 3
+	.loc 3 59 0 discriminator 3
 	ldrb	r3, [sp, #11]	@ zero_extendqisi2
 	adds	r3, r3, #2
 	ldr	r2, [sp]
@@ -1529,7 +1574,7 @@ touchpanel_parse_touches:
 	adds	r3, r3, #3
 	mov	r2, r0
 	strb	r2, [r3]
-	.loc 3 47 0 discriminator 3
+	.loc 3 60 0 discriminator 3
 	ldrb	r3, [sp, #11]	@ zero_extendqisi2
 	ldr	r2, [sp]
 	add	r3, r3, r2
@@ -1557,7 +1602,7 @@ touchpanel_parse_touches:
 	adds	r3, r3, #4
 	mov	r2, r0	@ movhi
 	strh	r2, [r3]	@ movhi
-	.loc 3 48 0 discriminator 3
+	.loc 3 61 0 discriminator 3
 	ldrb	r3, [sp, #11]	@ zero_extendqisi2
 	adds	r3, r3, #2
 	ldr	r2, [sp]
@@ -1586,26 +1631,26 @@ touchpanel_parse_touches:
 	adds	r3, r3, #6
 	mov	r2, r0	@ movhi
 	strh	r2, [r3]	@ movhi
-	.loc 3 43 0 discriminator 3
+	.loc 3 56 0 discriminator 3
 	ldr	r3, [sp, #12]
 	adds	r3, r3, #1
 	str	r3, [sp, #12]
-.L64:
-	.loc 3 43 0 is_stmt 0 discriminator 1
+.L65:
+	.loc 3 56 0 is_stmt 0 discriminator 1
 	ldr	r3, [sp, #4]
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	mov	r2, r3
 	ldr	r3, [sp, #12]
 	cmp	r2, r3
-	bgt	.L65
+	bgt	.L66
 .LBE2:
-	.loc 3 50 0 is_stmt 1
+	.loc 3 63 0 is_stmt 1
 	nop
 	add	sp, sp, #16
-.LCFI10:
+.LCFI11:
 	@ sp needed
 	bx	lr
-.LFE271:
+.LFE322:
 	.size	touchpanel_parse_touches, .-touchpanel_parse_touches
 	.section	.text.touchpanel_get_pressed_buttons,"ax",%progbits
 	.align	1
@@ -1616,25 +1661,31 @@ touchpanel_parse_touches:
 	.fpu fpv4-sp-d16
 	.type	touchpanel_get_pressed_buttons, %function
 touchpanel_get_pressed_buttons:
-.LFB272:
-	.loc 3 52 0
+.LFB323:
+	.loc 3 65 0
 	@ args = 0, pretend = 0, frame = 16
 	@ frame_needed = 0, uses_anonymous_args = 0
-	@ link register save eliminated.
-	sub	sp, sp, #16
-.LCFI11:
+	push	{lr}
+.LCFI12:
+	sub	sp, sp, #20
+.LCFI13:
 	str	r0, [sp, #4]
-	.loc 3 53 0
+	.loc 3 67 0
+	add	r3, sp, #4
+	mov	r1, r3
+	ldr	r0, .L71
+	bl	touchpanel_get_values_of_touches
+	.loc 3 69 0
 	movs	r3, #0
 	strb	r3, [sp, #15]
 .LBB3:
-	.loc 3 54 0
+	.loc 3 70 0
 	movs	r3, #0
 	str	r3, [sp, #8]
-	b	.L67
-.L68:
-	.loc 3 55 0 discriminator 3
-	ldr	r1, [sp, #4]
+	b	.L68
+.L69:
+	.loc 3 71 0 discriminator 3
+	ldr	r1, .L71
 	ldr	r2, [sp, #8]
 	mov	r3, r2
 	lsls	r3, r3, #1
@@ -1643,7 +1694,7 @@ touchpanel_get_pressed_buttons:
 	add	r3, r3, r1
 	adds	r3, r3, #4
 	ldrh	r3, [r3]
-	ldr	r2, .L70
+	ldr	r2, .L71+4
 	umull	r2, r3, r2, r3
 	lsrs	r3, r3, #5
 	uxth	r3, r3
@@ -1655,32 +1706,33 @@ touchpanel_get_pressed_buttons:
 	orrs	r3, r3, r2
 	sxtb	r3, r3
 	strb	r3, [sp, #15]
-	.loc 3 54 0 discriminator 3
+	.loc 3 70 0 discriminator 3
 	ldr	r3, [sp, #8]
 	adds	r3, r3, #1
 	str	r3, [sp, #8]
-.L67:
-	.loc 3 54 0 is_stmt 0 discriminator 1
-	ldr	r3, [sp, #4]
+.L68:
+	.loc 3 70 0 is_stmt 0 discriminator 1
+	ldr	r3, .L71
 	ldrb	r3, [r3]	@ zero_extendqisi2
 	mov	r2, r3
 	ldr	r3, [sp, #8]
 	cmp	r2, r3
-	bgt	.L68
+	bgt	.L69
 .LBE3:
-	.loc 3 57 0 is_stmt 1
+	.loc 3 73 0 is_stmt 1
 	ldrb	r3, [sp, #15]	@ zero_extendqisi2
-	.loc 3 58 0
+	.loc 3 74 0
 	mov	r0, r3
-	add	sp, sp, #16
-.LCFI12:
+	add	sp, sp, #20
+.LCFI14:
 	@ sp needed
-	bx	lr
-.L71:
+	ldr	pc, [sp], #4
+.L72:
 	.align	2
-.L70:
+.L71:
+	.word	touchpoints
 	.word	1374389535
-.LFE272:
+.LFE323:
 	.size	touchpanel_get_pressed_buttons, .-touchpanel_get_pressed_buttons
 	.section .rodata
 	.align	2
@@ -1695,32 +1747,32 @@ touchpanel_get_pressed_buttons:
 	.fpu fpv4-sp-d16
 	.type	touchpanel_send_cmd, %function
 touchpanel_send_cmd:
-.LFB273:
-	.loc 3 60 0
+.LFB324:
+	.loc 3 76 0
 	@ args = 0, pretend = 0, frame = 24
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{lr}
-.LCFI13:
+.LCFI15:
 	sub	sp, sp, #36
-.LCFI14:
+.LCFI16:
 	str	r0, [sp, #20]
 	mov	r3, r1
 	str	r2, [sp, #12]
 	strb	r3, [sp, #19]
-	.loc 3 63 0
+	.loc 3 79 0
 	add	r1, sp, #19
 	add	r3, sp, #24
 	movs	r2, #1
 	mov	r0, r3
 	bl	memcpy
-	.loc 3 64 0
+	.loc 3 80 0
 	add	r3, sp, #24
 	adds	r3, r3, #1
 	movs	r2, #4
 	ldr	r1, [sp, #12]
 	mov	r0, r3
 	bl	memcpy
-	.loc 3 65 0
+	.loc 3 81 0
 	add	r2, sp, #24
 	movs	r3, #0
 	str	r3, [sp]
@@ -1730,28 +1782,28 @@ touchpanel_send_cmd:
 	bl	nrf_drv_twi_tx
 	mov	r3, r0
 	cmp	r3, #0
-	beq	.L73
-	.loc 3 66 0
-	ldr	r0, .L76
+	beq	.L74
+	.loc 3 82 0
+	ldr	r0, .L77
 	bl	printf
-	.loc 3 67 0
+	.loc 3 83 0
 	mov	r3, #-1
-	b	.L75
-.L73:
-	.loc 3 69 0
+	b	.L76
+.L74:
+	.loc 3 85 0
 	movs	r3, #0
-.L75:
-	.loc 3 70 0 discriminator 1
+.L76:
+	.loc 3 86 0 discriminator 1
 	mov	r0, r3
 	add	sp, sp, #36
-.LCFI15:
+.LCFI17:
 	@ sp needed
 	ldr	pc, [sp], #4
-.L77:
+.L78:
 	.align	2
-.L76:
+.L77:
 	.word	.LC4
-.LFE273:
+.LFE324:
 	.size	touchpanel_send_cmd, .-touchpanel_send_cmd
 	.section .rodata
 	.align	2
@@ -1769,19 +1821,19 @@ touchpanel_send_cmd:
 	.fpu fpv4-sp-d16
 	.type	touchpanel_get_register_value, %function
 touchpanel_get_register_value:
-.LFB274:
-	.loc 3 72 0
+.LFB325:
+	.loc 3 88 0
 	@ args = 0, pretend = 0, frame = 16
 	@ frame_needed = 0, uses_anonymous_args = 0
 	push	{lr}
-.LCFI16:
+.LCFI18:
 	sub	sp, sp, #28
-.LCFI17:
+.LCFI19:
 	str	r0, [sp, #20]
 	mov	r3, r1
 	str	r2, [sp, #12]
 	strb	r3, [sp, #19]
-	.loc 3 74 0
+	.loc 3 90 0
 	add	r2, sp, #19
 	movs	r3, #0
 	str	r3, [sp]
@@ -1791,15 +1843,15 @@ touchpanel_get_register_value:
 	bl	nrf_drv_twi_tx
 	mov	r3, r0
 	cmp	r3, #0
-	beq	.L79
-	.loc 3 75 0
-	ldr	r0, .L82
+	beq	.L80
+	.loc 3 91 0
+	ldr	r0, .L83
 	bl	printf
-	.loc 3 76 0
+	.loc 3 92 0
 	mov	r3, #-1
-	b	.L80
-.L79:
-	.loc 3 79 0
+	b	.L81
+.L80:
+	.loc 3 95 0
 	movs	r3, #1
 	ldr	r2, [sp, #12]
 	movs	r1, #56
@@ -1807,29 +1859,29 @@ touchpanel_get_register_value:
 	bl	nrf_drv_twi_rx
 	mov	r3, r0
 	cmp	r3, #0
-	beq	.L81
-	.loc 3 80 0
-	ldr	r0, .L82+4
+	beq	.L82
+	.loc 3 96 0
+	ldr	r0, .L83+4
 	bl	printf
-	.loc 3 81 0
+	.loc 3 97 0
 	mov	r3, #-1
-	b	.L80
-.L81:
-	.loc 3 83 0
+	b	.L81
+.L82:
+	.loc 3 99 0
 	movs	r3, #0
-.L80:
-	.loc 3 84 0
+.L81:
+	.loc 3 100 0
 	mov	r0, r3
 	add	sp, sp, #28
-.LCFI18:
+.LCFI20:
 	@ sp needed
 	ldr	pc, [sp], #4
-.L83:
+.L84:
 	.align	2
-.L82:
+.L83:
 	.word	.LC5
 	.word	.LC6
-.LFE274:
+.LFE325:
 	.size	touchpanel_get_register_value, .-touchpanel_get_register_value
 	.section	.debug_frame,"",%progbits
 .Lframe0:
@@ -2278,52 +2330,52 @@ touchpanel_get_register_value:
 	.4byte	.LEFDE100-.LASFDE100
 .LASFDE100:
 	.4byte	.Lframe0
-	.4byte	.LFB270
-	.4byte	.LFE270-.LFB270
+	.4byte	.LFB320
+	.4byte	.LFE320-.LFB320
 	.byte	0x4
-	.4byte	.LCFI6-.LFB270
+	.4byte	.LCFI6-.LFB320
 	.byte	0xe
-	.uleb128 0x4
+	.uleb128 0x8
+	.byte	0x83
+	.uleb128 0x2
 	.byte	0x8e
 	.uleb128 0x1
-	.byte	0x4
-	.4byte	.LCFI7-.LCFI6
-	.byte	0xe
-	.uleb128 0x38
-	.byte	0x4
-	.4byte	.LCFI8-.LCFI7
-	.byte	0xe
-	.uleb128 0x4
 	.align	2
 .LEFDE100:
 .LSFDE102:
 	.4byte	.LEFDE102-.LASFDE102
 .LASFDE102:
 	.4byte	.Lframe0
-	.4byte	.LFB271
-	.4byte	.LFE271-.LFB271
+	.4byte	.LFB321
+	.4byte	.LFE321-.LFB321
 	.byte	0x4
-	.4byte	.LCFI9-.LFB271
+	.4byte	.LCFI7-.LFB321
 	.byte	0xe
-	.uleb128 0x10
+	.uleb128 0x4
+	.byte	0x8e
+	.uleb128 0x1
 	.byte	0x4
-	.4byte	.LCFI10-.LCFI9
+	.4byte	.LCFI8-.LCFI7
 	.byte	0xe
-	.uleb128 0
+	.uleb128 0x38
+	.byte	0x4
+	.4byte	.LCFI9-.LCFI8
+	.byte	0xe
+	.uleb128 0x4
 	.align	2
 .LEFDE102:
 .LSFDE104:
 	.4byte	.LEFDE104-.LASFDE104
 .LASFDE104:
 	.4byte	.Lframe0
-	.4byte	.LFB272
-	.4byte	.LFE272-.LFB272
+	.4byte	.LFB322
+	.4byte	.LFE322-.LFB322
 	.byte	0x4
-	.4byte	.LCFI11-.LFB272
+	.4byte	.LCFI10-.LFB322
 	.byte	0xe
 	.uleb128 0x10
 	.byte	0x4
-	.4byte	.LCFI12-.LCFI11
+	.4byte	.LCFI11-.LCFI10
 	.byte	0xe
 	.uleb128 0
 	.align	2
@@ -2332,20 +2384,20 @@ touchpanel_get_register_value:
 	.4byte	.LEFDE106-.LASFDE106
 .LASFDE106:
 	.4byte	.Lframe0
-	.4byte	.LFB273
-	.4byte	.LFE273-.LFB273
+	.4byte	.LFB323
+	.4byte	.LFE323-.LFB323
 	.byte	0x4
-	.4byte	.LCFI13-.LFB273
+	.4byte	.LCFI12-.LFB323
 	.byte	0xe
 	.uleb128 0x4
 	.byte	0x8e
 	.uleb128 0x1
 	.byte	0x4
-	.4byte	.LCFI14-.LCFI13
+	.4byte	.LCFI13-.LCFI12
 	.byte	0xe
-	.uleb128 0x28
+	.uleb128 0x18
 	.byte	0x4
-	.4byte	.LCFI15-.LCFI14
+	.4byte	.LCFI14-.LCFI13
 	.byte	0xe
 	.uleb128 0x4
 	.align	2
@@ -2354,24 +2406,46 @@ touchpanel_get_register_value:
 	.4byte	.LEFDE108-.LASFDE108
 .LASFDE108:
 	.4byte	.Lframe0
-	.4byte	.LFB274
-	.4byte	.LFE274-.LFB274
+	.4byte	.LFB324
+	.4byte	.LFE324-.LFB324
 	.byte	0x4
-	.4byte	.LCFI16-.LFB274
+	.4byte	.LCFI15-.LFB324
 	.byte	0xe
 	.uleb128 0x4
 	.byte	0x8e
 	.uleb128 0x1
 	.byte	0x4
-	.4byte	.LCFI17-.LCFI16
+	.4byte	.LCFI16-.LCFI15
 	.byte	0xe
-	.uleb128 0x20
+	.uleb128 0x28
 	.byte	0x4
-	.4byte	.LCFI18-.LCFI17
+	.4byte	.LCFI17-.LCFI16
 	.byte	0xe
 	.uleb128 0x4
 	.align	2
 .LEFDE108:
+.LSFDE110:
+	.4byte	.LEFDE110-.LASFDE110
+.LASFDE110:
+	.4byte	.Lframe0
+	.4byte	.LFB325
+	.4byte	.LFE325-.LFB325
+	.byte	0x4
+	.4byte	.LCFI18-.LFB325
+	.byte	0xe
+	.uleb128 0x4
+	.byte	0x8e
+	.uleb128 0x1
+	.byte	0x4
+	.4byte	.LCFI19-.LCFI18
+	.byte	0xe
+	.uleb128 0x20
+	.byte	0x4
+	.4byte	.LCFI20-.LCFI19
+	.byte	0xe
+	.uleb128 0x4
+	.align	2
+.LEFDE110:
 	.text
 .Letext0:
 	.file 4 "C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/stdint.h"
@@ -2384,19 +2458,21 @@ touchpanel_get_register_value:
 	.file 11 "C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/stdio.h"
 	.file 12 "../../../../../../components/libraries/util/sdk_errors.h"
 	.file 13 "../../../../../../modules/nrfx/drivers/include/nrfx_twim.h"
-	.file 14 "../../../../../../modules/nrfx/drivers/include/nrfx_twi.h"
-	.file 15 "C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0.0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_freertos\\pca10056\\s140\\ses\\g_lib\\lib_touch_panel.h"
+	.file 14 "../../../../../../modules/nrfx/hal/nrf_twi.h"
+	.file 15 "../../../../../../modules/nrfx/drivers/include/nrfx_twi.h"
+	.file 16 "C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0.0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_freertos\\pca10056\\s140\\ses\\g_lib\\lib_touch_panel.h"
+	.file 17 "C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0.0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_freertos\\pca10056\\s140\\ses\\g_lib\\g_twim.h"
 	.section	.debug_info,"",%progbits
 .Ldebug_info0:
-	.4byte	0x1d95
+	.4byte	0x1e09
 	.2byte	0x4
 	.4byte	.Ldebug_abbrev0
 	.byte	0x4
 	.uleb128 0x1
-	.4byte	.LASF13580
+	.4byte	.LASF13602
 	.byte	0xc
-	.4byte	.LASF13581
-	.4byte	.LASF13582
+	.4byte	.LASF13603
+	.4byte	.LASF13604
 	.4byte	.Ldebug_ranges0+0
 	.4byte	0
 	.4byte	.Ldebug_line0
@@ -2404,9 +2480,9 @@ touchpanel_get_register_value:
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x6
-	.4byte	.LASF13211
+	.4byte	.LASF13228
 	.uleb128 0x3
-	.4byte	.LASF13214
+	.4byte	.LASF13231
 	.byte	0x4
 	.byte	0x10
 	.4byte	0x45
@@ -2417,24 +2493,24 @@ touchpanel_get_register_value:
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x8
-	.4byte	.LASF13212
+	.4byte	.LASF13229
 	.uleb128 0x5
 	.4byte	0x45
 	.uleb128 0x2
 	.byte	0x2
 	.byte	0x5
-	.4byte	.LASF13213
+	.4byte	.LASF13230
 	.uleb128 0x3
-	.4byte	.LASF13215
+	.4byte	.LASF13232
 	.byte	0x4
 	.byte	0x16
 	.4byte	0x63
 	.uleb128 0x2
 	.byte	0x2
 	.byte	0x7
-	.4byte	.LASF13216
+	.4byte	.LASF13233
 	.uleb128 0x3
-	.4byte	.LASF13217
+	.4byte	.LASF13234
 	.byte	0x4
 	.byte	0x17
 	.4byte	0x7a
@@ -2445,7 +2521,7 @@ touchpanel_get_register_value:
 	.byte	0x5
 	.ascii	"int\000"
 	.uleb128 0x3
-	.4byte	.LASF13218
+	.4byte	.LASF13235
 	.byte	0x4
 	.byte	0x18
 	.4byte	0x9b
@@ -2458,29 +2534,29 @@ touchpanel_get_register_value:
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x7
-	.4byte	.LASF13219
+	.4byte	.LASF13236
 	.uleb128 0x2
 	.byte	0x8
 	.byte	0x5
-	.4byte	.LASF13220
+	.4byte	.LASF13237
 	.uleb128 0x2
 	.byte	0x8
 	.byte	0x7
-	.4byte	.LASF13221
+	.4byte	.LASF13238
 	.uleb128 0x7
-	.4byte	.LASF13272
+	.4byte	.LASF13289
 	.byte	0x8
 	.byte	0x5
 	.byte	0x5e
 	.4byte	0xd5
 	.uleb128 0x8
-	.4byte	.LASF13222
+	.4byte	.LASF13239
 	.byte	0x5
 	.byte	0x5f
 	.4byte	0x7a
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13223
+	.4byte	.LASF13240
 	.byte	0x5
 	.byte	0x60
 	.4byte	0xd5
@@ -2489,7 +2565,7 @@ touchpanel_get_register_value:
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x5
-	.4byte	.LASF13224
+	.4byte	.LASF13241
 	.uleb128 0x9
 	.4byte	0x7a
 	.4byte	0xf5
@@ -2506,7 +2582,7 @@ touchpanel_get_register_value:
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x8
-	.4byte	.LASF13225
+	.4byte	.LASF13242
 	.uleb128 0x5
 	.4byte	0xfb
 	.uleb128 0xb
@@ -2536,200 +2612,200 @@ touchpanel_get_register_value:
 	.byte	0x66
 	.4byte	0x2c0
 	.uleb128 0x8
-	.4byte	.LASF13226
+	.4byte	.LASF13243
 	.byte	0x5
 	.byte	0x68
 	.4byte	0x131
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13227
+	.4byte	.LASF13244
 	.byte	0x5
 	.byte	0x69
 	.4byte	0x131
 	.byte	0x4
 	.uleb128 0x8
-	.4byte	.LASF13228
+	.4byte	.LASF13245
 	.byte	0x5
 	.byte	0x6a
 	.4byte	0x131
 	.byte	0x8
 	.uleb128 0x8
-	.4byte	.LASF13229
+	.4byte	.LASF13246
 	.byte	0x5
 	.byte	0x6c
 	.4byte	0x131
 	.byte	0xc
 	.uleb128 0x8
-	.4byte	.LASF13230
+	.4byte	.LASF13247
 	.byte	0x5
 	.byte	0x6d
 	.4byte	0x131
 	.byte	0x10
 	.uleb128 0x8
-	.4byte	.LASF13231
+	.4byte	.LASF13248
 	.byte	0x5
 	.byte	0x6e
 	.4byte	0x131
 	.byte	0x14
 	.uleb128 0x8
-	.4byte	.LASF13232
+	.4byte	.LASF13249
 	.byte	0x5
 	.byte	0x6f
 	.4byte	0x131
 	.byte	0x18
 	.uleb128 0x8
-	.4byte	.LASF13233
+	.4byte	.LASF13250
 	.byte	0x5
 	.byte	0x70
 	.4byte	0x131
 	.byte	0x1c
 	.uleb128 0x8
-	.4byte	.LASF13234
+	.4byte	.LASF13251
 	.byte	0x5
 	.byte	0x71
 	.4byte	0x131
 	.byte	0x20
 	.uleb128 0x8
-	.4byte	.LASF13235
+	.4byte	.LASF13252
 	.byte	0x5
 	.byte	0x72
 	.4byte	0x131
 	.byte	0x24
 	.uleb128 0x8
-	.4byte	.LASF13236
+	.4byte	.LASF13253
 	.byte	0x5
 	.byte	0x74
 	.4byte	0xfb
 	.byte	0x28
 	.uleb128 0x8
-	.4byte	.LASF13237
+	.4byte	.LASF13254
 	.byte	0x5
 	.byte	0x75
 	.4byte	0xfb
 	.byte	0x29
 	.uleb128 0x8
-	.4byte	.LASF13238
+	.4byte	.LASF13255
 	.byte	0x5
 	.byte	0x76
 	.4byte	0xfb
 	.byte	0x2a
 	.uleb128 0x8
-	.4byte	.LASF13239
+	.4byte	.LASF13256
 	.byte	0x5
 	.byte	0x77
 	.4byte	0xfb
 	.byte	0x2b
 	.uleb128 0x8
-	.4byte	.LASF13240
+	.4byte	.LASF13257
 	.byte	0x5
 	.byte	0x78
 	.4byte	0xfb
 	.byte	0x2c
 	.uleb128 0x8
-	.4byte	.LASF13241
+	.4byte	.LASF13258
 	.byte	0x5
 	.byte	0x79
 	.4byte	0xfb
 	.byte	0x2d
 	.uleb128 0x8
-	.4byte	.LASF13242
+	.4byte	.LASF13259
 	.byte	0x5
 	.byte	0x7a
 	.4byte	0xfb
 	.byte	0x2e
 	.uleb128 0x8
-	.4byte	.LASF13243
+	.4byte	.LASF13260
 	.byte	0x5
 	.byte	0x7b
 	.4byte	0xfb
 	.byte	0x2f
 	.uleb128 0x8
-	.4byte	.LASF13244
+	.4byte	.LASF13261
 	.byte	0x5
 	.byte	0x7c
 	.4byte	0xfb
 	.byte	0x30
 	.uleb128 0x8
-	.4byte	.LASF13245
+	.4byte	.LASF13262
 	.byte	0x5
 	.byte	0x7d
 	.4byte	0xfb
 	.byte	0x31
 	.uleb128 0x8
-	.4byte	.LASF13246
+	.4byte	.LASF13263
 	.byte	0x5
 	.byte	0x7e
 	.4byte	0xfb
 	.byte	0x32
 	.uleb128 0x8
-	.4byte	.LASF13247
+	.4byte	.LASF13264
 	.byte	0x5
 	.byte	0x7f
 	.4byte	0xfb
 	.byte	0x33
 	.uleb128 0x8
-	.4byte	.LASF13248
+	.4byte	.LASF13265
 	.byte	0x5
 	.byte	0x80
 	.4byte	0xfb
 	.byte	0x34
 	.uleb128 0x8
-	.4byte	.LASF13249
+	.4byte	.LASF13266
 	.byte	0x5
 	.byte	0x81
 	.4byte	0xfb
 	.byte	0x35
 	.uleb128 0x8
-	.4byte	.LASF13250
+	.4byte	.LASF13267
 	.byte	0x5
 	.byte	0x86
 	.4byte	0x131
 	.byte	0x38
 	.uleb128 0x8
-	.4byte	.LASF13251
+	.4byte	.LASF13268
 	.byte	0x5
 	.byte	0x87
 	.4byte	0x131
 	.byte	0x3c
 	.uleb128 0x8
-	.4byte	.LASF13252
+	.4byte	.LASF13269
 	.byte	0x5
 	.byte	0x88
 	.4byte	0x131
 	.byte	0x40
 	.uleb128 0x8
-	.4byte	.LASF13253
+	.4byte	.LASF13270
 	.byte	0x5
 	.byte	0x89
 	.4byte	0x131
 	.byte	0x44
 	.uleb128 0x8
-	.4byte	.LASF13254
+	.4byte	.LASF13271
 	.byte	0x5
 	.byte	0x8a
 	.4byte	0x131
 	.byte	0x48
 	.uleb128 0x8
-	.4byte	.LASF13255
+	.4byte	.LASF13272
 	.byte	0x5
 	.byte	0x8b
 	.4byte	0x131
 	.byte	0x4c
 	.uleb128 0x8
-	.4byte	.LASF13256
+	.4byte	.LASF13273
 	.byte	0x5
 	.byte	0x8c
 	.4byte	0x131
 	.byte	0x50
 	.uleb128 0x8
-	.4byte	.LASF13257
+	.4byte	.LASF13274
 	.byte	0x5
 	.byte	0x8d
 	.4byte	0x131
 	.byte	0x54
 	.byte	0
 	.uleb128 0x3
-	.4byte	.LASF13258
+	.4byte	.LASF13275
 	.byte	0x5
 	.byte	0x8e
 	.4byte	0x137
@@ -2741,49 +2817,49 @@ touchpanel_get_register_value:
 	.byte	0xa4
 	.4byte	0x339
 	.uleb128 0x8
-	.4byte	.LASF13259
+	.4byte	.LASF13276
 	.byte	0x5
 	.byte	0xa6
 	.4byte	0x34d
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13260
+	.4byte	.LASF13277
 	.byte	0x5
 	.byte	0xa7
 	.4byte	0x362
 	.byte	0x4
 	.uleb128 0x8
-	.4byte	.LASF13261
+	.4byte	.LASF13278
 	.byte	0x5
 	.byte	0xa8
 	.4byte	0x362
 	.byte	0x8
 	.uleb128 0x8
-	.4byte	.LASF13262
+	.4byte	.LASF13279
 	.byte	0x5
 	.byte	0xab
 	.4byte	0x37c
 	.byte	0xc
 	.uleb128 0x8
-	.4byte	.LASF13263
+	.4byte	.LASF13280
 	.byte	0x5
 	.byte	0xac
 	.4byte	0x391
 	.byte	0x10
 	.uleb128 0x8
-	.4byte	.LASF13264
+	.4byte	.LASF13281
 	.byte	0x5
 	.byte	0xad
 	.4byte	0x391
 	.byte	0x14
 	.uleb128 0x8
-	.4byte	.LASF13265
+	.4byte	.LASF13282
 	.byte	0x5
 	.byte	0xb0
 	.4byte	0x397
 	.byte	0x18
 	.uleb128 0x8
-	.4byte	.LASF13266
+	.4byte	.LASF13283
 	.byte	0x5
 	.byte	0xb1
 	.4byte	0x39d
@@ -2836,7 +2912,7 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x10d
 	.uleb128 0x3
-	.4byte	.LASF13267
+	.4byte	.LASF13284
 	.byte	0x5
 	.byte	0xb2
 	.4byte	0x2d0
@@ -2848,19 +2924,19 @@ touchpanel_get_register_value:
 	.byte	0xb4
 	.4byte	0x3e0
 	.uleb128 0x8
-	.4byte	.LASF13268
+	.4byte	.LASF13285
 	.byte	0x5
 	.byte	0xb5
 	.4byte	0x131
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13269
+	.4byte	.LASF13286
 	.byte	0x5
 	.byte	0xb6
 	.4byte	0x3e0
 	.byte	0x4
 	.uleb128 0x8
-	.4byte	.LASF13270
+	.4byte	.LASF13287
 	.byte	0x5
 	.byte	0xb7
 	.4byte	0x3e6
@@ -2873,20 +2949,20 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x3ae
 	.uleb128 0x3
-	.4byte	.LASF13271
+	.4byte	.LASF13288
 	.byte	0x5
 	.byte	0xb8
 	.4byte	0x3b3
 	.uleb128 0x5
 	.4byte	0x3ec
 	.uleb128 0x7
-	.4byte	.LASF13273
+	.4byte	.LASF13290
 	.byte	0x14
 	.byte	0x5
 	.byte	0xbc
 	.4byte	0x415
 	.uleb128 0x8
-	.4byte	.LASF13274
+	.4byte	.LASF13291
 	.byte	0x5
 	.byte	0xbd
 	.4byte	0x415
@@ -2902,27 +2978,27 @@ touchpanel_get_register_value:
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x7
-	.4byte	.LASF13275
+	.4byte	.LASF13292
 	.uleb128 0xb
 	.byte	0x4
 	.4byte	0x3f7
 	.uleb128 0xf
-	.4byte	.LASF13276
+	.4byte	.LASF13293
 	.byte	0x5
 	.byte	0xe6
 	.4byte	0x3fc
 	.uleb128 0xf
-	.4byte	.LASF13277
+	.4byte	.LASF13294
 	.byte	0x5
 	.byte	0xed
 	.4byte	0x3f7
 	.uleb128 0xf
-	.4byte	.LASF13278
+	.4byte	.LASF13295
 	.byte	0x5
 	.byte	0xf0
 	.4byte	0x3ae
 	.uleb128 0xf
-	.4byte	.LASF13279
+	.4byte	.LASF13296
 	.byte	0x5
 	.byte	0xf1
 	.4byte	0x3ae
@@ -2936,7 +3012,7 @@ touchpanel_get_register_value:
 	.uleb128 0x5
 	.4byte	0x45e
 	.uleb128 0xf
-	.4byte	.LASF13280
+	.4byte	.LASF13297
 	.byte	0x5
 	.byte	0xf3
 	.4byte	0x46e
@@ -2948,52 +3024,52 @@ touchpanel_get_register_value:
 	.uleb128 0x5
 	.4byte	0x47e
 	.uleb128 0xf
-	.4byte	.LASF13281
+	.4byte	.LASF13298
 	.byte	0x5
 	.byte	0xf5
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13282
+	.4byte	.LASF13299
 	.byte	0x5
 	.byte	0xf6
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13283
+	.4byte	.LASF13300
 	.byte	0x5
 	.byte	0xf7
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13284
+	.4byte	.LASF13301
 	.byte	0x5
 	.byte	0xf8
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13285
+	.4byte	.LASF13302
 	.byte	0x5
 	.byte	0xfa
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13286
+	.4byte	.LASF13303
 	.byte	0x5
 	.byte	0xfb
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13287
+	.4byte	.LASF13304
 	.byte	0x5
 	.byte	0xfc
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13288
+	.4byte	.LASF13305
 	.byte	0x5
 	.byte	0xfd
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13289
+	.4byte	.LASF13306
 	.byte	0x5
 	.byte	0xfe
 	.4byte	0x489
 	.uleb128 0xf
-	.4byte	.LASF13290
+	.4byte	.LASF13307
 	.byte	0x5
 	.byte	0xff
 	.4byte	0x489
@@ -3007,11 +3083,11 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x516
 	.uleb128 0x11
-	.4byte	.LASF13437
+	.4byte	.LASF13454
 	.uleb128 0x5
 	.4byte	0x511
 	.uleb128 0x12
-	.4byte	.LASF13291
+	.4byte	.LASF13308
 	.byte	0x5
 	.2byte	0x115
 	.4byte	0x527
@@ -3028,7 +3104,7 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x511
 	.uleb128 0x12
-	.4byte	.LASF13292
+	.4byte	.LASF13309
 	.byte	0x5
 	.2byte	0x116
 	.4byte	0x54e
@@ -3036,7 +3112,7 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x52d
 	.uleb128 0x13
-	.4byte	.LASF13293
+	.4byte	.LASF13310
 	.byte	0x5
 	.2byte	0x12d
 	.4byte	0x560
@@ -3050,19 +3126,19 @@ touchpanel_get_register_value:
 	.4byte	0x7a
 	.byte	0
 	.uleb128 0x14
-	.4byte	.LASF13294
+	.4byte	.LASF13311
 	.byte	0x8
 	.byte	0x5
 	.2byte	0x12f
 	.4byte	0x59d
 	.uleb128 0x15
-	.4byte	.LASF13295
+	.4byte	.LASF13312
 	.byte	0x5
 	.2byte	0x131
 	.4byte	0x554
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13296
+	.4byte	.LASF13313
 	.byte	0x5
 	.2byte	0x132
 	.4byte	0x59d
@@ -3072,12 +3148,12 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x575
 	.uleb128 0x13
-	.4byte	.LASF13297
+	.4byte	.LASF13314
 	.byte	0x5
 	.2byte	0x133
 	.4byte	0x575
 	.uleb128 0x12
-	.4byte	.LASF13298
+	.4byte	.LASF13315
 	.byte	0x5
 	.2byte	0x137
 	.4byte	0x5bb
@@ -3126,12 +3202,12 @@ touchpanel_get_register_value:
 	.uleb128 0x4
 	.4byte	0x619
 	.uleb128 0x12
-	.4byte	.LASF13299
+	.4byte	.LASF13316
 	.byte	0x6
 	.2byte	0x744
 	.4byte	0x75
 	.uleb128 0xf
-	.4byte	.LASF13300
+	.4byte	.LASF13317
 	.byte	0x7
 	.byte	0x21
 	.4byte	0x81
@@ -3154,7 +3230,7 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13301
+	.4byte	.LASF13318
 	.byte	0x8
 	.2byte	0x142
 	.4byte	0x63a
@@ -3177,7 +3253,7 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13302
+	.4byte	.LASF13319
 	.byte	0x8
 	.2byte	0x147
 	.4byte	0x66a
@@ -3193,26 +3269,26 @@ touchpanel_get_register_value:
 	.4byte	0x8c
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13303
+	.4byte	.LASF13320
 	.byte	0x8
 	.2byte	0x14b
 	.4byte	0x8c
 	.byte	0x4
 	.uleb128 0x15
-	.4byte	.LASF13304
+	.4byte	.LASF13321
 	.byte	0x8
 	.2byte	0x14c
 	.4byte	0x91
 	.byte	0x8
 	.uleb128 0x15
-	.4byte	.LASF13305
+	.4byte	.LASF13322
 	.byte	0x8
 	.2byte	0x14d
 	.4byte	0x8c
 	.byte	0xc
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13306
+	.4byte	.LASF13323
 	.byte	0x8
 	.2byte	0x14e
 	.4byte	0x69a
@@ -3228,26 +3304,26 @@ touchpanel_get_register_value:
 	.4byte	0x8c
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13303
+	.4byte	.LASF13320
 	.byte	0x8
 	.2byte	0x152
 	.4byte	0x8c
 	.byte	0x4
 	.uleb128 0x15
-	.4byte	.LASF13304
+	.4byte	.LASF13321
 	.byte	0x8
 	.2byte	0x153
 	.4byte	0x91
 	.byte	0x8
 	.uleb128 0x15
-	.4byte	.LASF13305
+	.4byte	.LASF13322
 	.byte	0x8
 	.2byte	0x154
 	.4byte	0x8c
 	.byte	0xc
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13307
+	.4byte	.LASF13324
 	.byte	0x8
 	.2byte	0x155
 	.4byte	0x6e4
@@ -3358,187 +3434,187 @@ touchpanel_get_register_value:
 	.2byte	0x44b
 	.4byte	0xa25
 	.uleb128 0x15
-	.4byte	.LASF13308
+	.4byte	.LASF13325
 	.byte	0x8
 	.2byte	0x44c
 	.4byte	0x8c
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13309
+	.4byte	.LASF13326
 	.byte	0x8
 	.2byte	0x44d
 	.4byte	0x91
 	.byte	0x4
 	.uleb128 0x15
-	.4byte	.LASF13310
+	.4byte	.LASF13327
 	.byte	0x8
 	.2byte	0x44e
 	.4byte	0x8c
 	.byte	0x8
 	.uleb128 0x15
-	.4byte	.LASF13311
+	.4byte	.LASF13328
 	.byte	0x8
 	.2byte	0x44f
 	.4byte	0x5e5
 	.byte	0xc
 	.uleb128 0x15
-	.4byte	.LASF13312
+	.4byte	.LASF13329
 	.byte	0x8
 	.2byte	0x450
 	.4byte	0x8c
 	.byte	0x14
 	.uleb128 0x15
-	.4byte	.LASF13313
+	.4byte	.LASF13330
 	.byte	0x8
 	.2byte	0x451
 	.4byte	0x91
 	.byte	0x18
 	.uleb128 0x15
-	.4byte	.LASF13314
+	.4byte	.LASF13331
 	.byte	0x8
 	.2byte	0x452
 	.4byte	0x8c
 	.byte	0x1c
 	.uleb128 0x15
-	.4byte	.LASF13315
+	.4byte	.LASF13332
 	.byte	0x8
 	.2byte	0x453
 	.4byte	0x8c
 	.byte	0x20
 	.uleb128 0x15
-	.4byte	.LASF13316
+	.4byte	.LASF13333
 	.byte	0x8
 	.2byte	0x454
 	.4byte	0x7df
 	.byte	0x24
 	.uleb128 0x19
-	.4byte	.LASF13317
+	.4byte	.LASF13334
 	.byte	0x8
 	.2byte	0x455
 	.4byte	0x8c
 	.2byte	0x104
 	.uleb128 0x19
-	.4byte	.LASF13318
+	.4byte	.LASF13335
 	.byte	0x8
 	.2byte	0x456
 	.4byte	0x8c
 	.2byte	0x108
 	.uleb128 0x19
-	.4byte	.LASF13319
+	.4byte	.LASF13336
 	.byte	0x8
 	.2byte	0x457
 	.4byte	0x5ff
 	.2byte	0x10c
 	.uleb128 0x19
-	.4byte	.LASF13320
+	.4byte	.LASF13337
 	.byte	0x8
 	.2byte	0x458
 	.4byte	0x8c
 	.2byte	0x11c
 	.uleb128 0x19
-	.4byte	.LASF13321
+	.4byte	.LASF13338
 	.byte	0x8
 	.2byte	0x459
 	.4byte	0x91
 	.2byte	0x120
 	.uleb128 0x19
-	.4byte	.LASF13322
+	.4byte	.LASF13339
 	.byte	0x8
 	.2byte	0x45a
 	.4byte	0x8c
 	.2byte	0x124
 	.uleb128 0x19
-	.4byte	.LASF13323
+	.4byte	.LASF13340
 	.byte	0x8
 	.2byte	0x45b
 	.4byte	0x604
 	.2byte	0x128
 	.uleb128 0x19
-	.4byte	.LASF13324
+	.4byte	.LASF13341
 	.byte	0x8
 	.2byte	0x45c
 	.4byte	0x8c
 	.2byte	0x138
 	.uleb128 0x19
-	.4byte	.LASF13325
+	.4byte	.LASF13342
 	.byte	0x8
 	.2byte	0x45e
 	.4byte	0x75d
 	.2byte	0x13c
 	.uleb128 0x19
-	.4byte	.LASF13326
+	.4byte	.LASF13343
 	.byte	0x8
 	.2byte	0x45f
 	.4byte	0x8c
 	.2byte	0x148
 	.uleb128 0x19
-	.4byte	.LASF13327
+	.4byte	.LASF13344
 	.byte	0x8
 	.2byte	0x460
 	.4byte	0xa3a
 	.2byte	0x14c
 	.uleb128 0x19
-	.4byte	.LASF13328
+	.4byte	.LASF13345
 	.byte	0x8
 	.2byte	0x461
 	.4byte	0x8c
 	.2byte	0x200
 	.uleb128 0x19
-	.4byte	.LASF13329
+	.4byte	.LASF13346
 	.byte	0x8
 	.2byte	0x462
 	.4byte	0x77c
 	.2byte	0x204
 	.uleb128 0x19
-	.4byte	.LASF13330
+	.4byte	.LASF13347
 	.byte	0x8
 	.2byte	0x463
 	.4byte	0x8c
 	.2byte	0x304
 	.uleb128 0x19
-	.4byte	.LASF13331
+	.4byte	.LASF13348
 	.byte	0x8
 	.2byte	0x464
 	.4byte	0x8c
 	.2byte	0x308
 	.uleb128 0x19
-	.4byte	.LASF13332
+	.4byte	.LASF13349
 	.byte	0x8
 	.2byte	0x465
 	.4byte	0xa54
 	.2byte	0x30c
 	.uleb128 0x19
-	.4byte	.LASF13333
+	.4byte	.LASF13350
 	.byte	0x8
 	.2byte	0x466
 	.4byte	0x8c
 	.2byte	0x4c4
 	.uleb128 0x19
-	.4byte	.LASF13334
+	.4byte	.LASF13351
 	.byte	0x8
 	.2byte	0x467
 	.4byte	0xa73
 	.2byte	0x4c8
 	.uleb128 0x19
-	.4byte	.LASF13335
+	.4byte	.LASF13352
 	.byte	0x8
 	.2byte	0x468
 	.4byte	0x8c
 	.2byte	0x500
 	.uleb128 0x19
-	.4byte	.LASF13336
+	.4byte	.LASF13353
 	.byte	0x8
 	.2byte	0x469
 	.4byte	0x91
 	.2byte	0x504
 	.uleb128 0x19
-	.4byte	.LASF13337
+	.4byte	.LASF13354
 	.byte	0x8
 	.2byte	0x46a
 	.4byte	0x65e
 	.2byte	0x508
 	.uleb128 0x19
-	.4byte	.LASF13338
+	.4byte	.LASF13355
 	.byte	0x8
 	.2byte	0x46b
 	.4byte	0x5e0
@@ -3556,25 +3632,25 @@ touchpanel_get_register_value:
 	.4byte	0x8c
 	.2byte	0x51c
 	.uleb128 0x19
-	.4byte	.LASF13339
+	.4byte	.LASF13356
 	.byte	0x8
 	.2byte	0x46e
 	.4byte	0x91
 	.2byte	0x520
 	.uleb128 0x19
-	.4byte	.LASF13340
+	.4byte	.LASF13357
 	.byte	0x8
 	.2byte	0x46f
 	.4byte	0x8c
 	.2byte	0x524
 	.uleb128 0x19
-	.4byte	.LASF13341
+	.4byte	.LASF13358
 	.byte	0x8
 	.2byte	0x470
 	.4byte	0x818
 	.2byte	0x528
 	.uleb128 0x19
-	.4byte	.LASF13342
+	.4byte	.LASF13359
 	.byte	0x8
 	.2byte	0x471
 	.4byte	0x8c
@@ -3618,7 +3694,7 @@ touchpanel_get_register_value:
 	.uleb128 0x4
 	.4byte	0xa6e
 	.uleb128 0x13
-	.4byte	.LASF13343
+	.4byte	.LASF13360
 	.byte	0x8
 	.2byte	0x472
 	.4byte	0x81d
@@ -3628,205 +3704,205 @@ touchpanel_get_register_value:
 	.2byte	0x47e
 	.4byte	0xc9f
 	.uleb128 0x15
-	.4byte	.LASF13308
+	.4byte	.LASF13325
 	.byte	0x8
 	.2byte	0x47f
 	.4byte	0x8c
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13309
+	.4byte	.LASF13326
 	.byte	0x8
 	.2byte	0x480
 	.4byte	0x91
 	.byte	0x4
 	.uleb128 0x15
-	.4byte	.LASF13310
+	.4byte	.LASF13327
 	.byte	0x8
 	.2byte	0x481
 	.4byte	0x8c
 	.byte	0x8
 	.uleb128 0x15
-	.4byte	.LASF13311
+	.4byte	.LASF13328
 	.byte	0x8
 	.2byte	0x482
 	.4byte	0x5db
 	.byte	0xc
 	.uleb128 0x15
-	.4byte	.LASF13312
+	.4byte	.LASF13329
 	.byte	0x8
 	.2byte	0x483
 	.4byte	0x8c
 	.byte	0x14
 	.uleb128 0x15
-	.4byte	.LASF13313
+	.4byte	.LASF13330
 	.byte	0x8
 	.2byte	0x485
 	.4byte	0x91
 	.byte	0x18
 	.uleb128 0x15
-	.4byte	.LASF13314
+	.4byte	.LASF13331
 	.byte	0x8
 	.2byte	0x486
 	.4byte	0x8c
 	.byte	0x1c
 	.uleb128 0x15
-	.4byte	.LASF13315
+	.4byte	.LASF13332
 	.byte	0x8
 	.2byte	0x487
 	.4byte	0x8c
 	.byte	0x20
 	.uleb128 0x15
-	.4byte	.LASF13316
+	.4byte	.LASF13333
 	.byte	0x8
 	.2byte	0x488
 	.4byte	0x7e4
 	.byte	0x24
 	.uleb128 0x19
-	.4byte	.LASF13317
+	.4byte	.LASF13334
 	.byte	0x8
 	.2byte	0x489
 	.4byte	0x8c
 	.2byte	0x104
 	.uleb128 0x19
-	.4byte	.LASF13319
+	.4byte	.LASF13336
 	.byte	0x8
 	.2byte	0x48a
 	.4byte	0x7fe
 	.2byte	0x108
 	.uleb128 0x19
-	.4byte	.LASF13322
+	.4byte	.LASF13339
 	.byte	0x8
 	.2byte	0x48b
 	.4byte	0x8c
 	.2byte	0x124
 	.uleb128 0x19
-	.4byte	.LASF13321
+	.4byte	.LASF13338
 	.byte	0x8
 	.2byte	0x48c
 	.4byte	0x743
 	.2byte	0x128
 	.uleb128 0x19
-	.4byte	.LASF13326
+	.4byte	.LASF13343
 	.byte	0x8
 	.2byte	0x48d
 	.4byte	0x8c
 	.2byte	0x148
 	.uleb128 0x19
-	.4byte	.LASF13344
+	.4byte	.LASF13361
 	.byte	0x8
 	.2byte	0x48f
 	.4byte	0x8c
 	.2byte	0x14c
 	.uleb128 0x19
-	.4byte	.LASF13345
+	.4byte	.LASF13362
 	.byte	0x8
 	.2byte	0x490
 	.4byte	0x8c
 	.2byte	0x150
 	.uleb128 0x19
-	.4byte	.LASF13323
+	.4byte	.LASF13340
 	.byte	0x8
 	.2byte	0x491
 	.4byte	0x5d6
 	.2byte	0x154
 	.uleb128 0x19
-	.4byte	.LASF13346
+	.4byte	.LASF13363
 	.byte	0x8
 	.2byte	0x492
 	.4byte	0x8c
 	.2byte	0x15c
 	.uleb128 0x19
-	.4byte	.LASF13347
+	.4byte	.LASF13364
 	.byte	0x8
 	.2byte	0x493
 	.4byte	0x8c
 	.2byte	0x160
 	.uleb128 0x19
-	.4byte	.LASF13325
+	.4byte	.LASF13342
 	.byte	0x8
 	.2byte	0x494
 	.4byte	0x7c5
 	.2byte	0x164
 	.uleb128 0x19
-	.4byte	.LASF13328
+	.4byte	.LASF13345
 	.byte	0x8
 	.2byte	0x495
 	.4byte	0x8c
 	.2byte	0x200
 	.uleb128 0x19
-	.4byte	.LASF13327
+	.4byte	.LASF13344
 	.byte	0x8
 	.2byte	0x496
 	.4byte	0x7ab
 	.2byte	0x204
 	.uleb128 0x19
-	.4byte	.LASF13348
+	.4byte	.LASF13365
 	.byte	0x8
 	.2byte	0x497
 	.4byte	0x8c
 	.2byte	0x300
 	.uleb128 0x19
-	.4byte	.LASF13330
+	.4byte	.LASF13347
 	.byte	0x8
 	.2byte	0x498
 	.4byte	0x8c
 	.2byte	0x304
 	.uleb128 0x19
-	.4byte	.LASF13331
+	.4byte	.LASF13348
 	.byte	0x8
 	.2byte	0x499
 	.4byte	0x8c
 	.2byte	0x308
 	.uleb128 0x19
-	.4byte	.LASF13329
+	.4byte	.LASF13346
 	.byte	0x8
 	.2byte	0x49a
 	.4byte	0xa59
 	.2byte	0x30c
 	.uleb128 0x19
-	.4byte	.LASF13333
+	.4byte	.LASF13350
 	.byte	0x8
 	.2byte	0x49b
 	.4byte	0x8c
 	.2byte	0x4c4
 	.uleb128 0x19
-	.4byte	.LASF13332
+	.4byte	.LASF13349
 	.byte	0x8
 	.2byte	0x49c
 	.4byte	0xa78
 	.2byte	0x4c8
 	.uleb128 0x19
-	.4byte	.LASF13335
+	.4byte	.LASF13352
 	.byte	0x8
 	.2byte	0x49d
 	.4byte	0x8c
 	.2byte	0x500
 	.uleb128 0x19
-	.4byte	.LASF13334
+	.4byte	.LASF13351
 	.byte	0x8
 	.2byte	0x49e
 	.4byte	0x91
 	.2byte	0x504
 	.uleb128 0x19
-	.4byte	.LASF13337
+	.4byte	.LASF13354
 	.byte	0x8
 	.2byte	0x49f
 	.4byte	0x68e
 	.2byte	0x508
 	.uleb128 0x19
-	.4byte	.LASF13336
+	.4byte	.LASF13353
 	.byte	0x8
 	.2byte	0x4a0
 	.4byte	0x61e
 	.2byte	0x510
 	.uleb128 0x19
-	.4byte	.LASF13340
+	.4byte	.LASF13357
 	.byte	0x8
 	.2byte	0x4a1
 	.4byte	0x8c
 	.2byte	0x524
 	.uleb128 0x19
-	.4byte	.LASF13338
+	.4byte	.LASF13355
 	.byte	0x8
 	.2byte	0x4a2
 	.4byte	0x762
@@ -3844,13 +3920,13 @@ touchpanel_get_register_value:
 	.4byte	0x722
 	.2byte	0x544
 	.uleb128 0x19
-	.4byte	.LASF13339
+	.4byte	.LASF13356
 	.byte	0x8
 	.2byte	0x4a5
 	.4byte	0xcb4
 	.2byte	0x554
 	.uleb128 0x19
-	.4byte	.LASF13342
+	.4byte	.LASF13359
 	.byte	0x8
 	.2byte	0x4a6
 	.4byte	0x8c
@@ -3868,22 +3944,22 @@ touchpanel_get_register_value:
 	.uleb128 0x4
 	.4byte	0xcaf
 	.uleb128 0x13
-	.4byte	.LASF13349
+	.4byte	.LASF13366
 	.byte	0x8
 	.2byte	0x4a7
 	.4byte	0xa89
 	.uleb128 0xf
-	.4byte	.LASF13350
+	.4byte	.LASF13367
 	.byte	0x9
 	.byte	0x53
 	.4byte	0x81
 	.uleb128 0xf
-	.4byte	.LASF13351
+	.4byte	.LASF13368
 	.byte	0x9
 	.byte	0x54
 	.4byte	0x81
 	.uleb128 0xf
-	.4byte	.LASF13352
+	.4byte	.LASF13369
 	.byte	0x9
 	.byte	0x72
 	.4byte	0xce6
@@ -3891,7 +3967,7 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x81
 	.uleb128 0xf
-	.4byte	.LASF13353
+	.4byte	.LASF13370
 	.byte	0x9
 	.byte	0x73
 	.4byte	0x81
@@ -3899,162 +3975,162 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x30
 	.uleb128 0x1b
-	.4byte	.LASF13583
+	.4byte	.LASF13605
 	.byte	0x1
 	.4byte	0x45
 	.byte	0x1
 	.byte	0x68
 	.4byte	0xe34
 	.uleb128 0x1c
-	.4byte	.LASF13354
+	.4byte	.LASF13371
 	.byte	0x20
 	.uleb128 0x1c
-	.4byte	.LASF13355
+	.4byte	.LASF13372
 	.byte	0x21
 	.uleb128 0x1c
-	.4byte	.LASF13356
+	.4byte	.LASF13373
 	.byte	0x22
 	.uleb128 0x1c
-	.4byte	.LASF13357
+	.4byte	.LASF13374
 	.byte	0x23
 	.uleb128 0x1c
-	.4byte	.LASF13358
+	.4byte	.LASF13375
 	.byte	0x24
 	.uleb128 0x1c
-	.4byte	.LASF13359
+	.4byte	.LASF13376
 	.byte	0x25
 	.uleb128 0x1c
-	.4byte	.LASF13360
+	.4byte	.LASF13377
 	.byte	0x26
 	.uleb128 0x1c
-	.4byte	.LASF13361
+	.4byte	.LASF13378
 	.byte	0x27
 	.uleb128 0x1c
-	.4byte	.LASF13362
+	.4byte	.LASF13379
 	.byte	0x28
 	.uleb128 0x1c
-	.4byte	.LASF13363
+	.4byte	.LASF13380
 	.byte	0x29
 	.uleb128 0x1c
-	.4byte	.LASF13364
+	.4byte	.LASF13381
 	.byte	0x2b
 	.uleb128 0x1c
-	.4byte	.LASF13365
+	.4byte	.LASF13382
 	.byte	0x2c
 	.uleb128 0x1c
-	.4byte	.LASF13366
+	.4byte	.LASF13383
 	.byte	0x2d
 	.uleb128 0x1c
-	.4byte	.LASF13367
+	.4byte	.LASF13384
 	.byte	0x2e
 	.uleb128 0x1c
-	.4byte	.LASF13368
+	.4byte	.LASF13385
 	.byte	0x2f
 	.uleb128 0x1c
-	.4byte	.LASF13369
+	.4byte	.LASF13386
 	.byte	0x30
 	.uleb128 0x1c
-	.4byte	.LASF13370
+	.4byte	.LASF13387
 	.byte	0x31
 	.uleb128 0x1c
-	.4byte	.LASF13371
+	.4byte	.LASF13388
 	.byte	0x32
 	.uleb128 0x1c
-	.4byte	.LASF13372
+	.4byte	.LASF13389
 	.byte	0x33
 	.uleb128 0x1c
-	.4byte	.LASF13373
+	.4byte	.LASF13390
 	.byte	0x34
 	.uleb128 0x1c
-	.4byte	.LASF13374
+	.4byte	.LASF13391
 	.byte	0x35
 	.uleb128 0x1c
-	.4byte	.LASF13375
+	.4byte	.LASF13392
 	.byte	0x36
 	.uleb128 0x1c
-	.4byte	.LASF13376
+	.4byte	.LASF13393
 	.byte	0x37
 	.uleb128 0x1c
-	.4byte	.LASF13377
+	.4byte	.LASF13394
 	.byte	0x38
 	.uleb128 0x1c
-	.4byte	.LASF13378
+	.4byte	.LASF13395
 	.byte	0x39
 	.uleb128 0x1c
-	.4byte	.LASF13379
+	.4byte	.LASF13396
 	.byte	0x3a
 	.uleb128 0x1c
-	.4byte	.LASF13380
+	.4byte	.LASF13397
 	.byte	0x3b
 	.uleb128 0x1c
-	.4byte	.LASF13381
+	.4byte	.LASF13398
 	.byte	0x3c
 	.uleb128 0x1c
-	.4byte	.LASF13382
+	.4byte	.LASF13399
 	.byte	0x3d
 	.uleb128 0x1c
-	.4byte	.LASF13383
+	.4byte	.LASF13400
 	.byte	0x3e
 	.uleb128 0x1c
-	.4byte	.LASF13384
+	.4byte	.LASF13401
 	.byte	0x3f
 	.uleb128 0x1c
-	.4byte	.LASF13385
+	.4byte	.LASF13402
 	.byte	0x40
 	.uleb128 0x1c
-	.4byte	.LASF13386
+	.4byte	.LASF13403
 	.byte	0x41
 	.uleb128 0x1c
-	.4byte	.LASF13387
+	.4byte	.LASF13404
 	.byte	0x42
 	.uleb128 0x1c
-	.4byte	.LASF13388
+	.4byte	.LASF13405
 	.byte	0x43
 	.uleb128 0x1c
-	.4byte	.LASF13389
+	.4byte	.LASF13406
 	.byte	0x44
 	.uleb128 0x1c
-	.4byte	.LASF13390
+	.4byte	.LASF13407
 	.byte	0x45
 	.uleb128 0x1c
-	.4byte	.LASF13391
+	.4byte	.LASF13408
 	.byte	0x46
 	.uleb128 0x1c
-	.4byte	.LASF13392
+	.4byte	.LASF13409
 	.byte	0x47
 	.uleb128 0x1c
-	.4byte	.LASF13393
+	.4byte	.LASF13410
 	.byte	0x48
 	.uleb128 0x1c
-	.4byte	.LASF13394
+	.4byte	.LASF13411
 	.byte	0x49
 	.uleb128 0x1c
-	.4byte	.LASF13395
+	.4byte	.LASF13412
 	.byte	0x4a
 	.uleb128 0x1c
-	.4byte	.LASF13396
+	.4byte	.LASF13413
 	.byte	0x4b
 	.uleb128 0x1c
-	.4byte	.LASF13397
+	.4byte	.LASF13414
 	.byte	0x4c
 	.uleb128 0x1c
-	.4byte	.LASF13398
+	.4byte	.LASF13415
 	.byte	0x4d
 	.uleb128 0x1c
-	.4byte	.LASF13399
+	.4byte	.LASF13416
 	.byte	0x4e
 	.uleb128 0x1c
-	.4byte	.LASF13400
+	.4byte	.LASF13417
 	.byte	0x4f
 	.uleb128 0x1c
-	.4byte	.LASF13401
+	.4byte	.LASF13418
 	.byte	0x50
 	.uleb128 0x1c
-	.4byte	.LASF13402
+	.4byte	.LASF13419
 	.byte	0x51
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13403
+	.4byte	.LASF13420
 	.byte	0x1
 	.2byte	0x146
 	.4byte	0x3b
@@ -4064,32 +4140,32 @@ touchpanel_get_register_value:
 	.2byte	0x149
 	.4byte	0xe7e
 	.uleb128 0x15
-	.4byte	.LASF13404
+	.4byte	.LASF13421
 	.byte	0x1
 	.2byte	0x14b
 	.4byte	0x30
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13405
+	.4byte	.LASF13422
 	.byte	0x1
 	.2byte	0x14c
 	.4byte	0x30
 	.byte	0x1
 	.uleb128 0x15
-	.4byte	.LASF13406
+	.4byte	.LASF13423
 	.byte	0x1
 	.2byte	0x14d
 	.4byte	0x81
 	.byte	0x4
 	.uleb128 0x15
-	.4byte	.LASF13407
+	.4byte	.LASF13424
 	.byte	0x1
 	.2byte	0x14e
 	.4byte	0x81
 	.byte	0x8
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13408
+	.4byte	.LASF13425
 	.byte	0x1
 	.2byte	0x14f
 	.4byte	0xe40
@@ -4099,32 +4175,32 @@ touchpanel_get_register_value:
 	.2byte	0x152
 	.4byte	0xec8
 	.uleb128 0x15
-	.4byte	.LASF13404
+	.4byte	.LASF13421
 	.byte	0x1
 	.2byte	0x154
 	.4byte	0x30
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13405
+	.4byte	.LASF13422
 	.byte	0x1
 	.2byte	0x155
 	.4byte	0x30
 	.byte	0x1
 	.uleb128 0x15
-	.4byte	.LASF13409
+	.4byte	.LASF13426
 	.byte	0x1
 	.2byte	0x156
 	.4byte	0x81
 	.byte	0x4
 	.uleb128 0x15
-	.4byte	.LASF13406
+	.4byte	.LASF13423
 	.byte	0x1
 	.2byte	0x157
 	.4byte	0x81
 	.byte	0x8
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13410
+	.4byte	.LASF13427
 	.byte	0x1
 	.2byte	0x158
 	.4byte	0xe8a
@@ -4134,12 +4210,12 @@ touchpanel_get_register_value:
 	.2byte	0x15e
 	.4byte	0xef6
 	.uleb128 0x1e
-	.4byte	.LASF13411
+	.4byte	.LASF13428
 	.byte	0x1
 	.2byte	0x160
 	.4byte	0xe7e
 	.uleb128 0x1e
-	.4byte	.LASF13412
+	.4byte	.LASF13429
 	.byte	0x1
 	.2byte	0x161
 	.4byte	0xec8
@@ -4150,20 +4226,20 @@ touchpanel_get_register_value:
 	.2byte	0x15b
 	.4byte	0xf1a
 	.uleb128 0x15
-	.4byte	.LASF13413
+	.4byte	.LASF13430
 	.byte	0x1
 	.2byte	0x15d
 	.4byte	0x30
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13414
+	.4byte	.LASF13431
 	.byte	0x1
 	.2byte	0x162
 	.4byte	0xed4
 	.byte	0x4
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13415
+	.4byte	.LASF13432
 	.byte	0x1
 	.2byte	0x163
 	.4byte	0xef6
@@ -4175,7 +4251,7 @@ touchpanel_get_register_value:
 	.2byte	0x16b
 	.4byte	0xf42
 	.uleb128 0x15
-	.4byte	.LASF13416
+	.4byte	.LASF13433
 	.byte	0x1
 	.2byte	0x16d
 	.4byte	0xf42
@@ -4190,7 +4266,7 @@ touchpanel_get_register_value:
 	.2byte	0x16f
 	.4byte	0xf5f
 	.uleb128 0x15
-	.4byte	.LASF13406
+	.4byte	.LASF13423
 	.byte	0x1
 	.2byte	0x171
 	.4byte	0x81
@@ -4202,12 +4278,12 @@ touchpanel_get_register_value:
 	.2byte	0x169
 	.4byte	0xf81
 	.uleb128 0x1e
-	.4byte	.LASF13417
+	.4byte	.LASF13434
 	.byte	0x1
 	.2byte	0x16e
 	.4byte	0xf2b
 	.uleb128 0x1e
-	.4byte	.LASF13418
+	.4byte	.LASF13435
 	.byte	0x1
 	.2byte	0x172
 	.4byte	0xf48
@@ -4218,25 +4294,25 @@ touchpanel_get_register_value:
 	.2byte	0x166
 	.4byte	0xfa5
 	.uleb128 0x15
-	.4byte	.LASF13419
+	.4byte	.LASF13436
 	.byte	0x1
 	.2byte	0x168
 	.4byte	0x30
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13414
+	.4byte	.LASF13431
 	.byte	0x1
 	.2byte	0x173
 	.4byte	0xf5f
 	.byte	0x4
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13420
+	.4byte	.LASF13437
 	.byte	0x1
 	.2byte	0x174
 	.4byte	0xf81
 	.uleb128 0x13
-	.4byte	.LASF13421
+	.4byte	.LASF13438
 	.byte	0x1
 	.2byte	0x182
 	.4byte	0xfbd
@@ -4253,7 +4329,7 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0xfa5
 	.uleb128 0x13
-	.4byte	.LASF13422
+	.4byte	.LASF13439
 	.byte	0x1
 	.2byte	0x185
 	.4byte	0xfe4
@@ -4265,12 +4341,12 @@ touchpanel_get_register_value:
 	.byte	0xf
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13423
+	.4byte	.LASF13440
 	.byte	0x1
 	.2byte	0x186
 	.4byte	0xfe4
 	.uleb128 0x13
-	.4byte	.LASF13424
+	.4byte	.LASF13441
 	.byte	0x1
 	.2byte	0x187
 	.4byte	0xfe4
@@ -4286,20 +4362,20 @@ touchpanel_get_register_value:
 	.4byte	0xfd8
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13425
+	.4byte	.LASF13442
 	.byte	0x1
 	.2byte	0x18d
 	.4byte	0xff4
 	.byte	0x10
 	.uleb128 0x15
-	.4byte	.LASF13426
+	.4byte	.LASF13443
 	.byte	0x1
 	.2byte	0x18e
 	.4byte	0x1000
 	.byte	0x20
 	.byte	0
 	.uleb128 0x13
-	.4byte	.LASF13427
+	.4byte	.LASF13444
 	.byte	0x1
 	.2byte	0x18f
 	.4byte	0x100c
@@ -4309,19 +4385,19 @@ touchpanel_get_register_value:
 	.2byte	0x193
 	.4byte	0x107a
 	.uleb128 0x15
-	.4byte	.LASF13428
+	.4byte	.LASF13445
 	.byte	0x1
 	.2byte	0x195
 	.4byte	0x107a
 	.byte	0
 	.uleb128 0x15
-	.4byte	.LASF13429
+	.4byte	.LASF13446
 	.byte	0x1
 	.2byte	0x196
 	.4byte	0x1080
 	.byte	0x4
 	.uleb128 0x15
-	.4byte	.LASF13430
+	.4byte	.LASF13447
 	.byte	0x1
 	.2byte	0x197
 	.4byte	0x1086
@@ -4337,7 +4413,7 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x1000
 	.uleb128 0x13
-	.4byte	.LASF13431
+	.4byte	.LASF13448
 	.byte	0x1
 	.2byte	0x198
 	.4byte	0x1049
@@ -4347,37 +4423,37 @@ touchpanel_get_register_value:
 	.byte	0x6d
 	.4byte	0x10b9
 	.uleb128 0x8
-	.4byte	.LASF13432
+	.4byte	.LASF13449
 	.byte	0xa
 	.byte	0x6f
 	.4byte	0x791
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13433
+	.4byte	.LASF13450
 	.byte	0xa
 	.byte	0x70
 	.4byte	0x8c
 	.byte	0x8
 	.byte	0
 	.uleb128 0x3
-	.4byte	.LASF13434
+	.4byte	.LASF13451
 	.byte	0xa
 	.byte	0x71
 	.4byte	0x1098
 	.uleb128 0xf
-	.4byte	.LASF13435
+	.4byte	.LASF13452
 	.byte	0xa
 	.byte	0x75
 	.4byte	0x10b9
 	.uleb128 0x13
-	.4byte	.LASF13436
+	.4byte	.LASF13453
 	.byte	0xb
 	.2byte	0x2f2
 	.4byte	0x10db
 	.uleb128 0x11
-	.4byte	.LASF13438
+	.4byte	.LASF13455
 	.uleb128 0x12
-	.4byte	.LASF13439
+	.4byte	.LASF13456
 	.byte	0xb
 	.2byte	0x2f6
 	.4byte	0x10ec
@@ -4385,17 +4461,17 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0x10cf
 	.uleb128 0x12
-	.4byte	.LASF13440
+	.4byte	.LASF13457
 	.byte	0xb
 	.2byte	0x2f7
 	.4byte	0x10ec
 	.uleb128 0x12
-	.4byte	.LASF13441
+	.4byte	.LASF13458
 	.byte	0xb
 	.2byte	0x2f8
 	.4byte	0x10ec
 	.uleb128 0x3
-	.4byte	.LASF13442
+	.4byte	.LASF13459
 	.byte	0xc
 	.byte	0x9e
 	.4byte	0x81
@@ -4408,13 +4484,13 @@ touchpanel_get_register_value:
 	.byte	0x3d
 	.4byte	0x113c
 	.uleb128 0x8
-	.4byte	.LASF13443
+	.4byte	.LASF13460
 	.byte	0xd
 	.byte	0x3f
 	.4byte	0x113c
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13444
+	.4byte	.LASF13461
 	.byte	0xd
 	.byte	0x40
 	.4byte	0x30
@@ -4424,28 +4500,57 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0xcb9
 	.uleb128 0x3
-	.4byte	.LASF13445
+	.4byte	.LASF13462
 	.byte	0xd
 	.byte	0x41
 	.4byte	0x111b
+	.uleb128 0x1f
+	.byte	0x1
+	.4byte	0x45
+	.byte	0xd
+	.byte	0x4c
+	.4byte	0x1166
+	.uleb128 0x1c
+	.4byte	.LASF13463
+	.byte	0
+	.uleb128 0x1c
+	.4byte	.LASF13464
+	.byte	0x1
+	.byte	0
 	.uleb128 0x2
 	.byte	0x1
 	.byte	0x2
-	.4byte	.LASF13446
+	.4byte	.LASF13465
+	.uleb128 0x1f
+	.byte	0x4
+	.4byte	0x9b
+	.byte	0xe
+	.byte	0x84
+	.4byte	0x1195
+	.uleb128 0x20
+	.4byte	.LASF13466
+	.4byte	0x1980000
+	.uleb128 0x20
+	.4byte	.LASF13467
+	.4byte	0x4000000
+	.uleb128 0x20
+	.4byte	.LASF13468
+	.4byte	0x6680000
+	.byte	0
 	.uleb128 0xc
 	.byte	0x8
-	.byte	0xe
+	.byte	0xf
 	.byte	0x3d
-	.4byte	0x1175
+	.4byte	0x11b6
 	.uleb128 0x8
-	.4byte	.LASF13447
-	.byte	0xe
+	.4byte	.LASF13469
+	.byte	0xf
 	.byte	0x3f
-	.4byte	0x1175
+	.4byte	0x11b6
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13444
-	.byte	0xe
+	.4byte	.LASF13461
+	.byte	0xf
 	.byte	0x40
 	.4byte	0x30
 	.byte	0x4
@@ -4454,176 +4559,192 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.4byte	0xa7d
 	.uleb128 0x3
-	.4byte	.LASF13448
-	.byte	0xe
+	.4byte	.LASF13470
+	.byte	0xf
 	.byte	0x41
-	.4byte	0x1154
-	.uleb128 0x1f
+	.4byte	0x1195
+	.uleb128 0x21
 	.byte	0x8
 	.byte	0x2
 	.byte	0x68
-	.4byte	0x11a5
-	.uleb128 0x20
-	.4byte	.LASF13449
+	.4byte	0x11e6
+	.uleb128 0x22
+	.4byte	.LASF13471
 	.byte	0x2
 	.byte	0x6b
 	.4byte	0x1142
-	.uleb128 0x21
+	.uleb128 0x23
 	.ascii	"twi\000"
 	.byte	0x2
 	.byte	0x6e
-	.4byte	0x117b
+	.4byte	0x11bc
 	.byte	0
 	.uleb128 0xc
 	.byte	0x10
 	.byte	0x2
 	.byte	0x65
-	.4byte	0x11d0
+	.4byte	0x1211
 	.uleb128 0x8
-	.4byte	.LASF13450
+	.4byte	.LASF13472
 	.byte	0x2
 	.byte	0x67
 	.4byte	0x30
 	.byte	0
-	.uleb128 0x22
+	.uleb128 0x24
 	.ascii	"u\000"
 	.byte	0x2
 	.byte	0x70
-	.4byte	0x1186
+	.4byte	0x11c7
 	.byte	0x4
 	.uleb128 0x8
-	.4byte	.LASF13451
+	.4byte	.LASF13473
 	.byte	0x2
 	.byte	0x71
-	.4byte	0x114d
+	.4byte	0x1166
 	.byte	0xc
 	.byte	0
 	.uleb128 0x3
-	.4byte	.LASF13452
+	.4byte	.LASF13474
 	.byte	0x2
 	.byte	0x72
-	.4byte	0x11a5
+	.4byte	0x11e6
 	.uleb128 0x5
-	.4byte	0x11d0
-	.uleb128 0x23
+	.4byte	0x1211
+	.uleb128 0x25
+	.4byte	.LASF13489
+	.byte	0x11
+	.byte	0x9
+	.4byte	0x121c
+	.uleb128 0x5
+	.byte	0x3
+	.4byte	m_twi
+	.uleb128 0x1f
 	.byte	0x1
 	.4byte	0x45
-	.byte	0xf
-	.byte	0x19
-	.4byte	0x1205
+	.byte	0x10
+	.byte	0x21
+	.4byte	0x1257
 	.uleb128 0x1c
-	.4byte	.LASF13453
+	.4byte	.LASF13475
 	.byte	0
 	.uleb128 0x1c
-	.4byte	.LASF13454
+	.4byte	.LASF13476
 	.byte	0x1
 	.uleb128 0x1c
-	.4byte	.LASF13455
+	.4byte	.LASF13477
 	.byte	0x2
 	.uleb128 0x1c
-	.4byte	.LASF13456
+	.4byte	.LASF13478
 	.byte	0x3
 	.byte	0
 	.uleb128 0x3
-	.4byte	.LASF13457
-	.byte	0xf
-	.byte	0x1e
-	.4byte	0x11e0
+	.4byte	.LASF13479
+	.byte	0x10
+	.byte	0x26
+	.4byte	0x1232
 	.uleb128 0xc
 	.byte	0x6
-	.byte	0xf
-	.byte	0x20
-	.4byte	0x1249
+	.byte	0x10
+	.byte	0x28
+	.4byte	0x129b
 	.uleb128 0x8
-	.4byte	.LASF13458
-	.byte	0xf
-	.byte	0x21
-	.4byte	0x1205
+	.4byte	.LASF13480
+	.byte	0x10
+	.byte	0x29
+	.4byte	0x1257
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13459
-	.byte	0xf
-	.byte	0x22
+	.4byte	.LASF13481
+	.byte	0x10
+	.byte	0x2a
 	.4byte	0x30
 	.byte	0x1
 	.uleb128 0x8
-	.4byte	.LASF13460
-	.byte	0xf
-	.byte	0x23
+	.4byte	.LASF13482
+	.byte	0x10
+	.byte	0x2b
 	.4byte	0x58
 	.byte	0x2
 	.uleb128 0x8
-	.4byte	.LASF13461
-	.byte	0xf
-	.byte	0x24
+	.4byte	.LASF13483
+	.byte	0x10
+	.byte	0x2c
 	.4byte	0x58
 	.byte	0x4
 	.byte	0
 	.uleb128 0x3
-	.4byte	.LASF13462
-	.byte	0xf
-	.byte	0x25
-	.4byte	0x1210
+	.4byte	.LASF13484
+	.byte	0x10
+	.byte	0x2d
+	.4byte	0x1262
 	.uleb128 0xc
 	.byte	0x20
-	.byte	0xf
-	.byte	0x28
-	.4byte	0x1275
+	.byte	0x10
+	.byte	0x30
+	.4byte	0x12c7
 	.uleb128 0x8
-	.4byte	.LASF13463
-	.byte	0xf
-	.byte	0x29
+	.4byte	.LASF13485
+	.byte	0x10
+	.byte	0x31
 	.4byte	0x30
 	.byte	0
 	.uleb128 0x8
-	.4byte	.LASF13464
-	.byte	0xf
-	.byte	0x2a
-	.4byte	0x1275
+	.4byte	.LASF13486
+	.byte	0x10
+	.byte	0x32
+	.4byte	0x12c7
 	.byte	0x2
 	.byte	0
 	.uleb128 0xd
-	.4byte	0x1249
-	.4byte	0x1285
+	.4byte	0x129b
+	.4byte	0x12d7
 	.uleb128 0xe
 	.4byte	0x425
 	.byte	0x4
 	.byte	0
 	.uleb128 0x3
-	.4byte	.LASF13465
-	.byte	0xf
-	.byte	0x2c
-	.4byte	0x1254
-	.uleb128 0x24
-	.4byte	.LASF13468
+	.4byte	.LASF13487
+	.byte	0x10
+	.byte	0x34
+	.4byte	0x12a6
+	.uleb128 0x26
+	.4byte	.LASF13488
 	.byte	0x3
-	.byte	0x48
+	.byte	0x9
+	.4byte	0x12d7
+	.uleb128 0x5
+	.byte	0x3
+	.4byte	touchpoints
+	.uleb128 0x27
+	.4byte	.LASF13491
+	.byte	0x3
+	.byte	0x58
 	.4byte	0x110a
-	.4byte	.LFB274
-	.4byte	.LFE274-.LFB274
+	.4byte	.LFB325
+	.4byte	.LFE325-.LFB325
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x12d4
-	.uleb128 0x25
-	.4byte	.LASF13466
+	.4byte	0x1337
+	.uleb128 0x28
+	.4byte	.LASF13489
 	.byte	0x3
-	.byte	0x48
-	.4byte	0x12d4
+	.byte	0x58
+	.4byte	0x1337
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -12
-	.uleb128 0x25
-	.4byte	.LASF13467
+	.uleb128 0x28
+	.4byte	.LASF13490
 	.byte	0x3
-	.byte	0x48
+	.byte	0x58
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -13
-	.uleb128 0x25
-	.4byte	.LASF13269
+	.uleb128 0x28
+	.4byte	.LASF13286
 	.byte	0x3
-	.byte	0x48
+	.byte	0x58
 	.4byte	0xcf7
 	.uleb128 0x2
 	.byte	0x91
@@ -4631,191 +4752,191 @@ touchpanel_get_register_value:
 	.byte	0
 	.uleb128 0xb
 	.byte	0x4
-	.4byte	0x11d0
-	.uleb128 0x24
-	.4byte	.LASF13469
+	.4byte	0x1211
+	.uleb128 0x27
+	.4byte	.LASF13492
 	.byte	0x3
-	.byte	0x3c
+	.byte	0x4c
 	.4byte	0x110a
-	.4byte	.LFB273
-	.4byte	.LFE273-.LFB273
+	.4byte	.LFB324
+	.4byte	.LFE324-.LFB324
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x132c
-	.uleb128 0x25
-	.4byte	.LASF13466
+	.4byte	0x138f
+	.uleb128 0x28
+	.4byte	.LASF13489
 	.byte	0x3
-	.byte	0x3c
-	.4byte	0x12d4
+	.byte	0x4c
+	.4byte	0x1337
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x25
-	.4byte	.LASF13467
+	.uleb128 0x28
+	.4byte	.LASF13490
 	.byte	0x3
-	.byte	0x3c
+	.byte	0x4c
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -21
-	.uleb128 0x25
-	.4byte	.LASF13269
+	.uleb128 0x28
+	.4byte	.LASF13286
 	.byte	0x3
-	.byte	0x3c
+	.byte	0x4c
 	.4byte	0xcf7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28
-	.uleb128 0x26
-	.4byte	.LASF13472
+	.uleb128 0x25
+	.4byte	.LASF13493
 	.byte	0x3
-	.byte	0x3e
-	.4byte	0x132c
+	.byte	0x4e
+	.4byte	0x138f
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -16
 	.byte	0
 	.uleb128 0xd
 	.4byte	0x30
-	.4byte	0x133c
+	.4byte	0x139f
 	.uleb128 0xe
 	.4byte	0x425
 	.byte	0x4
 	.byte	0
 	.uleb128 0x27
-	.4byte	.LASF13470
+	.4byte	.LASF13494
 	.byte	0x3
-	.byte	0x34
+	.byte	0x41
 	.4byte	0x30
-	.4byte	.LFB272
-	.4byte	.LFE272-.LFB272
+	.4byte	.LFB323
+	.4byte	.LFE323-.LFB323
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1388
-	.uleb128 0x25
-	.4byte	.LASF13471
+	.4byte	0x13eb
+	.uleb128 0x28
+	.4byte	.LASF13489
 	.byte	0x3
-	.byte	0x34
-	.4byte	0x1388
+	.byte	0x41
+	.4byte	0x1337
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -12
-	.uleb128 0x26
-	.4byte	.LASF13473
+	.sleb128 -20
+	.uleb128 0x25
+	.4byte	.LASF13495
 	.byte	0x3
-	.byte	0x35
+	.byte	0x45
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -1
-	.uleb128 0x28
+	.sleb128 -9
+	.uleb128 0x29
 	.4byte	.LBB3
 	.4byte	.LBE3-.LBB3
-	.uleb128 0x29
+	.uleb128 0x2a
 	.ascii	"i\000"
 	.byte	0x3
-	.byte	0x36
+	.byte	0x46
 	.4byte	0x7a
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -8
+	.sleb128 -16
 	.byte	0
 	.byte	0
-	.uleb128 0xb
-	.byte	0x4
-	.4byte	0x1285
-	.uleb128 0x2a
-	.4byte	.LASF13584
+	.uleb128 0x2b
+	.4byte	.LASF13606
 	.byte	0x3
-	.byte	0x29
-	.4byte	.LFB271
-	.4byte	.LFE271-.LFB271
+	.byte	0x36
+	.4byte	.LFB322
+	.4byte	.LFE322-.LFB322
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x13e4
-	.uleb128 0x25
-	.4byte	.LASF13471
+	.4byte	0x1441
+	.uleb128 0x28
+	.4byte	.LASF13488
 	.byte	0x3
-	.byte	0x29
-	.4byte	0x1388
+	.byte	0x36
+	.4byte	0x1441
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -12
-	.uleb128 0x25
-	.4byte	.LASF13474
+	.uleb128 0x28
+	.4byte	.LASF13496
 	.byte	0x3
-	.byte	0x29
+	.byte	0x36
 	.4byte	0xcf7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -16
-	.uleb128 0x26
-	.4byte	.LASF13475
+	.uleb128 0x25
+	.4byte	.LASF13497
 	.byte	0x3
-	.byte	0x2a
+	.byte	0x37
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -5
-	.uleb128 0x28
+	.uleb128 0x29
 	.4byte	.LBB2
 	.4byte	.LBE2-.LBB2
-	.uleb128 0x29
+	.uleb128 0x2a
 	.ascii	"i\000"
 	.byte	0x3
-	.byte	0x2b
+	.byte	0x38
 	.4byte	0x7a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -4
 	.byte	0
 	.byte	0
-	.uleb128 0x24
-	.4byte	.LASF13476
+	.uleb128 0xb
+	.byte	0x4
+	.4byte	0x12d7
+	.uleb128 0x27
+	.4byte	.LASF13498
 	.byte	0x3
-	.byte	0x3
+	.byte	0x10
 	.4byte	0x110a
-	.4byte	.LFB270
-	.4byte	.LFE270-.LFB270
+	.4byte	.LFB321
+	.4byte	.LFE321-.LFB321
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1444
-	.uleb128 0x25
-	.4byte	.LASF13471
+	.4byte	0x14a7
+	.uleb128 0x28
+	.4byte	.LASF13488
 	.byte	0x3
-	.byte	0x3
-	.4byte	0x1388
+	.byte	0x10
+	.4byte	0x1441
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -44
-	.uleb128 0x25
-	.4byte	.LASF13466
+	.uleb128 0x28
+	.4byte	.LASF13489
 	.byte	0x3
-	.byte	0x3
-	.4byte	0x12d4
+	.byte	0x10
+	.4byte	0x1337
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -48
-	.uleb128 0x26
-	.4byte	.LASF13472
+	.uleb128 0x25
+	.4byte	.LASF13493
 	.byte	0x3
-	.byte	0x5
+	.byte	0x12
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -10
-	.uleb128 0x26
-	.4byte	.LASF13477
+	.uleb128 0x25
+	.4byte	.LASF13499
 	.byte	0x3
-	.byte	0x6
-	.4byte	0x1444
+	.byte	0x13
+	.4byte	0x14a7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x26
-	.4byte	.LASF13478
+	.uleb128 0x25
+	.4byte	.LASF13500
 	.byte	0x3
-	.byte	0x7
+	.byte	0x14
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
@@ -4823,13 +4944,21 @@ touchpanel_get_register_value:
 	.byte	0
 	.uleb128 0xd
 	.4byte	0x30
-	.4byte	0x1454
+	.4byte	0x14b7
 	.uleb128 0xe
 	.4byte	0x425
 	.byte	0x1a
 	.byte	0
-	.uleb128 0x2b
-	.4byte	.LASF13484
+	.uleb128 0x2c
+	.4byte	.LASF13607
+	.byte	0x3
+	.byte	0x3
+	.4byte	.LFB320
+	.4byte	.LFE320-.LFB320
+	.uleb128 0x1
+	.byte	0x9c
+	.uleb128 0x2d
+	.4byte	.LASF13506
 	.byte	0x2
 	.2byte	0x22c
 	.4byte	0x110a
@@ -4837,41 +4966,41 @@ touchpanel_get_register_value:
 	.4byte	.LFE264-.LFB264
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x14ba
-	.uleb128 0x2c
-	.4byte	.LASF13479
+	.4byte	0x152e
+	.uleb128 0x2e
+	.4byte	.LASF13501
 	.byte	0x2
 	.2byte	0x22c
-	.4byte	0x14ba
+	.4byte	0x152e
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x2c
-	.4byte	.LASF13480
+	.uleb128 0x2e
+	.4byte	.LASF13502
 	.byte	0x2
 	.2byte	0x22d
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -21
-	.uleb128 0x2c
-	.4byte	.LASF13481
+	.uleb128 0x2e
+	.4byte	.LASF13503
 	.byte	0x2
 	.2byte	0x22e
 	.4byte	0xcf7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28
-	.uleb128 0x2c
-	.4byte	.LASF13482
+	.uleb128 0x2e
+	.4byte	.LASF13504
 	.byte	0x2
 	.2byte	0x22f
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -22
-	.uleb128 0x2d
-	.4byte	.LASF13483
+	.uleb128 0x2f
+	.4byte	.LASF13505
 	.byte	0x2
 	.2byte	0x231
 	.4byte	0x110a
@@ -4881,9 +5010,9 @@ touchpanel_get_register_value:
 	.byte	0
 	.uleb128 0xb
 	.byte	0x4
-	.4byte	0x11db
-	.uleb128 0x2b
-	.4byte	.LASF13485
+	.4byte	0x121c
+	.uleb128 0x2d
+	.4byte	.LASF13507
 	.byte	0x2
 	.2byte	0x217
 	.4byte	0x110a
@@ -4891,49 +5020,49 @@ touchpanel_get_register_value:
 	.4byte	.LFE263-.LFB263
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1535
-	.uleb128 0x2c
-	.4byte	.LASF13479
+	.4byte	0x15a9
+	.uleb128 0x2e
+	.4byte	.LASF13501
 	.byte	0x2
 	.2byte	0x217
-	.4byte	0x14ba
+	.4byte	0x152e
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x2c
-	.4byte	.LASF13480
+	.uleb128 0x2e
+	.4byte	.LASF13502
 	.byte	0x2
 	.2byte	0x218
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -21
-	.uleb128 0x2c
-	.4byte	.LASF13481
+	.uleb128 0x2e
+	.4byte	.LASF13503
 	.byte	0x2
 	.2byte	0x219
 	.4byte	0x1115
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -28
-	.uleb128 0x2c
-	.4byte	.LASF13482
+	.uleb128 0x2e
+	.4byte	.LASF13504
 	.byte	0x2
 	.2byte	0x21a
 	.4byte	0x30
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -22
-	.uleb128 0x2c
-	.4byte	.LASF13486
+	.uleb128 0x2e
+	.4byte	.LASF13508
 	.byte	0x2
 	.2byte	0x21b
-	.4byte	0x114d
+	.4byte	0x1166
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 0
-	.uleb128 0x2d
-	.4byte	.LASF13483
+	.uleb128 0x2f
+	.4byte	.LASF13505
 	.byte	0x2
 	.2byte	0x21d
 	.4byte	0x110a
@@ -4941,8 +5070,8 @@ touchpanel_get_register_value:
 	.byte	0x91
 	.sleb128 -12
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13487
+	.uleb128 0x30
+	.4byte	.LASF13509
 	.byte	0x1
 	.2byte	0x403
 	.4byte	0x81
@@ -4950,16 +5079,16 @@ touchpanel_get_register_value:
 	.4byte	.LFE200-.LFB200
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x156c
-	.uleb128 0x2c
-	.4byte	.LASF13488
+	.4byte	0x15e0
+	.uleb128 0x2e
+	.4byte	.LASF13510
 	.byte	0x1
 	.2byte	0x403
-	.4byte	0x156c
+	.4byte	0x15e0
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13489
+	.uleb128 0x2e
+	.4byte	.LASF13511
 	.byte	0x1
 	.2byte	0x403
 	.4byte	0x81
@@ -4969,8 +5098,8 @@ touchpanel_get_register_value:
 	.uleb128 0xb
 	.byte	0x4
 	.4byte	0x8c
-	.uleb128 0x2e
-	.4byte	.LASF13490
+	.uleb128 0x30
+	.4byte	.LASF13512
 	.byte	0x1
 	.2byte	0x3ee
 	.4byte	0x81
@@ -4978,20 +5107,20 @@ touchpanel_get_register_value:
 	.4byte	.LFE199-.LFB199
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x159b
-	.uleb128 0x2c
-	.4byte	.LASF13491
+	.4byte	0x160f
+	.uleb128 0x2e
+	.4byte	.LASF13513
 	.byte	0x1
 	.2byte	0x3ee
-	.4byte	0x159b
+	.4byte	0x160f
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
 	.uleb128 0xb
 	.byte	0x4
 	.4byte	0xf26
-	.uleb128 0x2f
-	.4byte	.LASF13529
+	.uleb128 0x31
+	.4byte	.LASF13551
 	.byte	0x1
 	.2byte	0x3ce
 	.4byte	0x81
@@ -4999,8 +5128,8 @@ touchpanel_get_register_value:
 	.4byte	.LFE198-.LFB198
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0x2e
-	.4byte	.LASF13492
+	.uleb128 0x30
+	.4byte	.LASF13514
 	.byte	0x1
 	.2byte	0x3c1
 	.4byte	0x81
@@ -5008,17 +5137,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE197-.LFB197
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x15e0
-	.uleb128 0x2c
-	.4byte	.LASF13493
+	.4byte	0x1654
+	.uleb128 0x2e
+	.4byte	.LASF13515
 	.byte	0x1
 	.2byte	0x3c1
 	.4byte	0xfb1
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13494
+	.uleb128 0x30
+	.4byte	.LASF13516
 	.byte	0x1
 	.2byte	0x3a9
 	.4byte	0x81
@@ -5026,17 +5155,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE196-.LFB196
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1609
-	.uleb128 0x2c
-	.4byte	.LASF13495
+	.4byte	0x167d
+	.uleb128 0x2e
+	.4byte	.LASF13517
 	.byte	0x1
 	.2byte	0x3a9
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13496
+	.uleb128 0x30
+	.4byte	.LASF13518
 	.byte	0x1
 	.2byte	0x389
 	.4byte	0x81
@@ -5044,23 +5173,23 @@ touchpanel_get_register_value:
 	.4byte	.LFE195-.LFB195
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x164e
-	.uleb128 0x2c
-	.4byte	.LASF13497
+	.4byte	0x16c2
+	.uleb128 0x2e
+	.4byte	.LASF13519
 	.byte	0x1
 	.2byte	0x389
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13498
+	.uleb128 0x2e
+	.4byte	.LASF13520
 	.byte	0x1
 	.2byte	0x389
-	.4byte	0x164e
+	.4byte	0x16c2
 	.uleb128 0x1
 	.byte	0x51
-	.uleb128 0x2c
-	.4byte	.LASF13499
+	.uleb128 0x2e
+	.4byte	.LASF13521
 	.byte	0x1
 	.2byte	0x389
 	.4byte	0x81
@@ -5070,8 +5199,8 @@ touchpanel_get_register_value:
 	.uleb128 0xb
 	.byte	0x4
 	.4byte	0x96
-	.uleb128 0x2e
-	.4byte	.LASF13500
+	.uleb128 0x30
+	.4byte	.LASF13522
 	.byte	0x1
 	.2byte	0x364
 	.4byte	0x81
@@ -5079,20 +5208,20 @@ touchpanel_get_register_value:
 	.4byte	.LFE194-.LFB194
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x167d
-	.uleb128 0x2c
-	.4byte	.LASF13501
+	.4byte	0x16f1
+	.uleb128 0x2e
+	.4byte	.LASF13523
 	.byte	0x1
 	.2byte	0x364
-	.4byte	0x167d
+	.4byte	0x16f1
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
 	.uleb128 0xb
 	.byte	0x4
 	.4byte	0x6a
-	.uleb128 0x2e
-	.4byte	.LASF13502
+	.uleb128 0x30
+	.4byte	.LASF13524
 	.byte	0x1
 	.2byte	0x359
 	.4byte	0x81
@@ -5100,17 +5229,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE193-.LFB193
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x16ac
-	.uleb128 0x2c
-	.4byte	.LASF13503
+	.4byte	0x1720
+	.uleb128 0x2e
+	.4byte	.LASF13525
 	.byte	0x1
 	.2byte	0x359
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13504
+	.uleb128 0x30
+	.4byte	.LASF13526
 	.byte	0x1
 	.2byte	0x34e
 	.4byte	0x81
@@ -5118,27 +5247,27 @@ touchpanel_get_register_value:
 	.4byte	.LFE192-.LFB192
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x16e3
-	.uleb128 0x2c
-	.4byte	.LASF13505
+	.4byte	0x1757
+	.uleb128 0x2e
+	.4byte	.LASF13527
 	.byte	0x1
 	.2byte	0x34e
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13506
+	.uleb128 0x2e
+	.4byte	.LASF13528
 	.byte	0x1
 	.2byte	0x34e
-	.4byte	0x16e3
+	.4byte	0x1757
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
 	.uleb128 0xb
 	.byte	0x4
 	.4byte	0x108c
-	.uleb128 0x2e
-	.4byte	.LASF13507
+	.uleb128 0x30
+	.4byte	.LASF13529
 	.byte	0x1
 	.2byte	0x33d
 	.4byte	0x81
@@ -5146,20 +5275,20 @@ touchpanel_get_register_value:
 	.4byte	.LFE191-.LFB191
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1712
-	.uleb128 0x2c
-	.4byte	.LASF13508
+	.4byte	0x1786
+	.uleb128 0x2e
+	.4byte	.LASF13530
 	.byte	0x1
 	.2byte	0x33d
-	.4byte	0x1712
+	.4byte	0x1786
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
 	.uleb128 0xb
 	.byte	0x4
 	.4byte	0x103d
-	.uleb128 0x2e
-	.4byte	.LASF13509
+	.uleb128 0x30
+	.4byte	.LASF13531
 	.byte	0x1
 	.2byte	0x32d
 	.4byte	0x81
@@ -5167,24 +5296,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE190-.LFB190
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x174f
-	.uleb128 0x2c
-	.4byte	.LASF13510
+	.4byte	0x17c3
+	.uleb128 0x2e
+	.4byte	.LASF13532
 	.byte	0x1
 	.2byte	0x32d
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13511
+	.uleb128 0x2e
+	.4byte	.LASF13533
 	.byte	0x1
 	.2byte	0x32d
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13512
+	.uleb128 0x30
+	.4byte	.LASF13534
 	.byte	0x1
 	.2byte	0x30e
 	.4byte	0x81
@@ -5192,24 +5321,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE189-.LFB189
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1786
-	.uleb128 0x2c
-	.4byte	.LASF13513
+	.4byte	0x17fa
+	.uleb128 0x2e
+	.4byte	.LASF13535
 	.byte	0x1
 	.2byte	0x30e
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13514
+	.uleb128 0x2e
+	.4byte	.LASF13536
 	.byte	0x1
 	.2byte	0x30e
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13515
+	.uleb128 0x30
+	.4byte	.LASF13537
 	.byte	0x1
 	.2byte	0x304
 	.4byte	0x81
@@ -5217,24 +5346,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE188-.LFB188
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x17bd
-	.uleb128 0x2c
-	.4byte	.LASF13513
+	.4byte	0x1831
+	.uleb128 0x2e
+	.4byte	.LASF13535
 	.byte	0x1
 	.2byte	0x304
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13516
+	.uleb128 0x2e
+	.4byte	.LASF13538
 	.byte	0x1
 	.2byte	0x304
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13517
+	.uleb128 0x30
+	.4byte	.LASF13539
 	.byte	0x1
 	.2byte	0x2fa
 	.4byte	0x81
@@ -5242,17 +5371,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE187-.LFB187
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x17e6
-	.uleb128 0x2c
-	.4byte	.LASF13513
+	.4byte	0x185a
+	.uleb128 0x2e
+	.4byte	.LASF13535
 	.byte	0x1
 	.2byte	0x2fa
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13518
+	.uleb128 0x30
+	.4byte	.LASF13540
 	.byte	0x1
 	.2byte	0x2f1
 	.4byte	0x81
@@ -5260,17 +5389,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE186-.LFB186
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x180f
-	.uleb128 0x2c
-	.4byte	.LASF13513
+	.4byte	0x1883
+	.uleb128 0x2e
+	.4byte	.LASF13535
 	.byte	0x1
 	.2byte	0x2f1
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13519
+	.uleb128 0x30
+	.4byte	.LASF13541
 	.byte	0x1
 	.2byte	0x2e8
 	.4byte	0x81
@@ -5278,37 +5407,37 @@ touchpanel_get_register_value:
 	.4byte	.LFE185-.LFB185
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1854
-	.uleb128 0x2c
-	.4byte	.LASF13520
+	.4byte	0x18c8
+	.uleb128 0x2e
+	.4byte	.LASF13542
 	.byte	0x1
 	.2byte	0x2e8
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13521
+	.uleb128 0x2e
+	.4byte	.LASF13543
 	.byte	0x1
 	.2byte	0x2e8
-	.4byte	0x1854
+	.4byte	0x18c8
 	.uleb128 0x1
 	.byte	0x51
-	.uleb128 0x2c
-	.4byte	.LASF13522
+	.uleb128 0x2e
+	.4byte	.LASF13544
 	.byte	0x1
 	.2byte	0x2e8
-	.4byte	0x1854
+	.4byte	0x18c8
 	.uleb128 0x1
 	.byte	0x52
 	.byte	0
 	.uleb128 0xb
 	.byte	0x4
-	.4byte	0x185b
-	.uleb128 0x30
+	.4byte	0x18cf
+	.uleb128 0x32
 	.uleb128 0x5
-	.4byte	0x185a
-	.uleb128 0x2e
-	.4byte	.LASF13523
+	.4byte	0x18ce
+	.uleb128 0x30
+	.4byte	.LASF13545
 	.byte	0x1
 	.2byte	0x2dd
 	.4byte	0x81
@@ -5316,17 +5445,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE184-.LFB184
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1889
-	.uleb128 0x2c
-	.4byte	.LASF13524
+	.4byte	0x18fd
+	.uleb128 0x2e
+	.4byte	.LASF13546
 	.byte	0x1
 	.2byte	0x2dd
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13525
+	.uleb128 0x30
+	.4byte	.LASF13547
 	.byte	0x1
 	.2byte	0x2d5
 	.4byte	0x81
@@ -5334,17 +5463,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE183-.LFB183
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x18b2
-	.uleb128 0x2c
-	.4byte	.LASF13526
+	.4byte	0x1926
+	.uleb128 0x2e
+	.4byte	.LASF13548
 	.byte	0x1
 	.2byte	0x2d5
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13527
+	.uleb128 0x30
+	.4byte	.LASF13549
 	.byte	0x1
 	.2byte	0x2cd
 	.4byte	0x81
@@ -5352,17 +5481,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE182-.LFB182
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x18db
-	.uleb128 0x2c
-	.4byte	.LASF13528
+	.4byte	0x194f
+	.uleb128 0x2e
+	.4byte	.LASF13550
 	.byte	0x1
 	.2byte	0x2cd
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2f
-	.4byte	.LASF13530
+	.uleb128 0x31
+	.4byte	.LASF13552
 	.byte	0x1
 	.2byte	0x2c5
 	.4byte	0x81
@@ -5370,8 +5499,8 @@ touchpanel_get_register_value:
 	.4byte	.LFE181-.LFB181
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0x2e
-	.4byte	.LASF13531
+	.uleb128 0x30
+	.4byte	.LASF13553
 	.byte	0x1
 	.2byte	0x2a9
 	.4byte	0x81
@@ -5379,17 +5508,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE180-.LFB180
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x191a
-	.uleb128 0x2c
-	.4byte	.LASF13532
+	.4byte	0x198e
+	.uleb128 0x2e
+	.4byte	.LASF13554
 	.byte	0x1
 	.2byte	0x2a9
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2f
-	.4byte	.LASF13533
+	.uleb128 0x31
+	.4byte	.LASF13555
 	.byte	0x1
 	.2byte	0x29e
 	.4byte	0x81
@@ -5397,8 +5526,8 @@ touchpanel_get_register_value:
 	.4byte	.LFE179-.LFB179
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0x2f
-	.4byte	.LASF13534
+	.uleb128 0x31
+	.4byte	.LASF13556
 	.byte	0x1
 	.2byte	0x293
 	.4byte	0x81
@@ -5406,8 +5535,8 @@ touchpanel_get_register_value:
 	.4byte	.LFE178-.LFB178
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0x2e
-	.4byte	.LASF13535
+	.uleb128 0x30
+	.4byte	.LASF13557
 	.byte	0x1
 	.2byte	0x287
 	.4byte	0x81
@@ -5415,17 +5544,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE177-.LFB177
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x196f
-	.uleb128 0x2c
-	.4byte	.LASF13536
+	.4byte	0x19e3
+	.uleb128 0x2e
+	.4byte	.LASF13558
 	.byte	0x1
 	.2byte	0x287
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13537
+	.uleb128 0x30
+	.4byte	.LASF13559
 	.byte	0x1
 	.2byte	0x27c
 	.4byte	0x81
@@ -5433,17 +5562,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE176-.LFB176
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1998
-	.uleb128 0x2c
-	.4byte	.LASF13536
+	.4byte	0x1a0c
+	.uleb128 0x2e
+	.4byte	.LASF13558
 	.byte	0x1
 	.2byte	0x27c
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13538
+	.uleb128 0x30
+	.4byte	.LASF13560
 	.byte	0x1
 	.2byte	0x273
 	.4byte	0x81
@@ -5451,24 +5580,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE175-.LFB175
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x19cf
-	.uleb128 0x2c
-	.4byte	.LASF13539
+	.4byte	0x1a43
+	.uleb128 0x2e
+	.4byte	.LASF13561
 	.byte	0x1
 	.2byte	0x273
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13540
+	.uleb128 0x2e
+	.4byte	.LASF13562
 	.byte	0x1
 	.2byte	0x273
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13541
+	.uleb128 0x30
+	.4byte	.LASF13563
 	.byte	0x1
 	.2byte	0x26a
 	.4byte	0x81
@@ -5476,24 +5605,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE174-.LFB174
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1a06
-	.uleb128 0x2c
-	.4byte	.LASF13539
+	.4byte	0x1a7a
+	.uleb128 0x2e
+	.4byte	.LASF13561
 	.byte	0x1
 	.2byte	0x26a
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13542
+	.uleb128 0x2e
+	.4byte	.LASF13564
 	.byte	0x1
 	.2byte	0x26a
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13543
+	.uleb128 0x30
+	.4byte	.LASF13565
 	.byte	0x1
 	.2byte	0x261
 	.4byte	0x81
@@ -5501,24 +5630,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE173-.LFB173
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1a3d
-	.uleb128 0x2c
-	.4byte	.LASF13539
+	.4byte	0x1ab1
+	.uleb128 0x2e
+	.4byte	.LASF13561
 	.byte	0x1
 	.2byte	0x261
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13542
+	.uleb128 0x2e
+	.4byte	.LASF13564
 	.byte	0x1
 	.2byte	0x261
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13544
+	.uleb128 0x30
+	.4byte	.LASF13566
 	.byte	0x1
 	.2byte	0x258
 	.4byte	0x81
@@ -5526,24 +5655,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE172-.LFB172
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1a74
-	.uleb128 0x2c
-	.4byte	.LASF13545
+	.4byte	0x1ae8
+	.uleb128 0x2e
+	.4byte	.LASF13567
 	.byte	0x1
 	.2byte	0x258
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13546
+	.uleb128 0x2e
+	.4byte	.LASF13568
 	.byte	0x1
 	.2byte	0x258
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13547
+	.uleb128 0x30
+	.4byte	.LASF13569
 	.byte	0x1
 	.2byte	0x24f
 	.4byte	0x81
@@ -5551,24 +5680,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE171-.LFB171
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1aab
-	.uleb128 0x2c
-	.4byte	.LASF13545
+	.4byte	0x1b1f
+	.uleb128 0x2e
+	.4byte	.LASF13567
 	.byte	0x1
 	.2byte	0x24f
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13548
+	.uleb128 0x2e
+	.4byte	.LASF13570
 	.byte	0x1
 	.2byte	0x24f
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13549
+	.uleb128 0x30
+	.4byte	.LASF13571
 	.byte	0x1
 	.2byte	0x246
 	.4byte	0x81
@@ -5576,24 +5705,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE170-.LFB170
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1ae2
-	.uleb128 0x2c
-	.4byte	.LASF13545
+	.4byte	0x1b56
+	.uleb128 0x2e
+	.4byte	.LASF13567
 	.byte	0x1
 	.2byte	0x246
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13550
+	.uleb128 0x2e
+	.4byte	.LASF13572
 	.byte	0x1
 	.2byte	0x246
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13551
+	.uleb128 0x30
+	.4byte	.LASF13573
 	.byte	0x1
 	.2byte	0x23d
 	.4byte	0x81
@@ -5601,17 +5730,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE169-.LFB169
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1b0b
-	.uleb128 0x2c
-	.4byte	.LASF13552
+	.4byte	0x1b7f
+	.uleb128 0x2e
+	.4byte	.LASF13574
 	.byte	0x1
 	.2byte	0x23d
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13553
+	.uleb128 0x30
+	.4byte	.LASF13575
 	.byte	0x1
 	.2byte	0x230
 	.4byte	0x81
@@ -5619,17 +5748,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE168-.LFB168
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1b34
-	.uleb128 0x2c
-	.4byte	.LASF13552
+	.4byte	0x1ba8
+	.uleb128 0x2e
+	.4byte	.LASF13574
 	.byte	0x1
 	.2byte	0x230
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13554
+	.uleb128 0x30
+	.4byte	.LASF13576
 	.byte	0x1
 	.2byte	0x223
 	.4byte	0x81
@@ -5637,17 +5766,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE167-.LFB167
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1b5d
-	.uleb128 0x2c
-	.4byte	.LASF13555
+	.4byte	0x1bd1
+	.uleb128 0x2e
+	.4byte	.LASF13577
 	.byte	0x1
 	.2byte	0x223
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13556
+	.uleb128 0x30
+	.4byte	.LASF13578
 	.byte	0x1
 	.2byte	0x21b
 	.4byte	0x81
@@ -5655,17 +5784,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE166-.LFB166
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1b86
-	.uleb128 0x2c
-	.4byte	.LASF13557
+	.4byte	0x1bfa
+	.uleb128 0x2e
+	.4byte	.LASF13579
 	.byte	0x1
 	.2byte	0x21b
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13558
+	.uleb128 0x30
+	.4byte	.LASF13580
 	.byte	0x1
 	.2byte	0x210
 	.4byte	0x81
@@ -5673,17 +5802,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE165-.LFB165
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1baf
-	.uleb128 0x2c
-	.4byte	.LASF13559
+	.4byte	0x1c23
+	.uleb128 0x2e
+	.4byte	.LASF13581
 	.byte	0x1
 	.2byte	0x210
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13560
+	.uleb128 0x30
+	.4byte	.LASF13582
 	.byte	0x1
 	.2byte	0x205
 	.4byte	0x81
@@ -5691,17 +5820,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE164-.LFB164
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1bd8
-	.uleb128 0x2c
-	.4byte	.LASF13561
+	.4byte	0x1c4c
+	.uleb128 0x2e
+	.4byte	.LASF13583
 	.byte	0x1
 	.2byte	0x205
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13562
+	.uleb128 0x30
+	.4byte	.LASF13584
 	.byte	0x1
 	.2byte	0x1fa
 	.4byte	0x81
@@ -5709,17 +5838,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE163-.LFB163
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1c01
-	.uleb128 0x2c
-	.4byte	.LASF13563
+	.4byte	0x1c75
+	.uleb128 0x2e
+	.4byte	.LASF13585
 	.byte	0x1
 	.2byte	0x1fa
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2f
-	.4byte	.LASF13564
+	.uleb128 0x31
+	.4byte	.LASF13586
 	.byte	0x1
 	.2byte	0x1ef
 	.4byte	0x81
@@ -5727,8 +5856,8 @@ touchpanel_get_register_value:
 	.4byte	.LFE162-.LFB162
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0x2e
-	.4byte	.LASF13565
+	.uleb128 0x30
+	.4byte	.LASF13587
 	.byte	0x1
 	.2byte	0x1e9
 	.4byte	0x81
@@ -5736,17 +5865,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE161-.LFB161
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1c40
-	.uleb128 0x2c
-	.4byte	.LASF13566
+	.4byte	0x1cb4
+	.uleb128 0x2e
+	.4byte	.LASF13588
 	.byte	0x1
 	.2byte	0x1e9
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13567
+	.uleb128 0x30
+	.4byte	.LASF13589
 	.byte	0x1
 	.2byte	0x1e0
 	.4byte	0x81
@@ -5754,17 +5883,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE160-.LFB160
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1c69
-	.uleb128 0x2c
-	.4byte	.LASF13568
+	.4byte	0x1cdd
+	.uleb128 0x2e
+	.4byte	.LASF13590
 	.byte	0x1
 	.2byte	0x1e0
 	.4byte	0x81
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13569
+	.uleb128 0x30
+	.4byte	.LASF13591
 	.byte	0x1
 	.2byte	0x1d8
 	.4byte	0x81
@@ -5772,17 +5901,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE159-.LFB159
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1c92
-	.uleb128 0x2c
-	.4byte	.LASF13570
+	.4byte	0x1d06
+	.uleb128 0x2e
+	.4byte	.LASF13592
 	.byte	0x1
 	.2byte	0x1d8
 	.4byte	0xce6
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13571
+	.uleb128 0x30
+	.4byte	.LASF13593
 	.byte	0x1
 	.2byte	0x1d0
 	.4byte	0x81
@@ -5790,24 +5919,24 @@ touchpanel_get_register_value:
 	.4byte	.LFE158-.LFB158
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1cc9
-	.uleb128 0x2c
-	.4byte	.LASF13572
+	.4byte	0x1d3d
+	.uleb128 0x2e
+	.4byte	.LASF13594
 	.byte	0x1
 	.2byte	0x1d0
 	.4byte	0xcf7
 	.uleb128 0x1
 	.byte	0x50
-	.uleb128 0x2c
-	.4byte	.LASF13482
+	.uleb128 0x2e
+	.4byte	.LASF13504
 	.byte	0x1
 	.2byte	0x1d0
 	.4byte	0x30
 	.uleb128 0x1
 	.byte	0x51
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13573
+	.uleb128 0x30
+	.4byte	.LASF13595
 	.byte	0x1
 	.2byte	0x1c6
 	.4byte	0x81
@@ -5815,17 +5944,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE157-.LFB157
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1cf2
-	.uleb128 0x2c
-	.4byte	.LASF13574
+	.4byte	0x1d66
+	.uleb128 0x2e
+	.4byte	.LASF13596
 	.byte	0x1
 	.2byte	0x1c6
 	.4byte	0xcf7
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13575
+	.uleb128 0x30
+	.4byte	.LASF13597
 	.byte	0x1
 	.2byte	0x1be
 	.4byte	0x81
@@ -5833,17 +5962,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE156-.LFB156
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1d1b
-	.uleb128 0x2c
-	.4byte	.LASF13576
+	.4byte	0x1d8f
+	.uleb128 0x2e
+	.4byte	.LASF13598
 	.byte	0x1
 	.2byte	0x1be
 	.4byte	0xcf7
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x2e
-	.4byte	.LASF13577
+	.uleb128 0x30
+	.4byte	.LASF13599
 	.byte	0x1
 	.2byte	0x1b6
 	.4byte	0x81
@@ -5851,20 +5980,20 @@ touchpanel_get_register_value:
 	.4byte	.LFE155-.LFB155
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1d44
-	.uleb128 0x2c
-	.4byte	.LASF13578
+	.4byte	0x1db8
+	.uleb128 0x2e
+	.4byte	.LASF13600
 	.byte	0x1
 	.2byte	0x1b6
-	.4byte	0x1d44
+	.4byte	0x1db8
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
 	.uleb128 0xb
 	.byte	0x4
 	.4byte	0xe34
-	.uleb128 0x2e
-	.4byte	.LASF13579
+	.uleb128 0x30
+	.4byte	.LASF13601
 	.byte	0x1
 	.2byte	0x1ae
 	.4byte	0x81
@@ -5872,17 +6001,17 @@ touchpanel_get_register_value:
 	.4byte	.LFE154-.LFB154
 	.uleb128 0x1
 	.byte	0x9c
-	.4byte	0x1d73
-	.uleb128 0x2c
-	.4byte	.LASF13578
+	.4byte	0x1de7
+	.uleb128 0x2e
+	.4byte	.LASF13600
 	.byte	0x1
 	.2byte	0x1ae
-	.4byte	0x1d44
+	.4byte	0x1db8
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
-	.uleb128 0x31
-	.4byte	.LASF13585
+	.uleb128 0x33
+	.4byte	.LASF13608
 	.byte	0x1
 	.2byte	0x1a5
 	.4byte	0x81
@@ -5890,11 +6019,11 @@ touchpanel_get_register_value:
 	.4byte	.LFE153-.LFB153
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0x2c
-	.4byte	.LASF13578
+	.uleb128 0x2e
+	.4byte	.LASF13600
 	.byte	0x1
 	.2byte	0x1a5
-	.4byte	0x1d44
+	.4byte	0x1db8
 	.uleb128 0x1
 	.byte	0x50
 	.byte	0
@@ -6276,60 +6405,6 @@ touchpanel_get_register_value:
 	.byte	0
 	.byte	0
 	.uleb128 0x1f
-	.uleb128 0x17
-	.byte	0x1
-	.uleb128 0xb
-	.uleb128 0xb
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x1
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x20
-	.uleb128 0xd
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0xe
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x21
-	.uleb128 0xd
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.byte	0
-	.byte	0
-	.uleb128 0x22
-	.uleb128 0xd
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x38
-	.uleb128 0xb
-	.byte	0
-	.byte	0
-	.uleb128 0x23
 	.uleb128 0x4
 	.byte	0x1
 	.uleb128 0xb
@@ -6344,35 +6419,71 @@ touchpanel_get_register_value:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x24
-	.uleb128 0x2e
+	.uleb128 0x20
+	.uleb128 0x28
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x1c
+	.uleb128 0x6
+	.byte	0
+	.byte	0
+	.uleb128 0x21
+	.uleb128 0x17
 	.byte	0x1
-	.uleb128 0x3f
-	.uleb128 0x19
+	.uleb128 0xb
+	.uleb128 0xb
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x22
+	.uleb128 0xd
+	.byte	0
 	.uleb128 0x3
 	.uleb128 0xe
 	.uleb128 0x3a
 	.uleb128 0xb
 	.uleb128 0x3b
 	.uleb128 0xb
-	.uleb128 0x27
-	.uleb128 0x19
 	.uleb128 0x49
 	.uleb128 0x13
-	.uleb128 0x11
-	.uleb128 0x1
-	.uleb128 0x12
-	.uleb128 0x6
-	.uleb128 0x40
-	.uleb128 0x18
-	.uleb128 0x2116
-	.uleb128 0x19
-	.uleb128 0x1
+	.byte	0
+	.byte	0
+	.uleb128 0x23
+	.uleb128 0xd
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
 	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x24
+	.uleb128 0xd
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x38
+	.uleb128 0xb
 	.byte	0
 	.byte	0
 	.uleb128 0x25
-	.uleb128 0x5
+	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
 	.uleb128 0xe
@@ -6397,6 +6508,8 @@ touchpanel_get_register_value:
 	.uleb128 0xb
 	.uleb128 0x49
 	.uleb128 0x13
+	.uleb128 0x3f
+	.uleb128 0x19
 	.uleb128 0x2
 	.uleb128 0x18
 	.byte	0
@@ -6422,13 +6535,28 @@ touchpanel_get_register_value:
 	.uleb128 0x6
 	.uleb128 0x40
 	.uleb128 0x18
-	.uleb128 0x2117
+	.uleb128 0x2116
 	.uleb128 0x19
 	.uleb128 0x1
 	.uleb128 0x13
 	.byte	0
 	.byte	0
 	.uleb128 0x28
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x29
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x11
@@ -6437,7 +6565,7 @@ touchpanel_get_register_value:
 	.uleb128 0x6
 	.byte	0
 	.byte	0
-	.uleb128 0x29
+	.uleb128 0x2a
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -6452,7 +6580,7 @@ touchpanel_get_register_value:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x2a
+	.uleb128 0x2b
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -6477,7 +6605,28 @@ touchpanel_get_register_value:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x2b
+	.uleb128 0x2c
+	.uleb128 0x2e
+	.byte	0
+	.uleb128 0x3f
+	.uleb128 0x19
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x6
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2116
+	.uleb128 0x19
+	.byte	0
+	.byte	0
+	.uleb128 0x2d
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -6502,7 +6651,7 @@ touchpanel_get_register_value:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x2c
+	.uleb128 0x2e
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -6517,7 +6666,7 @@ touchpanel_get_register_value:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x2d
+	.uleb128 0x2f
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -6532,7 +6681,7 @@ touchpanel_get_register_value:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x2e
+	.uleb128 0x30
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -6557,7 +6706,7 @@ touchpanel_get_register_value:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x2f
+	.uleb128 0x31
 	.uleb128 0x2e
 	.byte	0
 	.uleb128 0x3
@@ -6580,12 +6729,12 @@ touchpanel_get_register_value:
 	.uleb128 0x19
 	.byte	0
 	.byte	0
-	.uleb128 0x30
+	.uleb128 0x32
 	.uleb128 0x35
 	.byte	0
 	.byte	0
 	.byte	0
-	.uleb128 0x31
+	.uleb128 0x33
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -6610,10 +6759,10 @@ touchpanel_get_register_value:
 	.byte	0
 	.byte	0
 	.section	.debug_pubnames,"",%progbits
-	.4byte	0xb10
+	.4byte	0xbe3
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x1d99
+	.4byte	0x1e0d
 	.4byte	0xd0d
 	.ascii	"SD_PPI_CHANNEL_ENABLE_GET\000"
 	.4byte	0xd13
@@ -6712,122 +6861,146 @@ touchpanel_get_register_value:
 	.ascii	"SD_POWER_USBREGSTATUS_GET\000"
 	.4byte	0xe2d
 	.ascii	"SVC_SOC_LAST\000"
-	.4byte	0x1290
+	.4byte	0x1159
+	.ascii	"NRFX_TWIM0_INST_IDX\000"
+	.4byte	0x115f
+	.ascii	"NRFX_TWIM_ENABLED_COUNT\000"
+	.4byte	0x1179
+	.ascii	"NRF_TWI_FREQ_100K\000"
+	.4byte	0x1182
+	.ascii	"NRF_TWI_FREQ_250K\000"
+	.4byte	0x118b
+	.ascii	"NRF_TWI_FREQ_400K\000"
+	.4byte	0x1221
+	.ascii	"m_twi\000"
+	.4byte	0x123e
+	.ascii	"PUTDOWN\000"
+	.4byte	0x1244
+	.ascii	"PUTUP\000"
+	.4byte	0x124a
+	.ascii	"CONTACT\000"
+	.4byte	0x1250
+	.ascii	"RESERVED\000"
+	.4byte	0x12e2
+	.ascii	"touchpoints\000"
+	.4byte	0x12f3
 	.ascii	"touchpanel_get_register_value\000"
-	.4byte	0x12da
+	.4byte	0x133d
 	.ascii	"touchpanel_send_cmd\000"
-	.4byte	0x133c
+	.4byte	0x139f
 	.ascii	"touchpanel_get_pressed_buttons\000"
-	.4byte	0x138e
+	.4byte	0x13eb
 	.ascii	"touchpanel_parse_touches\000"
-	.4byte	0x13e4
+	.4byte	0x1447
 	.ascii	"touchpanel_get_values_of_touches\000"
-	.4byte	0x1454
+	.4byte	0x14b7
+	.ascii	"touchpanel_init\000"
+	.4byte	0x14c8
 	.ascii	"nrf_drv_twi_rx\000"
-	.4byte	0x14c0
+	.4byte	0x1534
 	.ascii	"nrf_drv_twi_tx\000"
-	.4byte	0x1535
+	.4byte	0x15a9
 	.ascii	"sd_protected_register_write\000"
-	.4byte	0x1572
+	.4byte	0x15e6
 	.ascii	"sd_radio_request\000"
-	.4byte	0x15a1
+	.4byte	0x1615
 	.ascii	"sd_radio_session_close\000"
-	.4byte	0x15b7
+	.4byte	0x162b
 	.ascii	"sd_radio_session_open\000"
-	.4byte	0x15e0
-	.ascii	"sd_flash_page_erase\000"
-	.4byte	0x1609
-	.ascii	"sd_flash_write\000"
 	.4byte	0x1654
+	.ascii	"sd_flash_page_erase\000"
+	.4byte	0x167d
+	.ascii	"sd_flash_write\000"
+	.4byte	0x16c8
 	.ascii	"sd_temp_get\000"
-	.4byte	0x1683
+	.4byte	0x16f7
 	.ascii	"sd_evt_get\000"
-	.4byte	0x16ac
+	.4byte	0x1720
 	.ascii	"sd_ecb_blocks_encrypt\000"
-	.4byte	0x16e9
+	.4byte	0x175d
 	.ascii	"sd_ecb_block_encrypt\000"
-	.4byte	0x1718
+	.4byte	0x178c
 	.ascii	"sd_radio_notification_cfg_set\000"
-	.4byte	0x174f
+	.4byte	0x17c3
 	.ascii	"sd_ppi_group_get\000"
-	.4byte	0x1786
+	.4byte	0x17fa
 	.ascii	"sd_ppi_group_assign\000"
-	.4byte	0x17bd
+	.4byte	0x1831
 	.ascii	"sd_ppi_group_task_disable\000"
-	.4byte	0x17e6
+	.4byte	0x185a
 	.ascii	"sd_ppi_group_task_enable\000"
-	.4byte	0x180f
+	.4byte	0x1883
 	.ascii	"sd_ppi_channel_assign\000"
-	.4byte	0x1860
+	.4byte	0x18d4
 	.ascii	"sd_ppi_channel_enable_clr\000"
-	.4byte	0x1889
+	.4byte	0x18fd
 	.ascii	"sd_ppi_channel_enable_set\000"
-	.4byte	0x18b2
+	.4byte	0x1926
 	.ascii	"sd_ppi_channel_enable_get\000"
-	.4byte	0x18db
+	.4byte	0x194f
 	.ascii	"sd_app_evt_wait\000"
-	.4byte	0x18f1
+	.4byte	0x1965
 	.ascii	"sd_clock_hfclk_is_running\000"
-	.4byte	0x191a
+	.4byte	0x198e
 	.ascii	"sd_clock_hfclk_release\000"
-	.4byte	0x1930
+	.4byte	0x19a4
 	.ascii	"sd_clock_hfclk_request\000"
-	.4byte	0x1946
+	.4byte	0x19ba
 	.ascii	"sd_power_dcdc0_mode_set\000"
-	.4byte	0x196f
+	.4byte	0x19e3
 	.ascii	"sd_power_dcdc_mode_set\000"
-	.4byte	0x1998
+	.4byte	0x1a0c
 	.ascii	"sd_power_gpregret_get\000"
-	.4byte	0x19cf
+	.4byte	0x1a43
 	.ascii	"sd_power_gpregret_clr\000"
-	.4byte	0x1a06
+	.4byte	0x1a7a
 	.ascii	"sd_power_gpregret_set\000"
-	.4byte	0x1a3d
+	.4byte	0x1ab1
 	.ascii	"sd_power_ram_power_get\000"
-	.4byte	0x1a74
+	.4byte	0x1ae8
 	.ascii	"sd_power_ram_power_clr\000"
-	.4byte	0x1aab
+	.4byte	0x1b1f
 	.ascii	"sd_power_ram_power_set\000"
-	.4byte	0x1ae2
+	.4byte	0x1b56
 	.ascii	"sd_power_pof_thresholdvddh_set\000"
-	.4byte	0x1b0b
+	.4byte	0x1b7f
 	.ascii	"sd_power_pof_threshold_set\000"
-	.4byte	0x1b34
+	.4byte	0x1ba8
 	.ascii	"sd_power_usbregstatus_get\000"
-	.4byte	0x1b5d
+	.4byte	0x1bd1
 	.ascii	"sd_power_usbremoved_enable\000"
-	.4byte	0x1b86
+	.4byte	0x1bfa
 	.ascii	"sd_power_usbdetected_enable\000"
-	.4byte	0x1baf
+	.4byte	0x1c23
 	.ascii	"sd_power_usbpwrrdy_enable\000"
-	.4byte	0x1bd8
+	.4byte	0x1c4c
 	.ascii	"sd_power_pof_enable\000"
-	.4byte	0x1c01
+	.4byte	0x1c75
 	.ascii	"sd_power_system_off\000"
-	.4byte	0x1c17
+	.4byte	0x1c8b
 	.ascii	"sd_power_mode_set\000"
-	.4byte	0x1c40
+	.4byte	0x1cb4
 	.ascii	"sd_power_reset_reason_clr\000"
-	.4byte	0x1c69
+	.4byte	0x1cdd
 	.ascii	"sd_power_reset_reason_get\000"
-	.4byte	0x1c92
+	.4byte	0x1d06
 	.ascii	"sd_rand_application_vector_get\000"
-	.4byte	0x1cc9
+	.4byte	0x1d3d
 	.ascii	"sd_rand_application_bytes_available_get\000"
-	.4byte	0x1cf2
+	.4byte	0x1d66
 	.ascii	"sd_rand_application_pool_capacity_get\000"
-	.4byte	0x1d1b
+	.4byte	0x1d8f
 	.ascii	"sd_mutex_release\000"
-	.4byte	0x1d4a
+	.4byte	0x1dbe
 	.ascii	"sd_mutex_acquire\000"
-	.4byte	0x1d73
+	.4byte	0x1de7
 	.ascii	"sd_mutex_new\000"
 	.4byte	0
 	.section	.debug_pubtypes,"",%progbits
 	.4byte	0x3ef
 	.2byte	0x2
 	.4byte	.Ldebug_info0
-	.4byte	0x1d99
+	.4byte	0x1e0d
 	.4byte	0x29
 	.ascii	"signed char\000"
 	.4byte	0x45
@@ -6918,21 +7091,21 @@ touchpanel_get_register_value:
 	.ascii	"ret_code_t\000"
 	.4byte	0x1142
 	.ascii	"nrfx_twim_t\000"
-	.4byte	0x114d
+	.4byte	0x1166
 	.ascii	"_Bool\000"
-	.4byte	0x117b
+	.4byte	0x11bc
 	.ascii	"nrfx_twi_t\000"
-	.4byte	0x11d0
+	.4byte	0x1211
 	.ascii	"nrf_drv_twi_t\000"
-	.4byte	0x1205
+	.4byte	0x1257
 	.ascii	"touchpoint_event\000"
-	.4byte	0x1249
+	.4byte	0x129b
 	.ascii	"touchpoint_t\000"
-	.4byte	0x1285
+	.4byte	0x12d7
 	.ascii	"touchpoints_t\000"
 	.4byte	0
 	.section	.debug_aranges,"",%progbits
-	.4byte	0x1cc
+	.4byte	0x1d4
 	.2byte	0x2
 	.4byte	.Ldebug_info0
 	.byte	0x4
@@ -7039,16 +7212,18 @@ touchpanel_get_register_value:
 	.4byte	.LFE263-.LFB263
 	.4byte	.LFB264
 	.4byte	.LFE264-.LFB264
-	.4byte	.LFB270
-	.4byte	.LFE270-.LFB270
-	.4byte	.LFB271
-	.4byte	.LFE271-.LFB271
-	.4byte	.LFB272
-	.4byte	.LFE272-.LFB272
-	.4byte	.LFB273
-	.4byte	.LFE273-.LFB273
-	.4byte	.LFB274
-	.4byte	.LFE274-.LFB274
+	.4byte	.LFB320
+	.4byte	.LFE320-.LFB320
+	.4byte	.LFB321
+	.4byte	.LFE321-.LFB321
+	.4byte	.LFB322
+	.4byte	.LFE322-.LFB322
+	.4byte	.LFB323
+	.4byte	.LFE323-.LFB323
+	.4byte	.LFB324
+	.4byte	.LFE324-.LFB324
+	.4byte	.LFB325
+	.4byte	.LFE325-.LFB325
 	.4byte	0
 	.4byte	0
 	.section	.debug_ranges,"",%progbits
@@ -7153,16 +7328,18 @@ touchpanel_get_register_value:
 	.4byte	.LFE263
 	.4byte	.LFB264
 	.4byte	.LFE264
-	.4byte	.LFB270
-	.4byte	.LFE270
-	.4byte	.LFB271
-	.4byte	.LFE271
-	.4byte	.LFB272
-	.4byte	.LFE272
-	.4byte	.LFB273
-	.4byte	.LFE273
-	.4byte	.LFB274
-	.4byte	.LFE274
+	.4byte	.LFB320
+	.4byte	.LFE320
+	.4byte	.LFB321
+	.4byte	.LFE321
+	.4byte	.LFB322
+	.4byte	.LFE322
+	.4byte	.LFB323
+	.4byte	.LFE323
+	.4byte	.LFB324
+	.4byte	.LFE324
+	.4byte	.LFB325
+	.4byte	.LFE325
 	.4byte	0
 	.4byte	0
 	.section	.debug_macro,"",%progbits
@@ -7177,7 +7354,7 @@ touchpanel_get_register_value:
 	.uleb128 0x3
 	.byte	0x3
 	.uleb128 0x1
-	.uleb128 0xf
+	.uleb128 0x10
 	.byte	0x5
 	.uleb128 0x2
 	.4byte	.LASF389
@@ -7193,39 +7370,39 @@ touchpanel_get_register_value:
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF450
-	.file 16 "../../../../../../modules/nrfx/nrfx.h"
+	.file 18 "../../../../../../modules/nrfx/nrfx.h"
 	.byte	0x3
 	.uleb128 0x2c
-	.uleb128 0x10
+	.uleb128 0x12
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF451
-	.file 17 "../../../../../../integration/nrfx/nrfx_config.h"
+	.file 19 "../config/nrfx_config.h"
 	.byte	0x3
 	.uleb128 0x2c
-	.uleb128 0x11
+	.uleb128 0x13
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF452
-	.file 18 "../config/sdk_config.h"
+	.file 20 "../config/sdk_config.h"
 	.byte	0x3
-	.uleb128 0x2d
-	.uleb128 0x12
+	.uleb128 0x2e
+	.uleb128 0x14
 	.byte	0x7
 	.4byte	.Ldebug_macro3
 	.byte	0x4
 	.byte	0x4
-	.file 19 "../../../../../../modules/nrfx/drivers/nrfx_common.h"
+	.file 21 "../../../../../../modules/nrfx/drivers/nrfx_common.h"
 	.byte	0x3
 	.uleb128 0x2d
-	.uleb128 0x13
+	.uleb128 0x15
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF1555
-	.file 20 "C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/stddef.h"
+	.file 22 "C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/stddef.h"
 	.byte	0x3
 	.uleb128 0x2d
-	.uleb128 0x14
+	.uleb128 0x16
 	.byte	0x5
 	.uleb128 0xd
 	.4byte	.LASF1556
@@ -7238,17 +7415,17 @@ touchpanel_get_register_value:
 	.byte	0x7
 	.4byte	.Ldebug_macro5
 	.byte	0x4
-	.file 21 "C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/stdbool.h"
+	.file 23 "C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/stdbool.h"
 	.byte	0x3
 	.uleb128 0x2e
-	.uleb128 0x15
+	.uleb128 0x17
 	.byte	0x7
 	.4byte	.Ldebug_macro6
 	.byte	0x4
-	.file 22 "../../../../../../modules/nrfx/mdk/nrf.h"
+	.file 24 "../../../../../../modules/nrfx/mdk/nrf.h"
 	.byte	0x3
 	.uleb128 0x30
-	.uleb128 0x16
+	.uleb128 0x18
 	.byte	0x7
 	.4byte	.Ldebug_macro7
 	.byte	0x3
@@ -7261,33 +7438,33 @@ touchpanel_get_register_value:
 	.uleb128 0x6
 	.byte	0x7
 	.4byte	.Ldebug_macro9
-	.file 23 "../../../../../../components/toolchain/cmsis/include/core_cmInstr.h"
+	.file 25 "../../../../../../components/toolchain/cmsis/include/core_cmInstr.h"
 	.byte	0x3
 	.uleb128 0xd2
-	.uleb128 0x17
+	.uleb128 0x19
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF1607
-	.file 24 "../../../../../../components/toolchain/cmsis/include/cmsis_gcc.h"
+	.file 26 "../../../../../../components/toolchain/cmsis/include/cmsis_gcc.h"
 	.byte	0x3
 	.uleb128 0x3d
-	.uleb128 0x18
+	.uleb128 0x1a
 	.byte	0x7
 	.4byte	.Ldebug_macro10
 	.byte	0x4
 	.byte	0x4
-	.file 25 "../../../../../../components/toolchain/cmsis/include/core_cmFunc.h"
+	.file 27 "../../../../../../components/toolchain/cmsis/include/core_cmFunc.h"
 	.byte	0x3
 	.uleb128 0xd3
-	.uleb128 0x19
+	.uleb128 0x1b
 	.byte	0x5
 	.uleb128 0x29
 	.4byte	.LASF1619
 	.byte	0x4
-	.file 26 "../../../../../../components/toolchain/cmsis/include/core_cmSimd.h"
+	.file 28 "../../../../../../components/toolchain/cmsis/include/core_cmSimd.h"
 	.byte	0x3
 	.uleb128 0xd4
-	.uleb128 0x1a
+	.uleb128 0x1c
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF1620
@@ -7305,46 +7482,46 @@ touchpanel_get_register_value:
 	.byte	0x7
 	.4byte	.Ldebug_macro12
 	.byte	0x4
-	.file 27 "../../../../../../modules/nrfx/mdk/nrf52840_bitfields.h"
+	.file 29 "../../../../../../modules/nrfx/mdk/nrf52840_bitfields.h"
 	.byte	0x3
 	.uleb128 0x50
-	.uleb128 0x1b
+	.uleb128 0x1d
 	.byte	0x7
 	.4byte	.Ldebug_macro13
 	.byte	0x4
-	.file 28 "../../../../../../modules/nrfx/mdk/nrf51_to_nrf52840.h"
+	.file 30 "../../../../../../modules/nrfx/mdk/nrf51_to_nrf52840.h"
 	.byte	0x3
 	.uleb128 0x51
-	.uleb128 0x1c
+	.uleb128 0x1e
 	.byte	0x7
 	.4byte	.Ldebug_macro14
 	.byte	0x4
-	.file 29 "../../../../../../modules/nrfx/mdk/nrf52_to_nrf52840.h"
+	.file 31 "../../../../../../modules/nrfx/mdk/nrf52_to_nrf52840.h"
 	.byte	0x3
 	.uleb128 0x52
-	.uleb128 0x1d
+	.uleb128 0x1f
 	.byte	0x7
 	.4byte	.Ldebug_macro15
 	.byte	0x4
-	.file 30 "../../../../../../modules/nrfx/mdk/compiler_abstraction.h"
+	.file 32 "../../../../../../modules/nrfx/mdk/compiler_abstraction.h"
 	.byte	0x3
 	.uleb128 0x61
-	.uleb128 0x1e
+	.uleb128 0x20
 	.byte	0x7
 	.4byte	.Ldebug_macro16
 	.byte	0x4
 	.byte	0x4
-	.file 31 "../../../../../../modules/nrfx/mdk/nrf_peripherals.h"
+	.file 33 "../../../../../../modules/nrfx/mdk/nrf_peripherals.h"
 	.byte	0x3
 	.uleb128 0x31
-	.uleb128 0x1f
+	.uleb128 0x21
 	.byte	0x5
 	.uleb128 0x2b
 	.4byte	.LASF11982
-	.file 32 "../../../../../../modules/nrfx/mdk/nrf52840_peripherals.h"
+	.file 34 "../../../../../../modules/nrfx/mdk/nrf52840_peripherals.h"
 	.byte	0x3
 	.uleb128 0x3f
-	.uleb128 0x20
+	.uleb128 0x22
 	.byte	0x7
 	.4byte	.Ldebug_macro17
 	.byte	0x4
@@ -7352,39 +7529,39 @@ touchpanel_get_register_value:
 	.byte	0x7
 	.4byte	.Ldebug_macro18
 	.byte	0x4
-	.file 33 "../../../../../../integration/nrfx/nrfx_glue.h"
+	.file 35 "../../../../../../integration/nrfx/nrfx_glue.h"
 	.byte	0x3
 	.uleb128 0x2e
-	.uleb128 0x21
-	.byte	0x5
-	.uleb128 0x2a
-	.4byte	.LASF12147
-	.file 34 "../../../../../../integration/nrfx/legacy/apply_old_config.h"
-	.byte	0x3
-	.uleb128 0x39
-	.uleb128 0x22
-	.byte	0x7
-	.4byte	.Ldebug_macro19
-	.byte	0x4
-	.file 35 "../../../../../../modules/nrfx/soc/nrfx_irqs.h"
-	.byte	0x3
-	.uleb128 0x3b
 	.uleb128 0x23
 	.byte	0x5
 	.uleb128 0x2a
+	.4byte	.LASF12147
+	.file 36 "../../../../../../integration/nrfx/legacy/apply_old_config.h"
+	.byte	0x3
+	.uleb128 0x39
+	.uleb128 0x24
+	.byte	0x7
+	.4byte	.Ldebug_macro19
+	.byte	0x4
+	.file 37 "../../../../../../modules/nrfx/soc/nrfx_irqs.h"
+	.byte	0x3
+	.uleb128 0x3b
+	.uleb128 0x25
+	.byte	0x5
+	.uleb128 0x2a
 	.4byte	.LASF12672
-	.file 36 "../../../../../../modules/nrfx/soc/nrfx_irqs_nrf52840.h"
+	.file 38 "../../../../../../modules/nrfx/soc/nrfx_irqs_nrf52840.h"
 	.byte	0x3
 	.uleb128 0x33
-	.uleb128 0x24
+	.uleb128 0x26
 	.byte	0x7
 	.4byte	.Ldebug_macro20
 	.byte	0x4
 	.byte	0x4
-	.file 37 "../../../../../../components/libraries/util/nrf_assert.h"
+	.file 39 "../../../../../../components/libraries/util/nrf_assert.h"
 	.byte	0x3
 	.uleb128 0x3f
-	.uleb128 0x25
+	.uleb128 0x27
 	.byte	0x7
 	.4byte	.Ldebug_macro21
 	.byte	0x4
@@ -7399,12 +7576,12 @@ touchpanel_get_register_value:
 	.4byte	.LASF12725
 	.byte	0x3
 	.uleb128 0x37
-	.uleb128 0x1e
+	.uleb128 0x20
 	.byte	0x4
-	.file 38 "../../../../../../components/libraries/util/nordic_common.h"
+	.file 40 "../../../../../../components/libraries/util/nordic_common.h"
 	.byte	0x3
 	.uleb128 0x38
-	.uleb128 0x26
+	.uleb128 0x28
 	.byte	0x7
 	.4byte	.Ldebug_macro22
 	.byte	0x4
@@ -7415,12 +7592,12 @@ touchpanel_get_register_value:
 	.4byte	.Ldebug_macro24
 	.byte	0x3
 	.uleb128 0xb6
-	.uleb128 0x26
+	.uleb128 0x28
 	.byte	0x4
-	.file 39 "../../../../../../components/libraries/util/app_util_platform.h"
+	.file 41 "../../../../../../components/libraries/util/app_util_platform.h"
 	.byte	0x3
 	.uleb128 0xb7
-	.uleb128 0x27
+	.uleb128 0x29
 	.byte	0x5
 	.uleb128 0x32
 	.4byte	.LASF12969
@@ -7430,24 +7607,24 @@ touchpanel_get_register_value:
 	.byte	0x5
 	.uleb128 0x30
 	.4byte	.LASF12970
-	.file 40 "../../../../../../components/softdevice/s140/headers/nrf_svc.h"
+	.file 42 "../../../../../../components/softdevice/s140/headers/nrf_svc.h"
 	.byte	0x3
 	.uleb128 0x34
-	.uleb128 0x28
+	.uleb128 0x2a
 	.byte	0x7
 	.4byte	.Ldebug_macro25
 	.byte	0x4
-	.file 41 "../../../../../../components/softdevice/s140/headers/nrf_error.h"
+	.file 43 "../../../../../../components/softdevice/s140/headers/nrf_error.h"
 	.byte	0x3
 	.uleb128 0x35
-	.uleb128 0x29
+	.uleb128 0x2b
 	.byte	0x7
 	.4byte	.Ldebug_macro26
 	.byte	0x4
-	.file 42 "../../../../../../components/softdevice/s140/headers/nrf_error_soc.h"
+	.file 44 "../../../../../../components/softdevice/s140/headers/nrf_error_soc.h"
 	.byte	0x3
 	.uleb128 0x36
-	.uleb128 0x2a
+	.uleb128 0x2c
 	.byte	0x7
 	.4byte	.Ldebug_macro27
 	.byte	0x4
@@ -7462,12 +7639,12 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x3b
-	.uleb128 0x25
+	.uleb128 0x27
 	.byte	0x4
-	.file 43 "../../../../../../components/libraries/util/app_error.h"
+	.file 45 "../../../../../../components/libraries/util/app_error.h"
 	.byte	0x3
 	.uleb128 0x3c
-	.uleb128 0x2b
+	.uleb128 0x2d
 	.byte	0x5
 	.uleb128 0x32
 	.4byte	.LASF13035
@@ -7485,15 +7662,15 @@ touchpanel_get_register_value:
 	.4byte	.LASF13051
 	.byte	0x3
 	.uleb128 0x49
-	.uleb128 0x29
+	.uleb128 0x2b
 	.byte	0x4
 	.byte	0x7
 	.4byte	.Ldebug_macro31
 	.byte	0x4
-	.file 44 "../../../../../../components/libraries/util/app_error_weak.h"
+	.file 46 "../../../../../../components/libraries/util/app_error_weak.h"
 	.byte	0x3
 	.uleb128 0x3b
-	.uleb128 0x2c
+	.uleb128 0x2e
 	.byte	0x5
 	.uleb128 0x29
 	.4byte	.LASF13078
@@ -7506,10 +7683,10 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.byte	0x7
 	.4byte	.Ldebug_macro34
-	.file 45 "../../../../../../modules/nrfx/soc/nrfx_coredep.h"
+	.file 47 "../../../../../../modules/nrfx/soc/nrfx_coredep.h"
 	.byte	0x3
 	.uleb128 0xcc
-	.uleb128 0x2d
+	.uleb128 0x2f
 	.byte	0x7
 	.4byte	.Ldebug_macro35
 	.byte	0x4
@@ -7522,17 +7699,17 @@ touchpanel_get_register_value:
 	.byte	0x4
 	.byte	0x7
 	.4byte	.Ldebug_macro36
-	.file 46 "../../../../../../components/libraries/util/sdk_resources.h"
+	.file 48 "../../../../../../components/libraries/util/sdk_resources.h"
 	.byte	0x3
 	.uleb128 0xf1
-	.uleb128 0x2e
+	.uleb128 0x30
 	.byte	0x5
 	.uleb128 0x2d
 	.4byte	.LASF13135
-	.file 47 "../../../../../../components/softdevice/s140/headers/nrf_sd_def.h"
+	.file 49 "../../../../../../components/softdevice/s140/headers/nrf_sd_def.h"
 	.byte	0x3
 	.uleb128 0x34
-	.uleb128 0x2f
+	.uleb128 0x31
 	.byte	0x7
 	.4byte	.Ldebug_macro37
 	.byte	0x4
@@ -7542,14 +7719,16 @@ touchpanel_get_register_value:
 	.byte	0x7
 	.4byte	.Ldebug_macro39
 	.byte	0x4
-	.file 48 "../../../../../../modules/nrfx/drivers/nrfx_errors.h"
+	.file 50 "../../../../../../modules/nrfx/drivers/nrfx_errors.h"
 	.byte	0x3
 	.uleb128 0x2f
-	.uleb128 0x30
+	.uleb128 0x32
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF13155
 	.byte	0x4
+	.byte	0x7
+	.4byte	.Ldebug_macro40
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x2e
@@ -7557,47 +7736,86 @@ touchpanel_get_register_value:
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF13156
-	.file 49 "../../../../../../modules/nrfx/hal/nrf_twim.h"
+	.file 51 "../../../../../../modules/nrfx/hal/nrf_twim.h"
 	.byte	0x3
 	.uleb128 0x2d
-	.uleb128 0x31
+	.uleb128 0x33
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF13157
 	.byte	0x4
 	.byte	0x7
-	.4byte	.Ldebug_macro40
+	.4byte	.Ldebug_macro41
 	.byte	0x4
 	.byte	0x3
 	.uleb128 0x3f
-	.uleb128 0xe
+	.uleb128 0xf
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF13170
-	.file 50 "../../../../../../modules/nrfx/hal/nrf_twi.h"
 	.byte	0x3
 	.uleb128 0x2d
-	.uleb128 0x32
+	.uleb128 0xe
 	.byte	0x5
 	.uleb128 0x2a
 	.4byte	.LASF13171
 	.byte	0x4
 	.byte	0x7
-	.4byte	.Ldebug_macro41
-	.byte	0x4
-	.byte	0x7
 	.4byte	.Ldebug_macro42
-	.byte	0x4
-	.file 51 "C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/string.h"
-	.byte	0x3
-	.uleb128 0x6
-	.uleb128 0x33
-	.byte	0x5
-	.uleb128 0xd
-	.4byte	.LASF13197
 	.byte	0x4
 	.byte	0x7
 	.4byte	.Ldebug_macro43
+	.byte	0x4
+	.file 52 "C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0.0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_freertos\\pca10056\\s140\\ses\\g_lib\\g_gpiote.h"
+	.byte	0x3
+	.uleb128 0x6
+	.uleb128 0x34
+	.byte	0x5
+	.uleb128 0x2
+	.4byte	.LASF13197
+	.file 53 "../../../../../../modules/nrfx/hal/nrf_gpiote.h"
+	.byte	0x3
+	.uleb128 0x4
+	.uleb128 0x35
+	.byte	0x7
+	.4byte	.Ldebug_macro44
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x5
+	.uleb128 0x10
+	.byte	0x4
+	.byte	0x4
+	.byte	0x3
+	.uleb128 0x7
+	.uleb128 0x11
+	.byte	0x7
+	.4byte	.Ldebug_macro45
+	.byte	0x4
+	.file 54 "C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0.0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_freertos\\pca10056\\s140\\ses\\g_lib\\g_gpio.h"
+	.byte	0x3
+	.uleb128 0x8
+	.uleb128 0x36
+	.byte	0x5
+	.uleb128 0x2
+	.4byte	.LASF13205
+	.file 55 "../../../../../../modules/nrfx/hal/nrf_gpio.h"
+	.byte	0x3
+	.uleb128 0x4
+	.uleb128 0x37
+	.byte	0x7
+	.4byte	.Ldebug_macro46
+	.byte	0x4
+	.byte	0x4
+	.file 56 "C:/Program Files/SEGGER/SEGGER Embedded Studio for ARM 3.34b/include/string.h"
+	.byte	0x3
+	.uleb128 0x9
+	.uleb128 0x38
+	.byte	0x5
+	.uleb128 0xd
+	.4byte	.LASF13210
+	.byte	0x4
+	.byte	0x7
+	.4byte	.Ldebug_macro47
 	.byte	0x4
 	.byte	0x4
 	.byte	0
@@ -8961,7 +9179,7 @@ touchpanel_get_register_value:
 	.uleb128 0xbd
 	.4byte	.LASF449
 	.byte	0
-	.section	.debug_macro,"G",%progbits,wm4.sdk_config.h.42.2f12c1a3dc01a00207e06c563580b871,comdat
+	.section	.debug_macro,"G",%progbits,wm4.sdk_config.h.42.abffe8f6e20682abae73b3ba26db92ba,comdat
 .Ldebug_macro3:
 	.2byte	0x4
 	.byte	0
@@ -47225,8 +47443,25 @@ touchpanel_get_register_value:
 	.uleb128 0x104
 	.4byte	.LASF13154
 	.byte	0
-	.section	.debug_macro,"G",%progbits,wm4.nrfx_twim.h.70.7b34737751a8a8348c11c18c59ebdd72,comdat
+	.section	.debug_macro,"G",%progbits,wm4.nrfx.h.48.3d2374d5e6cd101fe01bfba9f287da1a,comdat
 .Ldebug_macro40:
+	.2byte	0x4
+	.byte	0
+	.byte	0x5
+	.uleb128 0x30
+	.4byte	.LASF794
+	.byte	0x5
+	.uleb128 0x31
+	.4byte	.LASF851
+	.byte	0x5
+	.uleb128 0x32
+	.4byte	.LASF792
+	.byte	0x5
+	.uleb128 0x33
+	.4byte	.LASF852
+	.byte	0
+	.section	.debug_macro,"G",%progbits,wm4.nrfx_twim.h.70.7b34737751a8a8348c11c18c59ebdd72,comdat
+.Ldebug_macro41:
 	.2byte	0x4
 	.byte	0
 	.byte	0x5
@@ -47267,7 +47502,7 @@ touchpanel_get_register_value:
 	.4byte	.LASF13169
 	.byte	0
 	.section	.debug_macro,"G",%progbits,wm4.nrfx_twi.h.70.98449846c0e29992c5fabd7cbb817a47,comdat
-.Ldebug_macro41:
+.Ldebug_macro42:
 	.2byte	0x4
 	.byte	0
 	.byte	0x5
@@ -47295,8 +47530,8 @@ touchpanel_get_register_value:
 	.uleb128 0xb2
 	.4byte	.LASF13179
 	.byte	0
-	.section	.debug_macro,"G",%progbits,wm4.nrf_drv_twi.h.119.f7df612115f105ef8957ecda7930eafa,comdat
-.Ldebug_macro42:
+	.section	.debug_macro,"G",%progbits,wm4.nrf_drv_twi.h.119.8cfa03edd95a690351700ff5d927c915,comdat
+.Ldebug_macro43:
 	.2byte	0x4
 	.byte	0
 	.byte	0x5
@@ -47306,7 +47541,7 @@ touchpanel_get_register_value:
 	.uleb128 0x78
 	.4byte	.LASF13181
 	.byte	0x5
-	.uleb128 0x81
+	.uleb128 0x7a
 	.4byte	.LASF13182
 	.byte	0x5
 	.uleb128 0xa2
@@ -47351,49 +47586,109 @@ touchpanel_get_register_value:
 	.uleb128 0x1ed
 	.4byte	.LASF13196
 	.byte	0
-	.section	.debug_macro,"G",%progbits,wm4.lib_touch_panel.h.8.11302ff2fb33e9bce8e909c76e0ff19f,comdat
-.Ldebug_macro43:
+	.section	.debug_macro,"G",%progbits,wm4.nrf_gpiote.h.42.0e995ef7526f6179374c571dfaacffd5,comdat
+.Ldebug_macro44:
 	.2byte	0x4
 	.byte	0
 	.byte	0x5
-	.uleb128 0x8
+	.uleb128 0x2a
 	.4byte	.LASF13198
 	.byte	0x5
-	.uleb128 0x9
+	.uleb128 0x3a
 	.4byte	.LASF13199
 	.byte	0x5
-	.uleb128 0xa
+	.uleb128 0xa1
 	.4byte	.LASF13200
-	.byte	0x5
-	.uleb128 0xc
+	.byte	0x6
+	.uleb128 0xa4
 	.4byte	.LASF13201
 	.byte	0x5
-	.uleb128 0xd
+	.uleb128 0xa5
 	.4byte	.LASF13202
+	.byte	0
+	.section	.debug_macro,"G",%progbits,wm4.g_twim.h.2.e6247ea26acb64db7417c4e1f0cacb9f,comdat
+.Ldebug_macro45:
+	.2byte	0x4
+	.byte	0
 	.byte	0x5
-	.uleb128 0xe
+	.uleb128 0x2
 	.4byte	.LASF13203
 	.byte	0x5
-	.uleb128 0xf
+	.uleb128 0x7
 	.4byte	.LASF13204
+	.byte	0
+	.section	.debug_macro,"G",%progbits,wm4.nrf_gpio.h.42.690ce3fbd864d61b21728ed3ab753d33,comdat
+.Ldebug_macro46:
+	.2byte	0x4
+	.byte	0
 	.byte	0x5
-	.uleb128 0x10
-	.4byte	.LASF13205
-	.byte	0x5
-	.uleb128 0x11
+	.uleb128 0x2a
 	.4byte	.LASF13206
 	.byte	0x5
-	.uleb128 0x12
+	.uleb128 0x3d
 	.4byte	.LASF13207
 	.byte	0x5
-	.uleb128 0x13
+	.uleb128 0x3e
 	.4byte	.LASF13208
 	.byte	0x5
-	.uleb128 0x15
+	.uleb128 0x47
 	.4byte	.LASF13209
+	.byte	0
+	.section	.debug_macro,"G",%progbits,wm4.lib_touch_panel.h.11.8436708f71f9d6b4bb4c65f193bb6b39,comdat
+.Ldebug_macro47:
+	.2byte	0x4
+	.byte	0
+	.byte	0x5
+	.uleb128 0xb
+	.4byte	.LASF13211
+	.byte	0x5
+	.uleb128 0xc
+	.4byte	.LASF13212
+	.byte	0x5
+	.uleb128 0xd
+	.4byte	.LASF13213
+	.byte	0x5
+	.uleb128 0xf
+	.4byte	.LASF13214
+	.byte	0x5
+	.uleb128 0x10
+	.4byte	.LASF13215
+	.byte	0x5
+	.uleb128 0x11
+	.4byte	.LASF13216
+	.byte	0x5
+	.uleb128 0x12
+	.4byte	.LASF13217
+	.byte	0x5
+	.uleb128 0x14
+	.4byte	.LASF13218
+	.byte	0x5
+	.uleb128 0x15
+	.4byte	.LASF13219
 	.byte	0x5
 	.uleb128 0x16
-	.4byte	.LASF13210
+	.4byte	.LASF13220
+	.byte	0x5
+	.uleb128 0x17
+	.4byte	.LASF13221
+	.byte	0x5
+	.uleb128 0x18
+	.4byte	.LASF13222
+	.byte	0x5
+	.uleb128 0x19
+	.4byte	.LASF13223
+	.byte	0x5
+	.uleb128 0x1a
+	.4byte	.LASF13224
+	.byte	0x5
+	.uleb128 0x1b
+	.4byte	.LASF13225
+	.byte	0x5
+	.uleb128 0x1d
+	.4byte	.LASF13226
+	.byte	0x5
+	.uleb128 0x1e
+	.4byte	.LASF13227
 	.byte	0
 	.section	.debug_line,"",%progbits
 .Ldebug_line0:
@@ -47497,7 +47792,7 @@ touchpanel_get_register_value:
 	.ascii	"SPI_FREQUENCY_FREQUENCY_K250 (0x04000000UL)\000"
 .LASF8377:
 	.ascii	"RADIO_RXADDRESSES_ADDR4_Pos (4UL)\000"
-.LASF13533:
+.LASF13555:
 	.ascii	"sd_clock_hfclk_release\000"
 .LASF4721:
 	.ascii	"NFCT_INTENCLR_TXFRAMEEND_Msk (0x1UL << NFCT_INTENCL"
@@ -47546,7 +47841,7 @@ touchpanel_get_register_value:
 	.ascii	"os)\000"
 .LASF7051:
 	.ascii	"PPI_CHENCLR_CH25_Enabled (1UL)\000"
-.LASF13380:
+.LASF13397:
 	.ascii	"SD_POWER_RAM_POWER_GET\000"
 .LASF9672:
 	.ascii	"TIMER_INTENCLR_COMPARE3_Clear (1UL)\000"
@@ -47579,7 +47874,7 @@ touchpanel_get_register_value:
 .LASF9938:
 	.ascii	"TWIM_INTENSET_ERROR_Msk (0x1UL << TWIM_INTENSET_ERR"
 	.ascii	"OR_Pos)\000"
-.LASF13566:
+.LASF13588:
 	.ascii	"power_mode\000"
 .LASF12807:
 	.ascii	"WORD_ALIGNED_MEM_BUFF(NAME,MIN_SIZE) static uint32_"
@@ -47684,6 +47979,8 @@ touchpanel_get_register_value:
 .LASF4881:
 	.ascii	"NFCT_SELRES_RFU10_Msk (0x3UL << NFCT_SELRES_RFU10_P"
 	.ascii	"os)\000"
+.LASF13219:
+	.ascii	"TOUCH_X_H_OFFSET 0\000"
 .LASF11229:
 	.ascii	"USBD_EPDATASTATUS_EPOUT7_Started (1UL)\000"
 .LASF11469:
@@ -47759,7 +48056,7 @@ touchpanel_get_register_value:
 	.ascii	"nrfx_saadc_irq_handler SAADC_IRQHandler\000"
 .LASF12767:
 	.ascii	"BIT_23 0x00800000\000"
-.LASF13539:
+.LASF13561:
 	.ascii	"gpregret_id\000"
 .LASF5295:
 	.ascii	"GPIO_OUTCLR_PIN15_Low (0UL)\000"
@@ -47840,7 +48137,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_CRYPTO_BACKEND_OBERON_HMAC_SHA256_ENABLED 1\000"
 .LASF13020:
 	.ascii	"SD_EVT_IRQHandler (SWI2_IRQHandler)\000"
-.LASF13240:
+.LASF13257:
 	.ascii	"n_cs_precedes\000"
 .LASF7020:
 	.ascii	"PPI_CHENCLR_CH31_Disabled (0UL)\000"
@@ -47943,7 +48240,7 @@ touchpanel_get_register_value:
 .LASF9475:
 	.ascii	"SPIS_PSEL_MOSI_PORT_Msk (0x1UL << SPIS_PSEL_MOSI_PO"
 	.ascii	"RT_Pos)\000"
-.LASF13444:
+.LASF13461:
 	.ascii	"drv_inst_idx\000"
 .LASF10628:
 	.ascii	"UARTE_PSEL_RXD_CONNECT_Disconnected (1UL)\000"
@@ -47968,8 +48265,10 @@ touchpanel_get_register_value:
 	.ascii	"EGION0WA_Pos)\000"
 .LASF5137:
 	.ascii	"GPIO_OUTSET_PIN15_Set (1UL)\000"
+.LASF12765:
+	.ascii	"BIT_21 0x00200000\000"
 .LASF850:
-	.ascii	"NRFX_TWIM_ENABLED 0\000"
+	.ascii	"NRFX_TWIM_ENABLED 1\000"
 .LASF11630:
 	.ascii	"LPCOMP_COMP_IRQn COMP_LPCOMP_IRQn\000"
 .LASF3563:
@@ -48016,7 +48315,7 @@ touchpanel_get_register_value:
 .LASF5174:
 	.ascii	"GPIO_OUTSET_PIN7_Msk (0x1UL << GPIO_OUTSET_PIN7_Pos"
 	.ascii	")\000"
-.LASF13299:
+.LASF13316:
 	.ascii	"ITM_RxBuffer\000"
 .LASF3270:
 	.ascii	"GPIOTE_CONFIG_POLARITY_Pos (16UL)\000"
@@ -48072,11 +48371,11 @@ touchpanel_get_register_value:
 	.ascii	"GPIOTE_INTENCLR_IN5_Clear (1UL)\000"
 .LASF10493:
 	.ascii	"UARTE_INTENSET_ERROR_Disabled (0UL)\000"
-.LASF13393:
+.LASF13410:
 	.ascii	"SD_RADIO_SESSION_OPEN\000"
 .LASF1916:
 	.ascii	"TPI_FFSR_TCPresent_Pos 2U\000"
-.LASF13487:
+.LASF13509:
 	.ascii	"sd_protected_register_write\000"
 .LASF12776:
 	.ascii	"UNUSED_VARIABLE(X) ((void)(X))\000"
@@ -48098,7 +48397,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_MODE_MODE_Nrf_2Mbit (1UL)\000"
 .LASF3831:
 	.ascii	"MWU_NMIENSET_REGION2RA_Disabled (0UL)\000"
-.LASF13382:
+.LASF13399:
 	.ascii	"SD_POWER_GPREGRET_CLR\000"
 .LASF10620:
 	.ascii	"UARTE_PSEL_CTS_CONNECT_Disconnected (1UL)\000"
@@ -48128,8 +48427,8 @@ touchpanel_get_register_value:
 	.ascii	"EGU_INTENSET_TRIGGERED7_Set (1UL)\000"
 .LASF728:
 	.ascii	"NRFX_PWM_DEFAULT_CONFIG_IRQ_PRIORITY 7\000"
-.LASF6329:
-	.ascii	"POWER_RAMSTATUS_RAMBLOCK3_Off (0UL)\000"
+.LASF385:
+	.ascii	"configUSE_PORT_OPTIMISED_TASK_SELECTION 1\000"
 .LASF317:
 	.ascii	"__GCC_ATOMIC_CHAR32_T_LOCK_FREE 2\000"
 .LASF3901:
@@ -48161,9 +48460,9 @@ touchpanel_get_register_value:
 	.ascii	"I2S_INTENCLR_RXPTRUPD_Enabled (1UL)\000"
 .LASF10758:
 	.ascii	"USBD_SHORTS_ENDEPOUT0_EP0RCVOUT_Disabled (0UL)\000"
-.LASF13446:
+.LASF13465:
 	.ascii	"_Bool\000"
-.LASF13391:
+.LASF13408:
 	.ascii	"SD_ECB_BLOCK_ENCRYPT\000"
 .LASF9401:
 	.ascii	"SPIS_SHORTS_END_ACQUIRE_Msk (0x1UL << SPIS_SHORTS_E"
@@ -48217,7 +48516,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG2_CH13_Included PPI_CHG_CH13_Included\000"
 .LASF7428:
 	.ascii	"PWM_INTENCLR_SEQEND0_Disabled (0UL)\000"
-.LASF13448:
+.LASF13470:
 	.ascii	"nrfx_twi_t\000"
 .LASF13071:
 	.ascii	"NRF_ERROR_DRV_TWI_ERR_OVERRUN (NRF_ERROR_PERIPH_DRI"
@@ -48229,6 +48528,8 @@ touchpanel_get_register_value:
 	.ascii	")\000"
 .LASF369:
 	.ascii	"__SES_VERSION 33402\000"
+.LASF12595:
+	.ascii	"NRFX_TWIS_NO_SYNC_MODE TWIS_NO_SYNC_MODE\000"
 .LASF3908:
 	.ascii	"MWU_NMIENCLR_REGION1WA_Clear (1UL)\000"
 .LASF6924:
@@ -48241,7 +48542,7 @@ touchpanel_get_register_value:
 	.ascii	"FX_CONCAT_2(peripheral, _EASYDMA_MAXCNT_SIZE))))\000"
 .LASF7517:
 	.ascii	"QDEC_SHORTS_SAMPLERDY_READCLRACC_Pos (6UL)\000"
-.LASF13497:
+.LASF13519:
 	.ascii	"p_dst\000"
 .LASF5685:
 	.ascii	"GPIO_DIRSET_PIN20_Msk (0x1UL << GPIO_DIRSET_PIN20_P"
@@ -48322,7 +48623,7 @@ touchpanel_get_register_value:
 	.ascii	"PWM_DEFAULT_CONFIG_TOP_VALUE 1000\000"
 .LASF2021:
 	.ascii	"FPU_FPCCR_LSPEN_Msk (1UL << FPU_FPCCR_LSPEN_Pos)\000"
-.LASF13480:
+.LASF13502:
 	.ascii	"address\000"
 .LASF12667:
 	.ascii	"NRFX_WDT_CONFIG_LOG_LEVEL WDT_CONFIG_LOG_LEVEL\000"
@@ -48355,7 +48656,7 @@ touchpanel_get_register_value:
 	.ascii	"REPEAT_1(macro, __VA_ARGS__)\000"
 .LASF7809:
 	.ascii	"QSPI_STATUS_DPM_Pos (2UL)\000"
-.LASF13342:
+.LASF13359:
 	.ascii	"ADDRESS\000"
 .LASF11665:
 	.ascii	"CH1_TEP CH[1].TEP\000"
@@ -48423,6 +48724,8 @@ touchpanel_get_register_value:
 	.ascii	"os)\000"
 .LASF6130:
 	.ascii	"PDM_INTEN_STARTED_Enabled (1UL)\000"
+.LASF13467:
+	.ascii	"NRF_TWI_FREQ_250K\000"
 .LASF2322:
 	.ascii	"AAR_INTENCLR_NOTRESOLVED_Disabled (0UL)\000"
 .LASF9879:
@@ -48527,7 +48830,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG_CH9_Excluded (0UL)\000"
 .LASF8504:
 	.ascii	"RADIO_CCACTRL_CCAMODE_Pos (0UL)\000"
-.LASF13494:
+.LASF13516:
 	.ascii	"sd_flash_page_erase\000"
 .LASF9099:
 	.ascii	"SAADC_CH_CONFIG_GAIN_Gain2 (6UL)\000"
@@ -48643,8 +48946,8 @@ touchpanel_get_register_value:
 .LASF3252:
 	.ascii	"GPIOTE_INTENCLR_IN2_Msk (0x1UL << GPIOTE_INTENCLR_I"
 	.ascii	"N2_Pos)\000"
-.LASF326:
-	.ascii	"__SIZEOF_WCHAR_T__ 4\000"
+.LASF2912:
+	.ascii	"EGU_INTENSET_TRIGGERED7_Disabled (0UL)\000"
 .LASF846:
 	.ascii	"NRFX_TIMER_CONFIG_LOG_ENABLED 0\000"
 .LASF9832:
@@ -48665,11 +48968,9 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUTCLR_PIN0_Clear (1UL)\000"
 .LASF956:
 	.ascii	"QSPI_CONFIG_FREQUENCY 15\000"
-.LASF648:
-	.ascii	"NRFX_COMP_CONFIG_LOG_LEVEL 3\000"
 .LASF7736:
 	.ascii	"QSPI_PSEL_IO0_PORT_Pos (5UL)\000"
-.LASF13285:
+.LASF13302:
 	.ascii	"__RAL_data_utf8_period\000"
 .LASF6840:
 	.ascii	"PPI_CHEN_CH4_Disabled (0UL)\000"
@@ -48712,7 +49013,7 @@ touchpanel_get_register_value:
 	.ascii	"QSPI_INTEN_READY_Disabled (0UL)\000"
 .LASF5569:
 	.ascii	"GPIO_DIR_PIN14_Pos (14UL)\000"
-.LASF13265:
+.LASF13282:
 	.ascii	"__wctomb\000"
 .LASF4137:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR9_NoAccess (0UL)\000"
@@ -48797,7 +49098,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_SHORTS_ADDRESS_RSSISTART_Pos (4UL)\000"
 .LASF1954:
 	.ascii	"TPI_FIFO1_ITM1_Pos 8U\000"
-.LASF13492:
+.LASF13514:
 	.ascii	"sd_radio_session_open\000"
 .LASF1315:
 	.ascii	"APP_TIMER_CONFIG_LOG_ENABLED 0\000"
@@ -48884,7 +49185,7 @@ touchpanel_get_register_value:
 	.ascii	"CoreDebug_DEMCR_VC_NOCPERR_Pos 5U\000"
 .LASF2138:
 	.ascii	"ITM ((ITM_Type *) ITM_BASE )\000"
-.LASF13569:
+.LASF13591:
 	.ascii	"sd_power_reset_reason_get\000"
 .LASF12147:
 	.ascii	"NRFX_GLUE_H__ \000"
@@ -49015,7 +49316,7 @@ touchpanel_get_register_value:
 	.ascii	"PWM_INTENSET_LOOPSDONE_Enabled (1UL)\000"
 .LASF8305:
 	.ascii	"RADIO_PCNF0_TERMLEN_Pos (29UL)\000"
-.LASF13264:
+.LASF13281:
 	.ascii	"__towlower\000"
 .LASF13083:
 	.ascii	"APP_ERROR_ERROR_INFO_OFFSET_P_FILE_NAME (offsetof(e"
@@ -49108,6 +49409,8 @@ touchpanel_get_register_value:
 	.ascii	" (ARG1), __ARG2 = (ARG2); __ASM (\"pkhbt %0, %1, %2"
 	.ascii	", lsl %3\" : \"=r\" (__RES) : \"r\" (__ARG1), \"r\""
 	.ascii	" (__ARG2), \"I\" (ARG3) ); __RES; })\000"
+.LASF6329:
+	.ascii	"POWER_RAMSTATUS_RAMBLOCK3_Off (0UL)\000"
 .LASF12908:
 	.ascii	"MACRO_MAP_FOR_PARAM_1(n_list,param,macro,a,...) mac"
 	.ascii	"ro(a, GET_VA_ARG_1(BRACKET_EXTRACT(n_list)), param)"
@@ -49122,7 +49425,7 @@ touchpanel_get_register_value:
 	.ascii	"MWU_PREGION_SUBS_SR23_Pos (23UL)\000"
 .LASF2260:
 	.ascii	"NRF_SWI1 ((NRF_SWI_Type *) NRF_SWI1_BASE)\000"
-.LASF13473:
+.LASF13495:
 	.ascii	"buttons_pressed\000"
 .LASF2277:
 	.ascii	"NRF_PWM1 ((NRF_PWM_Type *) NRF_PWM1_BASE)\000"
@@ -49275,7 +49578,7 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_INTENSET_ENDRX_Pos (4UL)\000"
 .LASF4529:
 	.ascii	"NFCT_SHORTS_FIELDLOST_SENSE_Disabled (0UL)\000"
-.LASF13482:
+.LASF13504:
 	.ascii	"length\000"
 .LASF10030:
 	.ascii	"TWIM_TXD_PTR_PTR_Msk (0xFFFFFFFFUL << TWIM_TXD_PTR_"
@@ -49284,7 +49587,7 @@ touchpanel_get_register_value:
 	.ascii	"LPCOMP_IRQn COMP_LPCOMP_IRQn\000"
 .LASF4907:
 	.ascii	"NVMC_ERASEUICR_ERASEUICR_NoOperation (0UL)\000"
-.LASF13247:
+.LASF13264:
 	.ascii	"int_n_sep_by_space\000"
 .LASF12914:
 	.ascii	"MACRO_MAP_FOR_PARAM_7(n_list,param,macro,a,...) mac"
@@ -49379,7 +49682,7 @@ touchpanel_get_register_value:
 	.ascii	"C_10(macro, __VA_ARGS__, )\000"
 .LASF1045:
 	.ascii	"NRF_TWI_SENSOR_ENABLED 0\000"
-.LASF13423:
+.LASF13440:
 	.ascii	"soc_ecb_cleartext_t\000"
 .LASF4465:
 	.ascii	"MWU_PREGION_SUBS_SR3_Exclude (0UL)\000"
@@ -49390,7 +49693,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG_CH3_Excluded (0UL)\000"
 .LASF8653:
 	.ascii	"RTC_EVTENSET_COMPARE1_Set (1UL)\000"
-.LASF13420:
+.LASF13437:
 	.ascii	"nrf_radio_signal_callback_return_param_t\000"
 .LASF8950:
 	.ascii	"SAADC_INTENCLR_CH5LIMITL_Enabled (1UL)\000"
@@ -49421,8 +49724,8 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHENCLR_CH17_Disabled (0UL)\000"
 .LASF6520:
 	.ascii	"POWER_RAM_POWER_S3POWER_Off (0UL)\000"
-.LASF13202:
-	.ascii	"TOUCH_X_H_OFFSET 0\000"
+.LASF12239:
+	.ascii	"NRFX_LPCOMP_CONFIG_REFERENCE\000"
 .LASF12133:
 	.ascii	"USBD_EASYDMA_MAXCNT_SIZE 7\000"
 .LASF8568:
@@ -49452,6 +49755,9 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_INTENCLR_TXSTARTED_Pos (20UL)\000"
 .LASF697:
 	.ascii	"NRFX_POWER_CONFIG_DEFAULT_DCDCEN 0\000"
+.LASF13199:
+	.ascii	"GPIOTE_CONFIG_PORT_PIN_Msk (GPIOTE_CONFIG_PORT_Msk "
+	.ascii	"| GPIOTE_CONFIG_PSEL_Msk)\000"
 .LASF654:
 	.ascii	"NRFX_GPIOTE_CONFIG_LOG_ENABLED 0\000"
 .LASF11318:
@@ -49538,7 +49844,7 @@ touchpanel_get_register_value:
 	.ascii	"RTC_INTENCLR_COMPARE0_Clear (1UL)\000"
 .LASF12571:
 	.ascii	"NRFX_TWI_CONFIG_LOG_ENABLED TWI_CONFIG_LOG_ENABLED\000"
-.LASF13430:
+.LASF13447:
 	.ascii	"p_ciphertext\000"
 .LASF2091:
 	.ascii	"CoreDebug_DHCSR_C_HALT_Msk (1UL << CoreDebug_DHCSR_"
@@ -49617,8 +49923,6 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHEN_CH12_Enabled (1UL)\000"
 .LASF1223:
 	.ascii	"NRF_LOG_CLI_CMDS 0\000"
-.LASF10153:
-	.ascii	"TWIS_INTENCLR_STOPPED_Enabled (1UL)\000"
 .LASF8832:
 	.ascii	"SAADC_INTENSET_CH6LIMITH_Pos (18UL)\000"
 .LASF7607:
@@ -49632,8 +49936,6 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_BAUDRATE_BAUDRATE_Baud1M (0x10000000UL)\000"
 .LASF1339:
 	.ascii	"NRF_ATFIFO_CONFIG_INFO_COLOR 0\000"
-.LASF1904:
-	.ascii	"DWT_FUNCTION_CYCMATCH_Pos 7U\000"
 .LASF6824:
 	.ascii	"PPI_CHEN_CH8_Disabled (0UL)\000"
 .LASF7145:
@@ -49742,7 +50044,7 @@ touchpanel_get_register_value:
 	.ascii	"_OVERRUN_Pos)\000"
 .LASF690:
 	.ascii	"NRFX_PDM_CONFIG_IRQ_PRIORITY 7\000"
-.LASF13355:
+.LASF13372:
 	.ascii	"SD_PPI_CHANNEL_ENABLE_SET\000"
 .LASF1059:
 	.ascii	"APP_TIMER_CONFIG_USE_SCHEDULER 0\000"
@@ -49911,7 +50213,7 @@ touchpanel_get_register_value:
 	.ascii	"MWU_INTEN_PREGION1RA_Disabled (0UL)\000"
 .LASF10215:
 	.ascii	"UART_TASKS_STOPRX_TASKS_STOPRX_Pos (0UL)\000"
-.LASF13404:
+.LASF13421:
 	.ascii	"hfclk\000"
 .LASF13061:
 	.ascii	"NRF_ERROR_MODULE_NOT_INITIALIZED (NRF_ERROR_SDK_COM"
@@ -50064,7 +50366,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_DACNF_ENA2_Disabled (0UL)\000"
 .LASF7292:
 	.ascii	"PPI_CHG_CH4_Excluded (0UL)\000"
-.LASF13209:
+.LASF13226:
 	.ascii	"TOUCHPANEL_WIDTH 800\000"
 .LASF6786:
 	.ascii	"PPI_CHEN_CH17_Pos (17UL)\000"
@@ -50169,7 +50471,7 @@ touchpanel_get_register_value:
 	.ascii	"M_POWER_S13RETENTION_Pos)\000"
 .LASF4155:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR4_Pos (4UL)\000"
-.LASF13551:
+.LASF13573:
 	.ascii	"sd_power_pof_thresholdvddh_set\000"
 .LASF737:
 	.ascii	"NRFX_QDEC_CONFIG_PIO_B 31\000"
@@ -50219,7 +50521,7 @@ touchpanel_get_register_value:
 	.ascii	"SAADC_INTENSET_CH4LIMITH_Pos (14UL)\000"
 .LASF13123:
 	.ascii	"NRFX_ERROR_INVALID_PARAM NRF_ERROR_INVALID_PARAM\000"
-.LASF13534:
+.LASF13556:
 	.ascii	"sd_clock_hfclk_request\000"
 .LASF5082:
 	.ascii	"GPIO_OUTSET_PIN26_Set (1UL)\000"
@@ -50308,7 +50610,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_LATCH_PIN31_Pos (31UL)\000"
 .LASF9902:
 	.ascii	"TWIM_INTEN_SUSPENDED_Disabled (0UL)\000"
-.LASF13315:
+.LASF13332:
 	.ascii	"TASKS_RESUME\000"
 .LASF9068:
 	.ascii	"SAADC_CH_PSELN_PSELN_AnalogInput7 (8UL)\000"
@@ -50335,7 +50637,7 @@ touchpanel_get_register_value:
 	.ascii	"__UFRACT_MAX__ 0XFFFFP-16UR\000"
 .LASF10113:
 	.ascii	"TWIS_INTENSET_RXSTARTED_Enabled (1UL)\000"
-.LASF13243:
+.LASF13260:
 	.ascii	"n_sign_posn\000"
 .LASF2748:
 	.ascii	"COMP_EXTREFSEL_EXTREFSEL_AnalogReference5 (5UL)\000"
@@ -50399,7 +50701,7 @@ touchpanel_get_register_value:
 	.ascii	"NFCT_INTENSET_SELECTED_Disabled (0UL)\000"
 .LASF1514:
 	.ascii	"BLE_LBS_C_BLE_OBSERVER_PRIO 2\000"
-.LASF13398:
+.LASF13415:
 	.ascii	"SD_POWER_USBPWRRDY_ENABLE\000"
 .LASF5440:
 	.ascii	"GPIO_IN_PIN15_High (1UL)\000"
@@ -50417,8 +50719,10 @@ touchpanel_get_register_value:
 	.ascii	"CCM_MODE_MODE_Msk (0x1UL << CCM_MODE_MODE_Pos)\000"
 .LASF4281:
 	.ascii	"MWU_REGIONENSET_RGN0WA_Enabled (1UL)\000"
-.LASF6957:
-	.ascii	"PPI_CHENSET_CH12_Set (1UL)\000"
+.LASF4516:
+	.ascii	"NFCT_EVENTS_AUTOCOLRESSTARTED_EVENTS_AUTOCOLRESSTAR"
+	.ascii	"TED_Msk (0x1UL << NFCT_EVENTS_AUTOCOLRESSTARTED_EVE"
+	.ascii	"NTS_AUTOCOLRESSTARTED_Pos)\000"
 .LASF8359:
 	.ascii	"RADIO_PREFIX1_AP5_Pos (8UL)\000"
 .LASF11236:
@@ -50657,7 +50961,7 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_RXD_MAXCNT_MAXCNT_Pos (0UL)\000"
 .LASF9653:
 	.ascii	"TIMER_INTENSET_COMPARE0_Pos (16UL)\000"
-.LASF13259:
+.LASF13276:
 	.ascii	"__isctype\000"
 .LASF3862:
 	.ascii	"MWU_NMIENCLR_PREGION1RA_Enabled (1UL)\000"
@@ -50685,7 +50989,7 @@ touchpanel_get_register_value:
 	.ascii	"\000"
 .LASF7744:
 	.ascii	"QSPI_PSEL_IO1_PORT_Pos (5UL)\000"
-.LASF13474:
+.LASF13496:
 	.ascii	"to_parse\000"
 .LASF3040:
 	.ascii	"FICR_DEVICEADDRTYPE_DEVICEADDRTYPE_Pos (0UL)\000"
@@ -50753,8 +51057,8 @@ touchpanel_get_register_value:
 	.ascii	"MON_EN_Pos)\000"
 .LASF4573:
 	.ascii	"NFCT_INTEN_RXFRAMESTART_Disabled (0UL)\000"
-.LASF8899:
-	.ascii	"SAADC_INTENSET_STOPPED_Disabled (0UL)\000"
+.LASF13607:
+	.ascii	"touchpanel_init\000"
 .LASF8469:
 	.ascii	"RADIO_DACNF_ENA3_Disabled (0UL)\000"
 .LASF9151:
@@ -50932,7 +51236,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_QSPI_CONFIG_SCK_DELAY\000"
 .LASF8076:
 	.ascii	"RADIO_INTENSET_EDSTOPPED_Enabled (1UL)\000"
-.LASF13399:
+.LASF13416:
 	.ascii	"SD_POWER_USBDETECTED_ENABLE\000"
 .LASF1944:
 	.ascii	"TPI_FIFO1_ITM_ATVALID_Pos 29U\000"
@@ -50953,7 +51257,7 @@ touchpanel_get_register_value:
 	.ascii	"DE_Pos)\000"
 .LASF1697:
 	.ascii	"SCB_ICSR_VECTACTIVE_Msk (0x1FFUL )\000"
-.LASF13377:
+.LASF13394:
 	.ascii	"SD_POWER_POF_THRESHOLDVDDH_SET\000"
 .LASF11659:
 	.ascii	"TASKS_CHG2DIS TASKS_CHG[2].DIS\000"
@@ -50961,7 +51265,7 @@ touchpanel_get_register_value:
 	.ascii	"MPU_RASR_SRD_Pos 8U\000"
 .LASF4781:
 	.ascii	"NFCT_FRAMEDELAYMAX_FRAMEDELAYMAX_Pos (0UL)\000"
-.LASF13385:
+.LASF13402:
 	.ascii	"SD_POWER_DCDC0_MODE_SET\000"
 .LASF6727:
 	.ascii	"PPI_TASKS_CHG_EN_EN_Msk (0x1UL << PPI_TASKS_CHG_EN_"
@@ -51029,8 +51333,6 @@ touchpanel_get_register_value:
 .LASF9177:
 	.ascii	"SPI_PSEL_MOSI_PIN_Msk (0x1FUL << SPI_PSEL_MOSI_PIN_"
 	.ascii	"Pos)\000"
-.LASF2912:
-	.ascii	"EGU_INTENSET_TRIGGERED7_Disabled (0UL)\000"
 .LASF5557:
 	.ascii	"GPIO_DIR_PIN17_Pos (17UL)\000"
 .LASF11780:
@@ -51064,7 +51366,7 @@ touchpanel_get_register_value:
 	.ascii	"_RAM_POWERCLR_S15RETENTION_Pos)\000"
 .LASF261:
 	.ascii	"__LLACCUM_IBIT__ 32\000"
-.LASF13513:
+.LASF13535:
 	.ascii	"group_num\000"
 .LASF7144:
 	.ascii	"PPI_CHENCLR_CH6_Msk (0x1UL << PPI_CHENCLR_CH6_Pos)\000"
@@ -51094,7 +51396,7 @@ touchpanel_get_register_value:
 	.ascii	"TWIM_EVENTS_ERROR_EVENTS_ERROR_Pos (0UL)\000"
 .LASF994:
 	.ascii	"SPI0_USE_EASY_DMA 1\000"
-.LASF13545:
+.LASF13567:
 	.ascii	"index\000"
 .LASF10297:
 	.ascii	"UART_INTENCLR_NCTS_Clear (1UL)\000"
@@ -51267,7 +51569,7 @@ touchpanel_get_register_value:
 	.ascii	"RL_CPUFPBEN_Pos)\000"
 .LASF3564:
 	.ascii	"LPCOMP_EXTREFSEL_EXTREFSEL_AnalogReference0 (0UL)\000"
-.LASF13289:
+.LASF13306:
 	.ascii	"__RAL_data_utf8_minus\000"
 .LASF7305:
 	.ascii	"PPI_CHG_CH1_Included (1UL)\000"
@@ -51368,8 +51670,16 @@ touchpanel_get_register_value:
 	.ascii	"MWU_REGIONENCLR_PRGN0RA_Clear (1UL)\000"
 .LASF12193:
 	.ascii	"NRFX_GPIOTE_CONFIG_LOG_ENABLED\000"
+.LASF10540:
+	.ascii	"UARTE_INTENCLR_RXSTARTED_Clear (1UL)\000"
 .LASF9692:
 	.ascii	"TIMER_MODE_MODE_LowPowerCounter (2UL)\000"
+.LASF13202:
+	.ascii	"NRF_GPIOTE_INT_IN_MASK (NRF_GPIOTE_INT_IN0_MASK | N"
+	.ascii	"RF_GPIOTE_INT_IN1_MASK | NRF_GPIOTE_INT_IN2_MASK | "
+	.ascii	"NRF_GPIOTE_INT_IN3_MASK | NRF_GPIOTE_INT_IN4_MASK |"
+	.ascii	" NRF_GPIOTE_INT_IN5_MASK | NRF_GPIOTE_INT_IN6_MASK "
+	.ascii	"| NRF_GPIOTE_INT_IN7_MASK)\000"
 .LASF2324:
 	.ascii	"AAR_INTENCLR_NOTRESOLVED_Clear (1UL)\000"
 .LASF12573:
@@ -51416,26 +51726,26 @@ touchpanel_get_register_value:
 	.ascii	"BLE_BAS_C_ENABLED 0\000"
 .LASF7298:
 	.ascii	"PPI_CHG_CH2_Pos (2UL)\000"
-.LASF13332:
+.LASF13349:
 	.ascii	"RESERVED10\000"
 .LASF6533:
 	.ascii	"POWER_RAM_POWER_S0POWER_On (1UL)\000"
 .LASF8234:
 	.ascii	"RADIO_INTENCLR_END_Msk (0x1UL << RADIO_INTENCLR_END"
 	.ascii	"_Pos)\000"
-.LASF13338:
+.LASF13355:
 	.ascii	"RESERVED13\000"
 .LASF6453:
 	.ascii	"POWER_RAM_POWER_S4RETENTION_On (1UL)\000"
-.LASF13341:
-	.ascii	"RESERVED15\000"
+.LASF4831:
+	.ascii	"NFCT_NFCID1_LAST_NFCID1_X_Pos (16UL)\000"
 .LASF13004:
 	.ascii	"NRF_ERROR_SOC_POWER_MODE_UNKNOWN (NRF_ERROR_SOC_BAS"
 	.ascii	"E_NUM + 4)\000"
 .LASF5945:
 	.ascii	"GPIO_DIRCLR_PIN0_Msk (0x1UL << GPIO_DIRCLR_PIN0_Pos"
 	.ascii	")\000"
-.LASF13335:
+.LASF13352:
 	.ascii	"ENABLE\000"
 .LASF5711:
 	.ascii	"GPIO_DIRSET_PIN15_Input (0UL)\000"
@@ -51474,7 +51784,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_MAXIMUM_LATENCY_US 2000\000"
 .LASF3765:
 	.ascii	"MWU_NMIEN_PREGION0WA_Disabled (0UL)\000"
-.LASF13207:
+.LASF13224:
 	.ascii	"TOUCH_Y_L_OFFSET 3\000"
 .LASF1589:
 	.ascii	"MDK_MINOR_VERSION 16\000"
@@ -51512,7 +51822,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_ERROR_CRYPTO_ERR_BASE (0x8500)\000"
 .LASF6693:
 	.ascii	"POWER_RAM_POWERCLR_S10POWER_Pos (10UL)\000"
-.LASF13538:
+.LASF13560:
 	.ascii	"sd_power_gpregret_get\000"
 .LASF1892:
 	.ascii	"DWT_FUNCTION_MATCHED_Pos 24U\000"
@@ -51624,12 +51934,12 @@ touchpanel_get_register_value:
 	.ascii	"USBD_EPDATASTATUS_EPOUT2_NotStarted (0UL)\000"
 .LASF4796:
 	.ascii	"NFCT_TXD_FRAMECONFIG_CRCMODETX_CRC16TX (1UL)\000"
-.LASF13376:
+.LASF13393:
 	.ascii	"SD_POWER_POF_THRESHOLD_SET\000"
 .LASF12541:
 	.ascii	"NRFX_TIMER_CONFIG_DEBUG_COLOR\000"
-.LASF11860:
-	.ascii	"PPI_CHG2_CH7_Excluded PPI_CHG_CH7_Excluded\000"
+.LASF6122:
+	.ascii	"PDM_INTEN_END_Enabled (1UL)\000"
 .LASF12412:
 	.ascii	"NRFX_RTC2_ENABLED RTC2_ENABLED\000"
 .LASF12063:
@@ -51673,7 +51983,7 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_PSEL_TXD_PORT_Pos (5UL)\000"
 .LASF10001:
 	.ascii	"TWIM_PSEL_SCL_CONNECT_Disconnected (1UL)\000"
-.LASF13422:
+.LASF13439:
 	.ascii	"soc_ecb_key_t\000"
 .LASF12468:
 	.ascii	"NRFX_SPI_DEFAULT_CONFIG_IRQ_PRIORITY SPI_DEFAULT_CO"
@@ -51829,7 +52139,7 @@ touchpanel_get_register_value:
 	.ascii	"_SUSPENDED_Pos)\000"
 .LASF12001:
 	.ascii	"ACL_PRESENT \000"
-.LASF13555:
+.LASF13577:
 	.ascii	"usbregstatus\000"
 .LASF3688:
 	.ascii	"MWU_INTENSET_REGION0WA_Disabled (0UL)\000"
@@ -51883,7 +52193,7 @@ touchpanel_get_register_value:
 .LASF9226:
 	.ascii	"SPIM_EVENTS_ENDTX_EVENTS_ENDTX_Msk (0x1UL << SPIM_E"
 	.ascii	"VENTS_ENDTX_EVENTS_ENDTX_Pos)\000"
-.LASF13524:
+.LASF13546:
 	.ascii	"channel_enable_clr_msk\000"
 .LASF2149:
 	.ascii	"NRF_UICR_BASE 0x10001000UL\000"
@@ -51945,7 +52255,7 @@ touchpanel_get_register_value:
 	.ascii	"USBEVENT_Pos)\000"
 .LASF3462:
 	.ascii	"LPCOMP_EVENTS_UP_EVENTS_UP_Pos (0UL)\000"
-.LASF13363:
+.LASF13380:
 	.ascii	"SD_FLASH_WRITE\000"
 .LASF9751:
 	.ascii	"TWI_INTENSET_TXDSENT_Enabled (1UL)\000"
@@ -51967,6 +52277,8 @@ touchpanel_get_register_value:
 .LASF11143:
 	.ascii	"USBD_EVENTCAUSE_ISOOUTCRC_Msk (0x1UL << USBD_EVENTC"
 	.ascii	"AUSE_ISOOUTCRC_Pos)\000"
+.LASF814:
+	.ascii	"NRFX_SPI_ENABLED 0\000"
 .LASF6965:
 	.ascii	"PPI_CHENSET_CH10_Disabled (0UL)\000"
 .LASF9035:
@@ -52122,7 +52434,7 @@ touchpanel_get_register_value:
 	.ascii	"FPU_MVFR0_A_SIMD_registers_Pos 0U\000"
 .LASF10839:
 	.ascii	"USBD_INTEN_ENDEPIN7_Enabled (1UL)\000"
-.LASF13218:
+.LASF13235:
 	.ascii	"uint32_t\000"
 .LASF12336:
 	.ascii	"NRFX_QDEC_CONFIG_SAMPLEPER QDEC_CONFIG_SAMPLEPER\000"
@@ -52132,7 +52444,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_QDEC_CONFIG_INFO_COLOR 0\000"
 .LASF7080:
 	.ascii	"PPI_CHENCLR_CH19_Disabled (0UL)\000"
-.LASF13582:
+.LASF13604:
 	.ascii	"C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0"
 	.ascii	".0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_f"
 	.ascii	"reertos\\pca10056\\s140\\ses\000"
@@ -52213,6 +52525,8 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHENCLR_CH7_Pos (7UL)\000"
 .LASF9319:
 	.ascii	"SPIM_PSEL_CSN_CONNECT_Pos (31UL)\000"
+.LASF13197:
+	.ascii	"_G_GPIOTE_H_ \000"
 .LASF6897:
 	.ascii	"PPI_CHENSET_CH24_Set (1UL)\000"
 .LASF9457:
@@ -52230,7 +52544,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_HALTED_EPIN_GETSTATUS_NotHalted (0UL)\000"
 .LASF5047:
 	.ascii	"GPIO_OUT_PIN1_Low (0UL)\000"
-.LASF13263:
+.LASF13280:
 	.ascii	"__towupper\000"
 .LASF3138:
 	.ascii	"FICR_NFC_TAGHEADER2_UD9_Pos (8UL)\000"
@@ -52294,7 +52608,7 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_INTENCLR_TXDRDY_Enabled (1UL)\000"
 .LASF2652:
 	.ascii	"COMP_SHORTS_READY_STOP_Pos (1UL)\000"
-.LASF13328:
+.LASF13345:
 	.ascii	"SHORTS\000"
 .LASF4676:
 	.ascii	"NFCT_INTENCLR_SELECTED_Msk (0x1UL << NFCT_INTENCLR_"
@@ -52305,7 +52619,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_IN_PIN10_Msk (0x1UL << GPIO_IN_PIN10_Pos)\000"
 .LASF10059:
 	.ascii	"TWIS_EVENTS_WRITE_EVENTS_WRITE_Pos (0UL)\000"
-.LASF13488:
+.LASF13510:
 	.ascii	"p_register\000"
 .LASF4816:
 	.ascii	"NFCT_RXD_FRAMECONFIG_CRCMODERX_CRC16RX (1UL)\000"
@@ -52325,8 +52639,6 @@ touchpanel_get_register_value:
 	.ascii	"000000001E-6143DL\000"
 .LASF1445:
 	.ascii	"HAL_NFC_CONFIG_LOG_LEVEL 3\000"
-.LASF13318:
-	.ascii	"EVENTS_RXDREADY\000"
 .LASF11927:
 	.ascii	"PPI_CHG3_CH6_Msk PPI_CHG_CH6_Msk\000"
 .LASF8704:
@@ -52371,8 +52683,8 @@ touchpanel_get_register_value:
 	.ascii	"USBD_EPSTATUS_EPIN2_DataDone (1UL)\000"
 .LASF8895:
 	.ascii	"SAADC_INTENSET_CH0LIMITH_Enabled (1UL)\000"
-.LASF385:
-	.ascii	"configUSE_PORT_OPTIMISED_TASK_SELECTION 1\000"
+.LASF13466:
+	.ascii	"NRF_TWI_FREQ_100K\000"
 .LASF129:
 	.ascii	"__FLT_MIN_10_EXP__ (-37)\000"
 .LASF6010:
@@ -52380,7 +52692,7 @@ touchpanel_get_register_value:
 	.ascii	")\000"
 .LASF10561:
 	.ascii	"UARTE_INTENCLR_ENDRX_Pos (4UL)\000"
-.LASF13413:
+.LASF13430:
 	.ascii	"request_type\000"
 .LASF8361:
 	.ascii	"RADIO_PREFIX1_AP4_Pos (0UL)\000"
@@ -52422,7 +52734,7 @@ touchpanel_get_register_value:
 	.ascii	"E_RESUME_Pos)\000"
 .LASF8954:
 	.ascii	"SAADC_INTENCLR_CH5LIMITH_Disabled (0UL)\000"
-.LASF13557:
+.LASF13579:
 	.ascii	"usbremoved_enable\000"
 .LASF1404:
 	.ascii	"NFC_AC_REC_PARSER_ENABLED 0\000"
@@ -52717,7 +53029,7 @@ touchpanel_get_register_value:
 	.ascii	"__UINT_LEAST64_TYPE__ long long unsigned int\000"
 .LASF12083:
 	.ascii	"TWI_COUNT 2\000"
-.LASF13419:
+.LASF13436:
 	.ascii	"callback_action\000"
 .LASF1927:
 	.ascii	"TPI_TRIGGER_TRIGGER_Msk (0x1UL )\000"
@@ -52758,10 +53070,12 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHENSET_CH14_Enabled (1UL)\000"
 .LASF9152:
 	.ascii	"SPI_INTENSET_READY_Set (1UL)\000"
-.LASF12595:
-	.ascii	"NRFX_TWIS_NO_SYNC_MODE TWIS_NO_SYNC_MODE\000"
-.LASF13270:
+.LASF2183:
+	.ascii	"NRF_LPCOMP_BASE 0x40013000UL\000"
+.LASF13287:
 	.ascii	"codeset\000"
+.LASF10909:
+	.ascii	"USBD_INTENSET_ENDEPOUT6_Enabled (1UL)\000"
 .LASF6040:
 	.ascii	"GPIO_LATCH_PIN9_Latched (1UL)\000"
 .LASF4950:
@@ -52811,7 +53125,7 @@ touchpanel_get_register_value:
 .LASF12627:
 	.ascii	"NRFX_UARTE_DEFAULT_CONFIG_HWFC UART_DEFAULT_CONFIG_"
 	.ascii	"HWFC\000"
-.LASF13372:
+.LASF13389:
 	.ascii	"SD_POWER_SYSTEM_OFF\000"
 .LASF13078:
 	.ascii	"APP_ERROR_WEAK_H__ \000"
@@ -52853,8 +53167,6 @@ touchpanel_get_register_value:
 	.ascii	"__QQ_IBIT__ 0\000"
 .LASF1959:
 	.ascii	"TPI_ITATBCTR0_ATREADY_Msk (0x1UL )\000"
-.LASF3115:
-	.ascii	"FICR_TEMP_T3_T_Msk (0xFFUL << FICR_TEMP_T3_T_Pos)\000"
 .LASF7735:
 	.ascii	"QSPI_PSEL_IO0_CONNECT_Disconnected (1UL)\000"
 .LASF7949:
@@ -52891,6 +53203,8 @@ touchpanel_get_register_value:
 .LASF10897:
 	.ascii	"USBD_INTENSET_ENDISOOUT_Msk (0x1UL << USBD_INTENSET"
 	.ascii	"_ENDISOOUT_Pos)\000"
+.LASF13215:
+	.ascii	"INT_TOUCHPANEL_PIN 10\000"
 .LASF3545:
 	.ascii	"LPCOMP_REFSEL_REFSEL_Msk (0xFUL << LPCOMP_REFSEL_RE"
 	.ascii	"FSEL_Pos)\000"
@@ -52979,20 +53293,20 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUT_PIN12_Low (0UL)\000"
 .LASF2269:
 	.ascii	"NRF_TIMER3 ((NRF_TIMER_Type *) NRF_TIMER3_BASE)\000"
-.LASF13476:
+.LASF13498:
 	.ascii	"touchpanel_get_values_of_touches\000"
 .LASF9046:
 	.ascii	"SAADC_CH_PSELP_PSELP_Msk (0x1FUL << SAADC_CH_PSELP_"
 	.ascii	"PSELP_Pos)\000"
 .LASF12096:
 	.ascii	"UARTE0_EASYDMA_MAXCNT_SIZE 16\000"
-.LASF13443:
+.LASF13460:
 	.ascii	"p_twim\000"
 .LASF12803:
 	.ascii	"ROUNDED_DIV(A,B) (((A) + ((B) / 2)) / (B))\000"
 .LASF10569:
 	.ascii	"UARTE_INTENCLR_RXDRDY_Enabled (1UL)\000"
-.LASF13205:
+.LASF13222:
 	.ascii	"TOUCH_X_L_OFFSET 1\000"
 .LASF8268:
 	.ascii	"RADIO_PDUSTAT_PDUSTAT_Msk (0x1UL << RADIO_PDUSTAT_P"
@@ -53211,9 +53525,6 @@ touchpanel_get_register_value:
 	.ascii	"DWT_EXCCNT_EXCCNT_Msk (0xFFUL )\000"
 .LASF6805:
 	.ascii	"PPI_CHEN_CH13_Enabled (1UL)\000"
-.LASF12242:
-	.ascii	"NRFX_LPCOMP_CONFIG_DETECTION LPCOMP_CONFIG_DETECTIO"
-	.ascii	"N\000"
 .LASF12622:
 	.ascii	"NRFX_UARTE1_ENABLED\000"
 .LASF8409:
@@ -53240,8 +53551,6 @@ touchpanel_get_register_value:
 .LASF7534:
 	.ascii	"QDEC_SHORTS_REPORTRDY_RDCLRACC_Msk (0x1UL << QDEC_S"
 	.ascii	"HORTS_REPORTRDY_RDCLRACC_Pos)\000"
-.LASF451:
-	.ascii	"NRFX_H__ \000"
 .LASF9476:
 	.ascii	"SPIS_PSEL_MOSI_PIN_Pos (0UL)\000"
 .LASF1519:
@@ -53271,7 +53580,7 @@ touchpanel_get_register_value:
 	.ascii	"PDM_INTENCLR_STARTED_Disabled (0UL)\000"
 .LASF4167:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR1_Pos (1UL)\000"
-.LASF13234:
+.LASF13251:
 	.ascii	"positive_sign\000"
 .LASF3172:
 	.ascii	"GPIOTE_EVENTS_IN_EVENTS_IN_Pos (0UL)\000"
@@ -53286,7 +53595,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_TIMER3_BASE 0x4001A000UL\000"
 .LASF2698:
 	.ascii	"COMP_INTENCLR_CROSS_Disabled (0UL)\000"
-.LASF13580:
+.LASF13602:
 	.ascii	"GNU C99 6.3.1 20170620 (release) [ARM/embedded-6-br"
 	.ascii	"anch revision 249437] -fmessage-length=0 -mcpu=cort"
 	.ascii	"ex-m4 -mlittle-endian -mfloat-abi=hard -mfpu=fpv4-s"
@@ -53304,7 +53613,7 @@ touchpanel_get_register_value:
 .LASF12378:
 	.ascii	"NRFX_QSPI_CONFIG_IRQ_PRIORITY QSPI_CONFIG_IRQ_PRIOR"
 	.ascii	"ITY\000"
-.LASF13353:
+.LASF13370:
 	.ascii	"__FLASH_segment_used_end__\000"
 .LASF1206:
 	.ascii	"NRF_LOG_BACKEND_UART_ENABLED 1\000"
@@ -53319,7 +53628,7 @@ touchpanel_get_register_value:
 	.ascii	"TWIS_ERRORSRC_DNACK_NotReceived (0UL)\000"
 .LASF5971:
 	.ascii	"GPIO_LATCH_PIN26_NotLatched (0UL)\000"
-.LASF13527:
+.LASF13549:
 	.ascii	"sd_ppi_channel_enable_get\000"
 .LASF8856:
 	.ascii	"SAADC_INTENSET_CH4LIMITH_Set (1UL)\000"
@@ -53331,9 +53640,8 @@ touchpanel_get_register_value:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR27_Access (1UL)\000"
 .LASF4941:
 	.ascii	"GPIO_OUT_PIN27_Pos (27UL)\000"
-.LASF7079:
-	.ascii	"PPI_CHENCLR_CH19_Msk (0x1UL << PPI_CHENCLR_CH19_Pos"
-	.ascii	")\000"
+.LASF10337:
+	.ascii	"UART_PSEL_TXD_PIN_Pos (0UL)\000"
 .LASF1076:
 	.ascii	"APP_USBD_CONFIG_SOF_TIMESTAMP_PROVIDE 0\000"
 .LASF10763:
@@ -53379,7 +53687,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_QDEC_ENABLED\000"
 .LASF6215:
 	.ascii	"POWER_TASKS_CONSTLAT_TASKS_CONSTLAT_Pos (0UL)\000"
-.LASF13504:
+.LASF13526:
 	.ascii	"sd_ecb_blocks_encrypt\000"
 .LASF12911:
 	.ascii	"MACRO_MAP_FOR_PARAM_4(n_list,param,macro,a,...) mac"
@@ -53586,7 +53894,7 @@ touchpanel_get_register_value:
 	.ascii	"CT_Pos)\000"
 .LASF9184:
 	.ascii	"SPI_PSEL_MISO_PIN_Pos (0UL)\000"
-.LASF13225:
+.LASF13242:
 	.ascii	"char\000"
 .LASF5546:
 	.ascii	"GPIO_DIR_PIN20_Msk (0x1UL << GPIO_DIR_PIN20_Pos)\000"
@@ -53733,7 +54041,7 @@ touchpanel_get_register_value:
 	.ascii	"EGION_SUBSTATWA_SR31_Pos)\000"
 .LASF5983:
 	.ascii	"GPIO_LATCH_PIN23_NotLatched (0UL)\000"
-.LASF13568:
+.LASF13590:
 	.ascii	"reset_reason_clr_msk\000"
 .LASF4049:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR31_NoAccess (0UL)\000"
@@ -53786,9 +54094,9 @@ touchpanel_get_register_value:
 .LASF1925:
 	.ascii	"TPI_FFCR_EnFCont_Msk (0x1UL << TPI_FFCR_EnFCont_Pos"
 	.ascii	")\000"
-.LASF13440:
+.LASF13457:
 	.ascii	"stdout\000"
-.LASF13258:
+.LASF13275:
 	.ascii	"__RAL_locale_data_t\000"
 .LASF9948:
 	.ascii	"TWIM_INTENCLR_LASTTX_Msk (0x1UL << TWIM_INTENCLR_LA"
@@ -53811,7 +54119,7 @@ touchpanel_get_register_value:
 	.ascii	"Pos)\000"
 .LASF2031:
 	.ascii	"FPU_FPCCR_THREAD_Msk (1UL << FPU_FPCCR_THREAD_Pos)\000"
-.LASF13250:
+.LASF13267:
 	.ascii	"day_names\000"
 .LASF12266:
 	.ascii	"NRFX_PDM_CONFIG_IRQ_PRIORITY PDM_CONFIG_IRQ_PRIORIT"
@@ -53860,7 +54168,7 @@ touchpanel_get_register_value:
 	.ascii	"NFCT_INTEN_ENDTX_Disabled (0UL)\000"
 .LASF12163:
 	.ascii	"NRFX_COMP_ENABLED\000"
-.LASF13421:
+.LASF13438:
 	.ascii	"nrf_radio_signal_callback_t\000"
 .LASF10185:
 	.ascii	"TWIS_PSEL_SDA_PORT_Pos (5UL)\000"
@@ -53904,11 +54212,11 @@ touchpanel_get_register_value:
 	.ascii	"RAM_POWERSET_S2RETENTION_Pos)\000"
 .LASF10112:
 	.ascii	"TWIS_INTENSET_RXSTARTED_Disabled (0UL)\000"
-.LASF10844:
-	.ascii	"USBD_INTEN_ENDEPIN5_Pos (7UL)\000"
+.LASF10875:
+	.ascii	"USBD_INTEN_USBRESET_Enabled (1UL)\000"
 .LASF4051:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR30_Pos (30UL)\000"
-.LASF13233:
+.LASF13250:
 	.ascii	"mon_grouping\000"
 .LASF94:
 	.ascii	"__UINT64_MAX__ 0xffffffffffffffffULL\000"
@@ -53954,7 +54262,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_SPI0_BASE 0x40003000UL\000"
 .LASF7483:
 	.ascii	"PWM_SEQ_CNT_CNT_Disabled (0UL)\000"
-.LASF13308:
+.LASF13325:
 	.ascii	"TASKS_STARTRX\000"
 .LASF4156:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR4_Msk (0x1UL << MWU_PERRE"
@@ -54082,7 +54390,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_EVENTS_RXREADY_EVENTS_RXREADY_Pos (0UL)\000"
 .LASF270:
 	.ascii	"__QQ_FBIT__ 7\000"
-.LASF13310:
+.LASF13327:
 	.ascii	"TASKS_STARTTX\000"
 .LASF6151:
 	.ascii	"PDM_INTENCLR_STOPPED_Pos (1UL)\000"
@@ -54148,8 +54456,8 @@ touchpanel_get_register_value:
 .LASF10821:
 	.ascii	"USBD_INTEN_ENDEPOUT1_Msk (0x1UL << USBD_INTEN_ENDEP"
 	.ascii	"OUT1_Pos)\000"
-.LASF6346:
-	.ascii	"POWER_USBREGSTATUS_OUTPUTRDY_Ready (1UL)\000"
+.LASF1077:
+	.ascii	"APP_USBD_CONFIG_LOG_ENABLED 0\000"
 .LASF7370:
 	.ascii	"PWM_INTEN_SEQSTARTED0_Disabled (0UL)\000"
 .LASF1586:
@@ -54307,8 +54615,6 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_RTC_CONFIG_LOG_LEVEL RTC_CONFIG_LOG_LEVEL\000"
 .LASF1942:
 	.ascii	"TPI_ITATBCTR2_ATREADY_Pos 0U\000"
-.LASF9919:
-	.ascii	"TWIM_INTENSET_LASTRX_Disabled (0UL)\000"
 .LASF4839:
 	.ascii	"NFCT_NFCID1_2ND_LAST_NFCID1_U_Pos (8UL)\000"
 .LASF10164:
@@ -54409,7 +54715,7 @@ touchpanel_get_register_value:
 .LASF6147:
 	.ascii	"PDM_INTENCLR_END_Msk (0x1UL << PDM_INTENCLR_END_Pos"
 	.ascii	")\000"
-.LASF13345:
+.LASF13362:
 	.ascii	"EVENTS_TXSTARTED\000"
 .LASF2480:
 	.ascii	"CLOCK_TASKS_CAL_TASKS_CAL_Pos (0UL)\000"
@@ -54504,8 +54810,6 @@ touchpanel_get_register_value:
 	.ascii	"QDEC_SAMPLE_SAMPLE_Pos (0UL)\000"
 .LASF8063:
 	.ascii	"RADIO_INTENSET_CCABUSY_Pos (18UL)\000"
-.LASF13302:
-	.ascii	"TWIM_PSEL_Type\000"
 .LASF5403:
 	.ascii	"GPIO_IN_PIN24_Low (0UL)\000"
 .LASF391:
@@ -54589,7 +54893,7 @@ touchpanel_get_register_value:
 	.ascii	"< USBD_EVENTS_ENDISOOUT_EVENTS_ENDISOOUT_Pos)\000"
 .LASF8995:
 	.ascii	"SAADC_INTENCLR_CH1LIMITH_Enabled (1UL)\000"
-.LASF13432:
+.LASF13449:
 	.ascii	"__irq_masks\000"
 .LASF2165:
 	.ascii	"NRF_TWIM1_BASE 0x40004000UL\000"
@@ -54657,7 +54961,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUT_PIN19_High (1UL)\000"
 .LASF11125:
 	.ascii	"USBD_INTENCLR_USBRESET_Clear (1UL)\000"
-.LASF13346:
+.LASF13363:
 	.ascii	"EVENTS_LASTRX\000"
 .LASF7113:
 	.ascii	"PPI_CHENCLR_CH12_Pos (12UL)\000"
@@ -54782,7 +55086,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHENCLR_CH28_Disabled (0UL)\000"
 .LASF8980:
 	.ascii	"SAADC_INTENCLR_CH2LIMITL_Enabled (1UL)\000"
-.LASF13347:
+.LASF13364:
 	.ascii	"EVENTS_LASTTX\000"
 .LASF4822:
 	.ascii	"NFCT_RXD_FRAMECONFIG_PARITY_Msk (0x1UL << NFCT_RXD_"
@@ -54814,7 +55118,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG3_CH2_Excluded PPI_CHG_CH2_Excluded\000"
 .LASF1528:
 	.ascii	"NRF_BLE_CGMS_BLE_OBSERVER_PRIO 2\000"
-.LASF13206:
+.LASF13223:
 	.ascii	"TOUCH_Y_H_OFFSET 2\000"
 .LASF9523:
 	.ascii	"TEMP_INTENSET_DATARDY_Enabled (1UL)\000"
@@ -54980,7 +55284,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_TWIM_FLAG_RX_POSTINC (1UL << 1)\000"
 .LASF10310:
 	.ascii	"UART_ERRORSRC_FRAMING_Present (1UL)\000"
-.LASF13481:
+.LASF13503:
 	.ascii	"p_data\000"
 .LASF8223:
 	.ascii	"RADIO_INTENCLR_DEVMATCH_Pos (5UL)\000"
@@ -55002,15 +55306,13 @@ touchpanel_get_register_value:
 	.ascii	"FLOW_Pos)\000"
 .LASF4066:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR27_Access (1UL)\000"
-.LASF13435:
+.LASF13452:
 	.ascii	"nrf_nvic_state\000"
-.LASF13469:
+.LASF13492:
 	.ascii	"touchpanel_send_cmd\000"
 .LASF12456:
 	.ascii	"NRFX_SPI1_ENABLED (SPI1_ENABLED && !SPI1_USE_EASY_D"
 	.ascii	"MA)\000"
-.LASF6122:
-	.ascii	"PDM_INTEN_END_Enabled (1UL)\000"
 .LASF9078:
 	.ascii	"SAADC_CH_CONFIG_MODE_Diff (1UL)\000"
 .LASF3152:
@@ -55047,7 +55349,7 @@ touchpanel_get_register_value:
 .LASF10380:
 	.ascii	"UART_CONFIG_PARITY_Msk (0x7UL << UART_CONFIG_PARITY"
 	.ascii	"_Pos)\000"
-.LASF13326:
+.LASF13343:
 	.ascii	"EVENTS_SUSPENDED\000"
 .LASF3669:
 	.ascii	"MWU_INTENSET_REGION2WA_Enabled (1UL)\000"
@@ -55121,7 +55423,7 @@ touchpanel_get_register_value:
 	.ascii	"EGION_SUBSTATWA_SR16_Pos)\000"
 .LASF9961:
 	.ascii	"TWIM_INTENCLR_TXSTARTED_Clear (1UL)\000"
-.LASF13217:
+.LASF13234:
 	.ascii	"int32_t\000"
 .LASF1910:
 	.ascii	"TPI_ACPR_PRESCALER_Pos 0U\000"
@@ -55210,7 +55512,7 @@ touchpanel_get_register_value:
 	.ascii	"POWER_RAM_POWERSET_S8POWER_Pos (8UL)\000"
 .LASF4077:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR24_NoAccess (0UL)\000"
-.LASF13512:
+.LASF13534:
 	.ascii	"sd_ppi_group_get\000"
 .LASF9120:
 	.ascii	"SAADC_RESOLUTION_VAL_10bit (1UL)\000"
@@ -55238,7 +55540,7 @@ touchpanel_get_register_value:
 	.ascii	"GION_SUBSTATWA_SR6_Pos)\000"
 .LASF11144:
 	.ascii	"USBD_EVENTCAUSE_ISOOUTCRC_NotDetected (0UL)\000"
-.LASF13262:
+.LASF13279:
 	.ascii	"__iswctype\000"
 .LASF2247:
 	.ascii	"NRF_TEMP ((NRF_TEMP_Type *) NRF_TEMP_BASE)\000"
@@ -55391,7 +55693,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_INTENCLR_EPDATA_Enabled (1UL)\000"
 .LASF12699:
 	.ascii	"nrfx_lpcomp_irq_handler COMP_LPCOMP_IRQHandler\000"
-.LASF13281:
+.LASF13298:
 	.ascii	"__RAL_c_locale_day_names\000"
 .LASF5246:
 	.ascii	"GPIO_OUTCLR_PIN25_High (1UL)\000"
@@ -55467,7 +55769,7 @@ touchpanel_get_register_value:
 	.ascii	"__stddef_H \000"
 .LASF11839:
 	.ascii	"PPI_CHG2_CH12_Msk PPI_CHG_CH12_Msk\000"
-.LASF13459:
+.LASF13481:
 	.ascii	"touch_id\000"
 .LASF8597:
 	.ascii	"RTC_INTENCLR_COMPARE1_Disabled (0UL)\000"
@@ -55590,7 +55892,7 @@ touchpanel_get_register_value:
 	.ascii	"__LLFRACT_EPSILON__ 0x1P-63LLR\000"
 .LASF9568:
 	.ascii	"TIMER_TASKS_STOP_TASKS_STOP_Pos (0UL)\000"
-.LASF13442:
+.LASF13459:
 	.ascii	"ret_code_t\000"
 .LASF13141:
 	.ascii	"GZLL_PPI_CHANNELS_USED 0uL\000"
@@ -55608,7 +55910,7 @@ touchpanel_get_register_value:
 	.ascii	"os)\000"
 .LASF4362:
 	.ascii	"MWU_PREGION_SUBS_SR29_Include (1UL)\000"
-.LASF13477:
+.LASF13499:
 	.ascii	"rx_buffer\000"
 .LASF958:
 	.ascii	"QSPI_PIN_CSN NRF_QSPI_PIN_NOT_CONNECTED\000"
@@ -55750,7 +56052,7 @@ touchpanel_get_register_value:
 .LASF9485:
 	.ascii	"SPIS_PSEL_CSN_PIN_Msk (0x1FUL << SPIS_PSEL_CSN_PIN_"
 	.ascii	"Pos)\000"
-.LASF13304:
+.LASF13321:
 	.ascii	"AMOUNT\000"
 .LASF1507:
 	.ascii	"BLE_HIDS_BLE_OBSERVER_PRIO 2\000"
@@ -55882,7 +56184,7 @@ touchpanel_get_register_value:
 	.ascii	"ENDEPIN1_Pos)\000"
 .LASF11537:
 	.ascii	"WDT_RREN_RR5_Msk (0x1UL << WDT_RREN_RR5_Pos)\000"
-.LASF13267:
+.LASF13284:
 	.ascii	"__RAL_locale_codeset_t\000"
 .LASF10478:
 	.ascii	"UARTE_INTENSET_TXSTARTED_Disabled (0UL)\000"
@@ -55890,7 +56192,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG3_CH9_Included PPI_CHG_CH9_Included\000"
 .LASF198:
 	.ascii	"__USFRACT_MAX__ 0XFFP-8UHR\000"
-.LASF13279:
+.LASF13296:
 	.ascii	"__RAL_codeset_utf8\000"
 .LASF5998:
 	.ascii	"GPIO_LATCH_PIN19_Msk (0x1UL << GPIO_LATCH_PIN19_Pos"
@@ -55954,8 +56256,8 @@ touchpanel_get_register_value:
 .LASF2326:
 	.ascii	"AAR_INTENCLR_RESOLVED_Msk (0x1UL << AAR_INTENCLR_RE"
 	.ascii	"SOLVED_Pos)\000"
-.LASF308:
-	.ascii	"__GNUC_STDC_INLINE__ 1\000"
+.LASF3093:
+	.ascii	"FICR_TEMP_A4_A_Msk (0xFFFUL << FICR_TEMP_A4_A_Pos)\000"
 .LASF10204:
 	.ascii	"TWIS_CONFIG_ADDRESS1_Msk (0x1UL << TWIS_CONFIG_ADDR"
 	.ascii	"ESS1_Pos)\000"
@@ -55992,8 +56294,6 @@ touchpanel_get_register_value:
 	.ascii	"COMP_CONFIG_LOG_ENABLED 0\000"
 .LASF4002:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR11_Access (1UL)\000"
-.LASF10458:
-	.ascii	"UARTE_INTEN_ENDRX_Enabled (1UL)\000"
 .LASF8907:
 	.ascii	"SAADC_INTENSET_RESULTDONE_Pos (3UL)\000"
 .LASF8224:
@@ -56033,7 +56333,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUT_PIN22_High (1UL)\000"
 .LASF7578:
 	.ascii	"QDEC_INTENCLR_DBLRDY_Enabled (1UL)\000"
-.LASF13529:
+.LASF13551:
 	.ascii	"sd_radio_session_close\000"
 .LASF12876:
 	.ascii	"MACRO_MAP_REC_10(macro,a,...) macro(a) MACRO_MAP_RE"
@@ -56058,7 +56358,7 @@ touchpanel_get_register_value:
 	.ascii	"SOC_ECB_KEY_LENGTH (16)\000"
 .LASF2172:
 	.ascii	"NRF_TIMER2_BASE 0x4000A000UL\000"
-.LASF13283:
+.LASF13300:
 	.ascii	"__RAL_c_locale_month_names\000"
 .LASF12898:
 	.ascii	"MACRO_MAP_FOR_11(n_list,macro,a,...) macro(a, GET_V"
@@ -56111,8 +56411,8 @@ touchpanel_get_register_value:
 	.ascii	"NRF_SDH_DEBUG_COLOR 0\000"
 .LASF7293:
 	.ascii	"PPI_CHG_CH4_Included (1UL)\000"
-.LASF7484:
-	.ascii	"PWM_SEQ_REFRESH_CNT_Pos (0UL)\000"
+.LASF10153:
+	.ascii	"TWIS_INTENCLR_STOPPED_Enabled (1UL)\000"
 .LASF6184:
 	.ascii	"PDM_GAINL_GAINL_DefaultGain (0x28UL)\000"
 .LASF4022:
@@ -56153,7 +56453,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_TWI_H__ \000"
 .LASF1172:
 	.ascii	"NRF_QUEUE_ENABLED 0\000"
-.LASF13213:
+.LASF13230:
 	.ascii	"short int\000"
 .LASF4558:
 	.ascii	"NFCT_INTEN_ENDRX_Enabled (1UL)\000"
@@ -56189,7 +56489,7 @@ touchpanel_get_register_value:
 	.ascii	"ABLE_Pos)\000"
 .LASF1986:
 	.ascii	"MPU_CTRL_HFNMIENA_Pos 1U\000"
-.LASF13499:
+.LASF13521:
 	.ascii	"size\000"
 .LASF5817:
 	.ascii	"GPIO_DIRCLR_PIN26_Output (1UL)\000"
@@ -56219,20 +56519,20 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_INTENCLR_EDSTOPPED_Pos (16UL)\000"
 .LASF9956:
 	.ascii	"TWIM_INTENCLR_LASTRX_Clear (1UL)\000"
-.LASF13288:
+.LASF13305:
 	.ascii	"__RAL_data_utf8_plus\000"
 .LASF9085:
 	.ascii	"SAADC_CH_CONFIG_TACQ_20us (4UL)\000"
 .LASF10833:
 	.ascii	"USBD_INTEN_EP0DATADONE_Msk (0x1UL << USBD_INTEN_EP0"
 	.ascii	"DATADONE_Pos)\000"
-.LASF13268:
+.LASF13285:
 	.ascii	"name\000"
 .LASF6762:
 	.ascii	"PPI_CHEN_CH23_Pos (23UL)\000"
 .LASF8902:
 	.ascii	"SAADC_INTENSET_CALIBRATEDONE_Pos (4UL)\000"
-.LASF13547:
+.LASF13569:
 	.ascii	"sd_power_ram_power_clr\000"
 .LASF8442:
 	.ascii	"RADIO_DACNF_TXADD4_Msk (0x1UL << RADIO_DACNF_TXADD4"
@@ -56252,7 +56552,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUT_PIN11_Msk (0x1UL << GPIO_OUT_PIN11_Pos)\000"
 .LASF11605:
 	.ascii	"PSELMISO PSEL.MISO\000"
-.LASF13561:
+.LASF13583:
 	.ascii	"usbpwrrdy_enable\000"
 .LASF5105:
 	.ascii	"GPIO_OUTSET_PIN21_Low (0UL)\000"
@@ -56395,7 +56695,7 @@ touchpanel_get_register_value:
 	.ascii	"R\000"
 .LASF4481:
 	.ascii	"NFCT_TASKS_DISABLE_TASKS_DISABLE_Pos (0UL)\000"
-.LASF13467:
+.LASF13490:
 	.ascii	"reg_address\000"
 .LASF11896:
 	.ascii	"PPI_CHG3_CH14_Excluded PPI_CHG_CH14_Excluded\000"
@@ -56490,7 +56790,7 @@ touchpanel_get_register_value:
 	.ascii	"RG_1(BRACKET_EXTRACT(n_list)), __VA_ARGS__) MACRO_R"
 	.ascii	"EPEAT_FOR_7((GET_ARGS_AFTER_1(BRACKET_EXTRACT(n_lis"
 	.ascii	"t))), macro, __VA_ARGS__)\000"
-.LASF13324:
+.LASF13341:
 	.ascii	"EVENTS_BB\000"
 .LASF3232:
 	.ascii	"GPIOTE_INTENCLR_IN6_Msk (0x1UL << GPIOTE_INTENCLR_I"
@@ -56581,7 +56881,7 @@ touchpanel_get_register_value:
 	.ascii	"SAADC_CH_CONFIG_REFSEL_Internal (0UL)\000"
 .LASF8676:
 	.ascii	"RTC_EVTENCLR_COMPARE2_Disabled (0UL)\000"
-.LASF13249:
+.LASF13266:
 	.ascii	"int_n_sign_posn\000"
 .LASF1100:
 	.ascii	"HCI_TX_BUF_SIZE 600\000"
@@ -56589,7 +56889,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIOTE_INTENCLR_IN0_Disabled (0UL)\000"
 .LASF8539:
 	.ascii	"RNG_VALUE_VALUE_Pos (0UL)\000"
-.LASF13231:
+.LASF13248:
 	.ascii	"mon_decimal_point\000"
 .LASF9931:
 	.ascii	"TWIM_INTENSET_RXSTARTED_Set (1UL)\000"
@@ -56631,7 +56931,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_MEMOBJ_CONFIG_DEBUG_COLOR 0\000"
 .LASF5937:
 	.ascii	"GPIO_DIRCLR_PIN2_Output (1UL)\000"
-.LASF13411:
+.LASF13428:
 	.ascii	"earliest\000"
 .LASF2697:
 	.ascii	"COMP_INTENCLR_CROSS_Msk (0x1UL << COMP_INTENCLR_CRO"
@@ -56654,8 +56954,6 @@ touchpanel_get_register_value:
 	.ascii	"NVMC_ERASEPAGEPARTIAL_ERASEPAGEPARTIAL_Msk (0xFFFFF"
 	.ascii	"FFFUL << NVMC_ERASEPAGEPARTIAL_ERASEPAGEPARTIAL_Pos"
 	.ascii	")\000"
-.LASF7810:
-	.ascii	"QSPI_STATUS_DPM_Msk (0x1UL << QSPI_STATUS_DPM_Pos)\000"
 .LASF6235:
 	.ascii	"POWER_INTENSET_USBPWRRDY_Set (1UL)\000"
 .LASF10067:
@@ -56747,7 +57045,7 @@ touchpanel_get_register_value:
 .LASF1967:
 	.ascii	"TPI_DEVID_PTINVALID_Msk (0x1UL << TPI_DEVID_PTINVAL"
 	.ascii	"ID_Pos)\000"
-.LASF13228:
+.LASF13245:
 	.ascii	"grouping\000"
 .LASF8228:
 	.ascii	"RADIO_INTENCLR_DISABLED_Pos (4UL)\000"
@@ -56771,7 +57069,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG3_CH3_Included PPI_CHG_CH3_Included\000"
 .LASF2788:
 	.ascii	"ECB_INTENSET_ENDECB_Enabled (1UL)\000"
-.LASF13246:
+.LASF13263:
 	.ascii	"int_p_sep_by_space\000"
 .LASF549:
 	.ascii	"NRF_CRYPTO_BACKEND_MBEDTLS_AES_ECB_ENABLED 1\000"
@@ -56930,7 +57228,7 @@ touchpanel_get_register_value:
 	.ascii	"EGION_SUBSTATRA_SR14_Pos)\000"
 .LASF1109:
 	.ascii	"HCI_UART_CTS_PIN 7\000"
-.LASF13509:
+.LASF13531:
 	.ascii	"sd_radio_notification_cfg_set\000"
 .LASF10340:
 	.ascii	"UART_PSEL_CTS_CONNECT_Msk (0x1UL << UART_PSEL_CTS_C"
@@ -57000,7 +57298,7 @@ touchpanel_get_register_value:
 	.ascii	"LR_PRGN1WA_Pos)\000"
 .LASF5038:
 	.ascii	"GPIO_OUT_PIN3_Msk (0x1UL << GPIO_OUT_PIN3_Pos)\000"
-.LASF13465:
+.LASF13487:
 	.ascii	"touchpoints_t\000"
 .LASF9125:
 	.ascii	"SAADC_OVERSAMPLE_OVERSAMPLE_Bypass (0UL)\000"
@@ -57126,7 +57424,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_STACK_GUARD_ENABLED 0\000"
 .LASF7647:
 	.ascii	"QDEC_PSEL_A_PIN_Pos (0UL)\000"
-.LASF13450:
+.LASF13472:
 	.ascii	"inst_idx\000"
 .LASF1738:
 	.ascii	"SCB_SHCSR_SVCALLPENDED_Pos 15U\000"
@@ -57141,7 +57439,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUTCLR_PIN8_High (1UL)\000"
 .LASF4562:
 	.ascii	"NFCT_INTEN_RXERROR_Enabled (1UL)\000"
-.LASF13407:
+.LASF13424:
 	.ascii	"timeout_us\000"
 .LASF2008:
 	.ascii	"MPU_RASR_C_Pos 17U\000"
@@ -57184,16 +57482,14 @@ touchpanel_get_register_value:
 	.ascii	"__DQ_IBIT__ 0\000"
 .LASF6069:
 	.ascii	"GPIO_LATCH_PIN1_Pos (1UL)\000"
-.LASF1196:
-	.ascii	"NRF_CLI_HISTORY_ELEMENT_SIZE 32\000"
+.LASF5533:
+	.ascii	"GPIO_DIR_PIN23_Pos (23UL)\000"
 .LASF7773:
 	.ascii	"QSPI_IFCONFIG0_DPMENABLE_Enable (1UL)\000"
 .LASF11882:
 	.ascii	"PPI_CHG2_CH1_Pos PPI_CHG_CH1_Pos\000"
 .LASF5019:
 	.ascii	"GPIO_OUT_PIN8_Low (0UL)\000"
-.LASF5425:
-	.ascii	"GPIO_IN_PIN18_Pos (18UL)\000"
 .LASF5304:
 	.ascii	"GPIO_OUTCLR_PIN13_Msk (0x1UL << GPIO_OUTCLR_PIN13_P"
 	.ascii	"os)\000"
@@ -57216,6 +57512,8 @@ touchpanel_get_register_value:
 	.ascii	"UART_PSEL_RXD_CONNECT_Disconnected (1UL)\000"
 .LASF11899:
 	.ascii	"PPI_CHG3_CH13_Msk PPI_CHG_CH13_Msk\000"
+.LASF3156:
+	.ascii	"FICR_TRNG90B_STARTUP_STARTUP_Pos (0UL)\000"
 .LASF2708:
 	.ascii	"COMP_INTENCLR_DOWN_Disabled (0UL)\000"
 .LASF12245:
@@ -57225,7 +57523,7 @@ touchpanel_get_register_value:
 	.ascii	"SSES_ADDR2_Pos)\000"
 .LASF8167:
 	.ascii	"RADIO_INTENCLR_RATEBOOST_Clear (1UL)\000"
-.LASF13521:
+.LASF13543:
 	.ascii	"evt_endpoint\000"
 .LASF9573:
 	.ascii	"TIMER_TASKS_CLEAR_TASKS_CLEAR_Msk (0x1UL << TIMER_T"
@@ -57305,13 +57603,15 @@ touchpanel_get_register_value:
 	.ascii	" ((v) >> 2) + 2 : VBITS_2 (v))\000"
 .LASF6720:
 	.ascii	"POWER_RAM_POWERCLR_S1POWER_Pos (1UL)\000"
+.LASF38:
+	.ascii	"__CHAR16_TYPE__ short unsigned int\000"
 .LASF6910:
 	.ascii	"PPI_CHENSET_CH21_Disabled (0UL)\000"
 .LASF88:
 	.ascii	"__INT16_MAX__ 0x7fff\000"
 .LASF12572:
 	.ascii	"NRFX_TWIM_CONFIG_LOG_ENABLED\000"
-.LASF13365:
+.LASF13382:
 	.ascii	"SD_MUTEX_NEW\000"
 .LASF6221:
 	.ascii	"POWER_EVENTS_SLEEPENTER_EVENTS_SLEEPENTER_Pos (0UL)"
@@ -57320,7 +57620,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUTCLR_PIN18_Pos (18UL)\000"
 .LASF2944:
 	.ascii	"EGU_INTENSET_TRIGGERED1_Set (1UL)\000"
-.LASF13378:
+.LASF13395:
 	.ascii	"SD_POWER_RAM_POWER_SET\000"
 .LASF592:
 	.ascii	"NRF_DFU_BLE_BUTTONLESS_SUPPORTS_BONDS 0\000"
@@ -57347,8 +57647,8 @@ touchpanel_get_register_value:
 .LASF6287:
 	.ascii	"POWER_INTENCLR_POFWARN_Msk (0x1UL << POWER_INTENCLR"
 	.ascii	"_POFWARN_Pos)\000"
-.LASF4831:
-	.ascii	"NFCT_NFCID1_LAST_NFCID1_X_Pos (16UL)\000"
+.LASF5307:
+	.ascii	"GPIO_OUTCLR_PIN13_Clear (1UL)\000"
 .LASF4101:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR18_NoAccess (0UL)\000"
 .LASF8672:
@@ -57366,7 +57666,7 @@ touchpanel_get_register_value:
 	.ascii	"SAADC_CH_CONFIG_RESP_Pullup (2UL)\000"
 .LASF6400:
 	.ascii	"POWER_DCDCEN0_DCDCEN_Disabled (0UL)\000"
-.LASF13558:
+.LASF13580:
 	.ascii	"sd_power_usbdetected_enable\000"
 .LASF11461:
 	.ascii	"USBD_ISOIN_MAXCNT_MAXCNT_Msk (0x3FFUL << USBD_ISOIN"
@@ -57476,7 +57776,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_TEMP_BASE 0x4000C000UL\000"
 .LASF2042:
 	.ascii	"FPU_FPDSCR_FZ_Pos 24U\000"
-.LASF13280:
+.LASF13297:
 	.ascii	"__RAL_ascii_ctype_map\000"
 .LASF1251:
 	.ascii	"LPCOMP_CONFIG_LOG_LEVEL 3\000"
@@ -57617,7 +57917,7 @@ touchpanel_get_register_value:
 	.ascii	"BLE_NUS_C_ENABLED 0\000"
 .LASF12023:
 	.ascii	"EGU_COUNT 6\000"
-.LASF13490:
+.LASF13512:
 	.ascii	"sd_radio_request\000"
 .LASF12756:
 	.ascii	"BIT_12 0x1000\000"
@@ -57625,7 +57925,7 @@ touchpanel_get_register_value:
 	.ascii	"TWIS_ENABLE_ENABLE_Disabled (0UL)\000"
 .LASF6001:
 	.ascii	"GPIO_LATCH_PIN18_Pos (18UL)\000"
-.LASF13215:
+.LASF13232:
 	.ascii	"uint16_t\000"
 .LASF3281:
 	.ascii	"GPIOTE_CONFIG_MODE_Msk (0x3UL << GPIOTE_CONFIG_MODE"
@@ -57651,7 +57951,7 @@ touchpanel_get_register_value:
 	.ascii	"TIMER_INTENCLR_COMPARE3_Enabled (1UL)\000"
 .LASF8649:
 	.ascii	"RTC_EVTENSET_COMPARE1_Pos (17UL)\000"
-.LASF13564:
+.LASF13586:
 	.ascii	"sd_power_system_off\000"
 .LASF10137:
 	.ascii	"TWIS_INTENCLR_TXSTARTED_Disabled (0UL)\000"
@@ -57708,7 +58008,7 @@ touchpanel_get_register_value:
 	.ascii	"NFCT_EVENTS_TXFRAMESTART_EVENTS_TXFRAMESTART_Msk (0"
 	.ascii	"x1UL << NFCT_EVENTS_TXFRAMESTART_EVENTS_TXFRAMESTAR"
 	.ascii	"T_Pos)\000"
-.LASF13468:
+.LASF13491:
 	.ascii	"touchpanel_get_register_value\000"
 .LASF2069:
 	.ascii	"FPU_MVFR1_FtZ_mode_Msk (0xFUL )\000"
@@ -57720,7 +58020,7 @@ touchpanel_get_register_value:
 	.ascii	"UART_BAUDRATE_BAUDRATE_Baud19200 (0x004EA000UL)\000"
 .LASF12382:
 	.ascii	"NRFX_QSPI_PIN_CSN QSPI_PIN_CSN\000"
-.LASF13498:
+.LASF13520:
 	.ascii	"p_src\000"
 .LASF12223:
 	.ascii	"NRFX_I2S_CONFIG_MCK_SETUP\000"
@@ -57786,7 +58086,7 @@ touchpanel_get_register_value:
 .LASF7658:
 	.ascii	"QDEC_DBFEN_DBFEN_Msk (0x1UL << QDEC_DBFEN_DBFEN_Pos"
 	.ascii	")\000"
-.LASF13248:
+.LASF13265:
 	.ascii	"int_p_sign_posn\000"
 .LASF8806:
 	.ascii	"SAADC_INTEN_DONE_Msk (0x1UL << SAADC_INTEN_DONE_Pos"
@@ -57849,8 +58149,8 @@ touchpanel_get_register_value:
 	.ascii	"QSPI_CINSTRCONF_LENGTH_Pos (8UL)\000"
 .LASF1493:
 	.ascii	"BLE_ADV_BLE_OBSERVER_PRIO 1\000"
-.LASF3569:
-	.ascii	"LPCOMP_ANADETECT_ANADETECT_Up (1UL)\000"
+.LASF11756:
+	.ascii	"PPI_CHG0_CH1_Excluded PPI_CHG_CH1_Excluded\000"
 .LASF4069:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR26_NoAccess (0UL)\000"
 .LASF3412:
@@ -57887,7 +58187,7 @@ touchpanel_get_register_value:
 .LASF4067:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR26_Pos (26UL)\000"
 .LASF817:
-	.ascii	"NRFX_SPI2_ENABLED 1\000"
+	.ascii	"NRFX_SPI2_ENABLED 0\000"
 .LASF1156:
 	.ascii	"NRF_FSTORAGE_PARAM_CHECK_DISABLED 0\000"
 .LASF10281:
@@ -57900,7 +58200,7 @@ touchpanel_get_register_value:
 	.ascii	"false 0\000"
 .LASF10571:
 	.ascii	"UARTE_INTENCLR_NCTS_Pos (1UL)\000"
-.LASF13505:
+.LASF13527:
 	.ascii	"block_count\000"
 .LASF12210:
 	.ascii	"NRFX_I2S_CONFIG_SDOUT_PIN I2S_CONFIG_SDOUT_PIN\000"
@@ -57910,7 +58210,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG_CH21_Included (1UL)\000"
 .LASF1814:
 	.ascii	"ITM_TCR_BUSY_Pos 23U\000"
-.LASF13550:
+.LASF13572:
 	.ascii	"ram_powerset\000"
 .LASF967:
 	.ascii	"RNG_CONFIG_IRQ_PRIORITY 7\000"
@@ -57969,7 +58269,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_LPCOMP_ENABLED LPCOMP_ENABLED\000"
 .LASF6176:
 	.ascii	"PDM_MODE_EDGE_LeftRising (1UL)\000"
-.LASF13552:
+.LASF13574:
 	.ascii	"threshold\000"
 .LASF3916:
 	.ascii	"MWU_NMIENCLR_REGION0WA_Disabled (0UL)\000"
@@ -57995,7 +58295,7 @@ touchpanel_get_register_value:
 	.ascii	"FPU_COUNT 1\000"
 .LASF1476:
 	.ascii	"NFC_T4T_TLV_BLOCK_PARSER_INFO_COLOR 0\000"
-.LASF13532:
+.LASF13554:
 	.ascii	"p_is_running\000"
 .LASF4097:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR19_NoAccess (0UL)\000"
@@ -58026,8 +58326,6 @@ touchpanel_get_register_value:
 	.ascii	"SPI_FREQUENCY_FREQUENCY_Pos (0UL)\000"
 .LASF2689:
 	.ascii	"COMP_INTENSET_DOWN_Enabled (1UL)\000"
-.LASF5307:
-	.ascii	"GPIO_OUTCLR_PIN13_Clear (1UL)\000"
 .LASF3517:
 	.ascii	"LPCOMP_INTENCLR_DOWN_Msk (0x1UL << LPCOMP_INTENCLR_"
 	.ascii	"DOWN_Pos)\000"
@@ -58126,7 +58424,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_IN_PIN11_High (1UL)\000"
 .LASF4961:
 	.ascii	"GPIO_OUT_PIN22_Pos (22UL)\000"
-.LASF13366:
+.LASF13383:
 	.ascii	"SD_MUTEX_ACQUIRE\000"
 .LASF4788:
 	.ascii	"NFCT_FRAMEDELAYMODE_FRAMEDELAYMODE_WindowGrid (3UL)"
@@ -58165,9 +58463,12 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUTCLR_PIN1_Low (0UL)\000"
 .LASF2743:
 	.ascii	"COMP_EXTREFSEL_EXTREFSEL_AnalogReference0 (0UL)\000"
+.LASF11421:
+	.ascii	"USBD_EPOUTEN_OUT1_Msk (0x1UL << USBD_EPOUTEN_OUT1_P"
+	.ascii	"os)\000"
 .LASF10124:
 	.ascii	"TWIS_INTENSET_STOPPED_Set (1UL)\000"
-.LASF13449:
+.LASF13471:
 	.ascii	"twim\000"
 .LASF3173:
 	.ascii	"GPIOTE_EVENTS_IN_EVENTS_IN_Msk (0x1UL << GPIOTE_EVE"
@@ -58223,7 +58524,7 @@ touchpanel_get_register_value:
 .LASF2296:
 	.ascii	"AAR_TASKS_START_TASKS_START_Msk (0x1UL << AAR_TASKS"
 	.ascii	"_START_TASKS_START_Pos)\000"
-.LASF13340:
+.LASF13357:
 	.ascii	"FREQUENCY\000"
 .LASF2447:
 	.ascii	"CC_HOST_RGF_HOST_CRYPTOKEY_SEL_HOST_CRYPTOKEY_SEL_P"
@@ -58333,9 +58634,9 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_PDM_CONFIG_LOG_ENABLED\000"
 .LASF6506:
 	.ascii	"POWER_RAM_POWER_S6POWER_Pos (6UL)\000"
-.LASF13210:
+.LASF13227:
 	.ascii	"TOUCHPANEL_HEIGHT 480\000"
-.LASF13384:
+.LASF13401:
 	.ascii	"SD_POWER_DCDC_MODE_SET\000"
 .LASF5956:
 	.ascii	"GPIO_LATCH_PIN30_Latched (1UL)\000"
@@ -58420,7 +58721,7 @@ touchpanel_get_register_value:
 	.ascii	"UART_INTENSET_NCTS_Disabled (0UL)\000"
 .LASF11611:
 	.ascii	"SPIS_MAXRX_MAXRX_Pos SPIS_RXD_MAXCNT_MAXCNT_Pos\000"
-.LASF13266:
+.LASF13283:
 	.ascii	"__mbtowc\000"
 .LASF653:
 	.ascii	"NRFX_GPIOTE_CONFIG_IRQ_PRIORITY 7\000"
@@ -58591,7 +58892,7 @@ touchpanel_get_register_value:
 .LASF6157:
 	.ascii	"PDM_INTENCLR_STARTED_Msk (0x1UL << PDM_INTENCLR_STA"
 	.ascii	"RTED_Pos)\000"
-.LASF13548:
+.LASF13570:
 	.ascii	"ram_powerclr\000"
 .LASF4747:
 	.ascii	"NFCT_FRAMESTATUS_RX_OVERRUN_Pos (3UL)\000"
@@ -58651,7 +58952,7 @@ touchpanel_get_register_value:
 	.ascii	"LW_Pos)\000"
 .LASF5041:
 	.ascii	"GPIO_OUT_PIN2_Pos (2UL)\000"
-.LASF13415:
+.LASF13432:
 	.ascii	"nrf_radio_request_t\000"
 .LASF1244:
 	.ascii	"COMP_CONFIG_INFO_COLOR 0\000"
@@ -58664,13 +58965,13 @@ touchpanel_get_register_value:
 	.ascii	"_Pos)\000"
 .LASF4071:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR25_Pos (25UL)\000"
-.LASF13375:
+.LASF13392:
 	.ascii	"SD_POWER_POF_ENABLE\000"
 .LASF11246:
 	.ascii	"USBD_EPDATASTATUS_EPOUT2_Pos (18UL)\000"
 .LASF11311:
 	.ascii	"USBD_BREQUEST_BREQUEST_STD_SYNCH_FRAME (12UL)\000"
-.LASF13402:
+.LASF13419:
 	.ascii	"SVC_SOC_LAST\000"
 .LASF9237:
 	.ascii	"SPIM_INTENSET_STARTED_Set (1UL)\000"
@@ -58806,7 +59107,7 @@ touchpanel_get_register_value:
 	.ascii	"COMP_PSEL_PSEL_Pos (0UL)\000"
 .LASF1018:
 	.ascii	"TWIS_DEFAULT_CONFIG_IRQ_PRIORITY 7\000"
-.LASF13511:
+.LASF13533:
 	.ascii	"distance\000"
 .LASF873:
 	.ascii	"NRFX_TWIS_CONFIG_DEBUG_COLOR 0\000"
@@ -58823,7 +59124,7 @@ touchpanel_get_register_value:
 	.ascii	"NFCT_NFCTAGSTATE_NFCTAGSTATE_Disabled (0UL)\000"
 .LASF3381:
 	.ascii	"I2S_CONFIG_RATIO_RATIO_64X (2UL)\000"
-.LASF13305:
+.LASF13322:
 	.ascii	"LIST\000"
 .LASF2570:
 	.ascii	"CLOCK_LFCLKRUN_STATUS_Pos (0UL)\000"
@@ -58882,9 +59183,9 @@ touchpanel_get_register_value:
 	.ascii	"NFCT_INTEN_COLLISION_Pos (18UL)\000"
 .LASF7452:
 	.ascii	"PWM_MODE_UPDOWN_Up (0UL)\000"
-.LASF3125:
-	.ascii	"FICR_NFC_TAGHEADER0_MFGID_Msk (0xFFUL << FICR_NFC_T"
-	.ascii	"AGHEADER0_MFGID_Pos)\000"
+.LASF6078:
+	.ascii	"GPIO_DETECTMODE_DETECTMODE_Msk (0x1UL << GPIO_DETEC"
+	.ascii	"TMODE_DETECTMODE_Pos)\000"
 .LASF3538:
 	.ascii	"LPCOMP_PSEL_PSEL_AnalogInput2 (2UL)\000"
 .LASF7973:
@@ -59023,7 +59324,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_EVENTCAUSE_RESUME_NotDetected (0UL)\000"
 .LASF11014:
 	.ascii	"USBD_INTENCLR_USBEVENT_Enabled (1UL)\000"
-.LASF13272:
+.LASF13289:
 	.ascii	"__mbstate_s\000"
 .LASF7712:
 	.ascii	"QSPI_ERASE_LEN_LEN_Msk (0x3UL << QSPI_ERASE_LEN_LEN"
@@ -59101,7 +59402,7 @@ touchpanel_get_register_value:
 .LASF2843:
 	.ascii	"EGU_INTEN_TRIGGERED6_Msk (0x1UL << EGU_INTEN_TRIGGE"
 	.ascii	"RED6_Pos)\000"
-.LASF13388:
+.LASF13405:
 	.ascii	"SD_CLOCK_HFCLK_RELEASE\000"
 .LASF4311:
 	.ascii	"MWU_REGIONENCLR_RGN3WA_Enabled (1UL)\000"
@@ -59215,14 +59516,14 @@ touchpanel_get_register_value:
 	.ascii	"SPI_PSEL_SCK_PORT_Pos (5UL)\000"
 .LASF6984:
 	.ascii	"PPI_CHENSET_CH6_Msk (0x1UL << PPI_CHENSET_CH6_Pos)\000"
-.LASF13439:
+.LASF13456:
 	.ascii	"stdin\000"
 .LASF13087:
 	.ascii	"APP_ERROR_HANDLER(ERR_CODE) do { app_error_handler_"
 	.ascii	"bare((ERR_CODE)); } while (0)\000"
 .LASF78:
 	.ascii	"__WINT_MIN__ 0U\000"
-.LASF13408:
+.LASF13425:
 	.ascii	"nrf_radio_request_earliest_t\000"
 .LASF3830:
 	.ascii	"MWU_NMIENSET_REGION2RA_Msk (0x1UL << MWU_NMIENSET_R"
@@ -59240,7 +59541,7 @@ touchpanel_get_register_value:
 .LASF9521:
 	.ascii	"TEMP_INTENSET_DATARDY_Msk (0x1UL << TEMP_INTENSET_D"
 	.ascii	"ATARDY_Pos)\000"
-.LASF13454:
+.LASF13476:
 	.ascii	"PUTUP\000"
 .LASF5742:
 	.ascii	"GPIO_DIRSET_PIN9_Output (1UL)\000"
@@ -59251,11 +59552,11 @@ touchpanel_get_register_value:
 	.ascii	"os)\000"
 .LASF12449:
 	.ascii	"NRFX_SPIM_ENABLED\000"
-.LASF13507:
+.LASF13529:
 	.ascii	"sd_ecb_block_encrypt\000"
 .LASF2200:
 	.ascii	"NRF_ACL_BASE 0x4001E000UL\000"
-.LASF13500:
+.LASF13522:
 	.ascii	"sd_temp_get\000"
 .LASF1215:
 	.ascii	"NRF_LOG_WARNING_COLOR 4\000"
@@ -59272,11 +59573,11 @@ touchpanel_get_register_value:
 	.ascii	"SPIM_FREQUENCY_FREQUENCY_K250 (0x04000000UL)\000"
 .LASF4039:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR1_Pos (1UL)\000"
-.LASF13381:
+.LASF13398:
 	.ascii	"SD_POWER_GPREGRET_SET\000"
 .LASF10499:
 	.ascii	"UARTE_INTENSET_ENDTX_Enabled (1UL)\000"
-.LASF13405:
+.LASF13422:
 	.ascii	"priority\000"
 .LASF854:
 	.ascii	"NRFX_TWIM_DEFAULT_CONFIG_HOLD_BUS_UNINIT 0\000"
@@ -59320,7 +59621,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_PRESENT \000"
 .LASF6478:
 	.ascii	"POWER_RAM_POWER_S13POWER_Pos (13UL)\000"
-.LASF13244:
+.LASF13261:
 	.ascii	"int_p_cs_precedes\000"
 .LASF8257:
 	.ascii	"RADIO_RXMATCH_RXMATCH_Pos (0UL)\000"
@@ -59358,6 +59659,8 @@ touchpanel_get_register_value:
 	.ascii	"EGU_INTEN_TRIGGERED1_Disabled (0UL)\000"
 .LASF10467:
 	.ascii	"UARTE_INTEN_CTS_Pos (0UL)\000"
+.LASF9423:
+	.ascii	"SPIS_INTENCLR_ACQUIRED_Clear (1UL)\000"
 .LASF13116:
 	.ascii	"NRFX_DELAY_DWT_PRESENT 1\000"
 .LASF10876:
@@ -59397,7 +59700,7 @@ touchpanel_get_register_value:
 	.ascii	"QDEC_INTENCLR_ACCOF_Disabled (0UL)\000"
 .LASF751:
 	.ascii	"NRFX_QSPI_CONFIG_READOC 0\000"
-.LASF13278:
+.LASF13295:
 	.ascii	"__RAL_codeset_ascii\000"
 .LASF7363:
 	.ascii	"PWM_INTEN_SEQEND0_Enabled (1UL)\000"
@@ -59473,7 +59776,7 @@ touchpanel_get_register_value:
 	.ascii	"LPCOMP_IRQHandler COMP_LPCOMP_IRQHandler\000"
 .LASF12592:
 	.ascii	"NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY\000"
-.LASF13275:
+.LASF13292:
 	.ascii	"sizetype\000"
 .LASF6454:
 	.ascii	"POWER_RAM_POWER_S3RETENTION_Pos (19UL)\000"
@@ -59604,7 +59907,7 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_EVENTS_RXDRDY_EVENTS_RXDRDY_Pos (0UL)\000"
 .LASF10918:
 	.ascii	"USBD_INTENSET_ENDEPOUT4_Disabled (0UL)\000"
-.LASF13307:
+.LASF13324:
 	.ascii	"TWIM_TXD_Type\000"
 .LASF1421:
 	.ascii	"NFC_CH_COMMON_ENABLED 0\000"
@@ -59643,11 +59946,11 @@ touchpanel_get_register_value:
 .LASF5740:
 	.ascii	"GPIO_DIRSET_PIN9_Msk (0x1UL << GPIO_DIRSET_PIN9_Pos"
 	.ascii	")\000"
-.LASF13235:
+.LASF13252:
 	.ascii	"negative_sign\000"
 .LASF1670:
 	.ascii	"SCB_CPUID_VARIANT_Pos 20U\000"
-.LASF13204:
+.LASF13221:
 	.ascii	"TOUCH_Y_H_MASK 0x0f\000"
 .LASF4546:
 	.ascii	"NFCT_INTEN_COLLISION_Enabled (1UL)\000"
@@ -59693,11 +59996,14 @@ touchpanel_get_register_value:
 .LASF5089:
 	.ascii	"GPIO_OUTSET_PIN24_Msk (0x1UL << GPIO_OUTSET_PIN24_P"
 	.ascii	"os)\000"
+.LASF13209:
+	.ascii	"NRF_GPIO_PIN_MAP(port,pin) (((port) << 5) | ((pin) "
+	.ascii	"& 0x1F))\000"
 .LASF3299:
 	.ascii	"I2S_INTEN_STOPPED_Pos (2UL)\000"
 .LASF7587:
 	.ascii	"QDEC_INTENCLR_REPORTRDY_Disabled (0UL)\000"
-.LASF13208:
+.LASF13225:
 	.ascii	"TOUCH_ID_POS 4\000"
 .LASF5076:
 	.ascii	"GPIO_OUTSET_PIN27_High (1UL)\000"
@@ -59735,7 +60041,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIRSET_PIN0_Output (1UL)\000"
 .LASF3966:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR20_Access (1UL)\000"
-.LASF13579:
+.LASF13601:
 	.ascii	"sd_mutex_acquire\000"
 .LASF10090:
 	.ascii	"TWIS_INTEN_ERROR_Enabled (1UL)\000"
@@ -59909,6 +60215,8 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_MODECNF0_RU_Default (0UL)\000"
 .LASF12568:
 	.ascii	"NRFX_TWIM_DEFAULT_CONFIG_IRQ_PRIORITY\000"
+.LASF13204:
+	.ascii	"TWI_INSTANCE_ID 0\000"
 .LASF876:
 	.ascii	"NRFX_TWI1_ENABLED 0\000"
 .LASF5476:
@@ -60125,7 +60433,7 @@ touchpanel_get_register_value:
 	.ascii	"N0RA_Pos)\000"
 .LASF4795:
 	.ascii	"NFCT_TXD_FRAMECONFIG_CRCMODETX_NoCRCTX (0UL)\000"
-.LASF13197:
+.LASF13210:
 	.ascii	"__string_H \000"
 .LASF12481:
 	.ascii	"NRFX_SPIM_CONFIG_INFO_COLOR\000"
@@ -60147,8 +60455,6 @@ touchpanel_get_register_value:
 	.ascii	"SPIS_STATUS_OVERFLOW_Present (1UL)\000"
 .LASF6206:
 	.ascii	"PDM_PSEL_DIN_CONNECT_Disconnected (1UL)\000"
-.LASF2044:
-	.ascii	"FPU_FPDSCR_RMode_Pos 22U\000"
 .LASF2224:
 	.ascii	"NRF_POWER ((NRF_POWER_Type *) NRF_POWER_BASE)\000"
 .LASF3416:
@@ -60164,7 +60470,7 @@ touchpanel_get_register_value:
 .LASF8328:
 	.ascii	"RADIO_PCNF0_LFLEN_Msk (0xFUL << RADIO_PCNF0_LFLEN_P"
 	.ascii	"os)\000"
-.LASF13274:
+.LASF13291:
 	.ascii	"__category\000"
 .LASF12680:
 	.ascii	"nrfx_spi_0_irq_handler SPIM0_SPIS0_TWIM0_TWIS0_SPI0"
@@ -60184,7 +60490,7 @@ touchpanel_get_register_value:
 	.ascii	"POWER_RAM_POWERSET_S0POWER_Pos (0UL)\000"
 .LASF2307:
 	.ascii	"AAR_INTENSET_NOTRESOLVED_Disabled (0UL)\000"
-.LASF13261:
+.LASF13278:
 	.ascii	"__tolower\000"
 .LASF12523:
 	.ascii	"NRFX_TIMER3_ENABLED\000"
@@ -60198,10 +60504,10 @@ touchpanel_get_register_value:
 .LASF12939:
 	.ascii	"MACRO_REPEAT_14(macro,...) macro(__VA_ARGS__) MACRO"
 	.ascii	"_REPEAT_13(macro, __VA_ARGS__)\000"
+.LASF3076:
+	.ascii	"FICR_INFO_FLASH_FLASH_K512 (0x200UL)\000"
 .LASF2315:
 	.ascii	"AAR_INTENSET_END_Pos (0UL)\000"
-.LASF2528:
-	.ascii	"CLOCK_INTENCLR_CTSTOPPED_Pos (11UL)\000"
 .LASF2976:
 	.ascii	"EGU_INTENCLR_TRIGGERED10_Msk (0x1UL << EGU_INTENCLR"
 	.ascii	"_TRIGGERED10_Pos)\000"
@@ -60235,8 +60541,8 @@ touchpanel_get_register_value:
 	.ascii	"USBD_INTENSET_ENDEPOUT5_Disabled (0UL)\000"
 .LASF319:
 	.ascii	"__GCC_ATOMIC_SHORT_LOCK_FREE 2\000"
-.LASF2183:
-	.ascii	"NRF_LPCOMP_BASE 0x40013000UL\000"
+.LASF9908:
+	.ascii	"TWIM_INTEN_STOPPED_Pos (1UL)\000"
 .LASF3636:
 	.ascii	"MWU_INTENSET_PREGION1WA_Pos (26UL)\000"
 .LASF2111:
@@ -60274,7 +60580,7 @@ touchpanel_get_register_value:
 	.ascii	"AMOUNT_AMOUNT_Pos)\000"
 .LASF7478:
 	.ascii	"PWM_LOOP_CNT_Disabled (0UL)\000"
-.LASF13253:
+.LASF13270:
 	.ascii	"abbrev_month_names\000"
 .LASF9121:
 	.ascii	"SAADC_RESOLUTION_VAL_12bit (2UL)\000"
@@ -60289,15 +60595,15 @@ touchpanel_get_register_value:
 	.ascii	"os)\000"
 .LASF2869:
 	.ascii	"EGU_INTEN_TRIGGERED0_Enabled (1UL)\000"
-.LASF7000:
-	.ascii	"PPI_CHENSET_CH3_Disabled (0UL)\000"
+.LASF308:
+	.ascii	"__GNUC_STDC_INLINE__ 1\000"
 .LASF8121:
 	.ascii	"RADIO_INTENSET_DISABLED_Enabled (1UL)\000"
 .LASF907:
 	.ascii	"NRFX_WDT_CONFIG_RELOAD_VALUE 2000\000"
 .LASF1664:
 	.ascii	"CONTROL_nPRIV_Pos 0U\000"
-.LASF13201:
+.LASF13218:
 	.ascii	"EVENT_FLAG_POS 6\000"
 .LASF5812:
 	.ascii	"GPIO_DIRCLR_PIN27_Output (1UL)\000"
@@ -60310,7 +60616,7 @@ touchpanel_get_register_value:
 .LASF6475:
 	.ascii	"POWER_RAM_POWER_S14POWER_Msk (0x1UL << POWER_RAM_PO"
 	.ascii	"WER_S14POWER_Pos)\000"
-.LASF13306:
+.LASF13323:
 	.ascii	"TWIM_RXD_Type\000"
 .LASF1551:
 	.ascii	"BLE_ADV_SOC_OBSERVER_PRIO 1\000"
@@ -60333,7 +60639,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_SAADC_CONFIG_LOG_ENABLED 0\000"
 .LASF2289:
 	.ascii	"NRF_SPIM3 ((NRF_SPIM_Type *) NRF_SPIM3_BASE)\000"
-.LASF13526:
+.LASF13548:
 	.ascii	"channel_enable_set_msk\000"
 .LASF3599:
 	.ascii	"MWU_INTEN_REGION3RA_Pos (7UL)\000"
@@ -60346,12 +60652,9 @@ touchpanel_get_register_value:
 	.ascii	"CCM_MODE_DATARATE_500Kbps (3UL)\000"
 .LASF711:
 	.ascii	"NRFX_PRS_CONFIG_LOG_LEVEL 3\000"
-.LASF13182:
-	.ascii	"NRF_DRV_TWI_INSTANCE_1 { 1, { .twim = NRFX_TWIM_INS"
-	.ascii	"TANCE(1) }, true }\000"
 .LASF8562:
 	.ascii	"RTC_INTENSET_COMPARE2_Disabled (0UL)\000"
-.LASF13220:
+.LASF13237:
 	.ascii	"long long int\000"
 .LASF5079:
 	.ascii	"GPIO_OUTSET_PIN26_Msk (0x1UL << GPIO_OUTSET_PIN26_P"
@@ -60390,9 +60693,9 @@ touchpanel_get_register_value:
 .LASF1849:
 	.ascii	"DWT_CTRL_NOEXTTRIG_Msk (0x1UL << DWT_CTRL_NOEXTTRIG"
 	.ascii	"_Pos)\000"
-.LASF13354:
+.LASF13371:
 	.ascii	"SD_PPI_CHANNEL_ENABLE_GET\000"
-.LASF13237:
+.LASF13254:
 	.ascii	"frac_digits\000"
 .LASF6490:
 	.ascii	"POWER_RAM_POWER_S10POWER_Pos (10UL)\000"
@@ -60540,7 +60843,7 @@ touchpanel_get_register_value:
 	.ascii	"ECB_INTENCLR_ENDECB_Disabled (0UL)\000"
 .LASF6895:
 	.ascii	"PPI_CHENSET_CH24_Disabled (0UL)\000"
-.LASF13429:
+.LASF13446:
 	.ascii	"p_cleartext\000"
 .LASF10721:
 	.ascii	"USBD_TASKS_STARTEPOUT_TASKS_STARTEPOUT_Msk (0x1UL <"
@@ -60572,7 +60875,7 @@ touchpanel_get_register_value:
 	.ascii	"LOR\000"
 .LASF12887:
 	.ascii	"MACRO_MAP_FOR_0(n_list,...) \000"
-.LASF13403:
+.LASF13420:
 	.ascii	"nrf_mutex_t\000"
 .LASF11332:
 	.ascii	"USBD_ENABLE_ENABLE_Pos (0UL)\000"
@@ -60660,6 +60963,8 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_TWI1_ENABLED\000"
 .LASF651:
 	.ascii	"NRFX_GPIOTE_ENABLED 1\000"
+.LASF7216:
+	.ascii	"PPI_CHG_CH23_Excluded (0UL)\000"
 .LASF6540:
 	.ascii	"POWER_RAM_POWERSET_S13RETENTION_Pos (29UL)\000"
 .LASF5580:
@@ -60716,7 +61021,7 @@ touchpanel_get_register_value:
 	.ascii	"PM_PEER_RANKS_ENABLED 1\000"
 .LASF9637:
 	.ascii	"TIMER_INTENSET_COMPARE4_Set (1UL)\000"
-.LASF13241:
+.LASF13258:
 	.ascii	"n_sep_by_space\000"
 .LASF739:
 	.ascii	"NRFX_QDEC_CONFIG_LEDPRE 511\000"
@@ -60739,8 +61044,8 @@ touchpanel_get_register_value:
 	.ascii	"LIMITL_Pos)\000"
 .LASF3305:
 	.ascii	"I2S_INTEN_RXPTRUPD_Disabled (0UL)\000"
-.LASF4159:
-	.ascii	"MWU_PERREGION_SUBSTATRA_SR3_Pos (3UL)\000"
+.LASF5618:
+	.ascii	"GPIO_DIR_PIN2_Msk (0x1UL << GPIO_DIR_PIN2_Pos)\000"
 .LASF2235:
 	.ascii	"NRF_SPIM1 ((NRF_SPIM_Type *) NRF_SPIM1_BASE)\000"
 .LASF2533:
@@ -60842,7 +61147,7 @@ touchpanel_get_register_value:
 .LASF3988:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR14_Msk (0x1UL << MWU_PERR"
 	.ascii	"EGION_SUBSTATWA_SR14_Pos)\000"
-.LASF13453:
+.LASF13475:
 	.ascii	"PUTDOWN\000"
 .LASF936:
 	.ascii	"PWM2_ENABLED 0\000"
@@ -60858,7 +61163,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_SPI2_ENABLED\000"
 .LASF2977:
 	.ascii	"EGU_INTENCLR_TRIGGERED10_Disabled (0UL)\000"
-.LASF13396:
+.LASF13413:
 	.ascii	"SD_EVT_GET\000"
 .LASF1933:
 	.ascii	"TPI_FIFO0_ETM_ATVALID_Msk (0x3UL << TPI_FIFO0_ETM_A"
@@ -60978,7 +61283,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_WLENGTHL_WLENGTHL_Pos (0UL)\000"
 .LASF3216:
 	.ascii	"GPIOTE_INTENSET_IN0_Pos (0UL)\000"
-.LASF13463:
+.LASF13485:
 	.ascii	"number_of_touchpoints\000"
 .LASF7289:
 	.ascii	"PPI_CHG_CH5_Included (1UL)\000"
@@ -61131,7 +61436,7 @@ touchpanel_get_register_value:
 .LASF9674:
 	.ascii	"TIMER_INTENCLR_COMPARE2_Msk (0x1UL << TIMER_INTENCL"
 	.ascii	"R_COMPARE2_Pos)\000"
-.LASF13431:
+.LASF13448:
 	.ascii	"nrf_ecb_hal_data_block_t\000"
 .LASF9446:
 	.ascii	"SPIS_STATUS_OVERREAD_Msk (0x1UL << SPIS_STATUS_OVER"
@@ -61154,7 +61459,7 @@ touchpanel_get_register_value:
 	.ascii	"xPSR_T_Pos 24U\000"
 .LASF8847:
 	.ascii	"SAADC_INTENSET_CH4LIMITL_Pos (15UL)\000"
-.LASF13386:
+.LASF13403:
 	.ascii	"SD_APP_EVT_WAIT\000"
 .LASF3989:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR14_NoAccess (0UL)\000"
@@ -61185,8 +61490,8 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIRCLR_PIN17_Input (0UL)\000"
 .LASF708:
 	.ascii	"NRFX_PRS_BOX_3_ENABLED 0\000"
-.LASF1644:
-	.ascii	"xPSR_Z_Pos 30U\000"
+.LASF8952:
+	.ascii	"SAADC_INTENCLR_CH5LIMITH_Pos (16UL)\000"
 .LASF10545:
 	.ascii	"UARTE_INTENCLR_RXTO_Clear (1UL)\000"
 .LASF9580:
@@ -61255,7 +61560,7 @@ touchpanel_get_register_value:
 .LASF2321:
 	.ascii	"AAR_INTENCLR_NOTRESOLVED_Msk (0x1UL << AAR_INTENCLR"
 	.ascii	"_NOTRESOLVED_Pos)\000"
-.LASF13425:
+.LASF13442:
 	.ascii	"cleartext\000"
 .LASF9287:
 	.ascii	"SPIM_STALLSTAT_TX_Pos (0UL)\000"
@@ -61311,7 +61616,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_INTENSET_ENDEPIN1_Pos (3UL)\000"
 .LASF3828:
 	.ascii	"MWU_NMIENSET_REGION3WA_Set (1UL)\000"
-.LASF13571:
+.LASF13593:
 	.ascii	"sd_rand_application_vector_get\000"
 .LASF481:
 	.ascii	"BLE_GLS_ENABLED 0\000"
@@ -61363,7 +61668,7 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_ERRORSRC_BREAK_NotPresent (0UL)\000"
 .LASF12088:
 	.ascii	"TWIS_PRESENT \000"
-.LASF13433:
+.LASF13450:
 	.ascii	"__cr_flag\000"
 .LASF11451:
 	.ascii	"USBD_ISOINCONFIG_RESPONSE_ZeroData (1UL)\000"
@@ -61399,8 +61704,8 @@ touchpanel_get_register_value:
 	.ascii	"POWER_RESETREAS_SREQ_Pos (2UL)\000"
 .LASF12806:
 	.ascii	"CEIL_DIV(A,B) (((A) + (B) - 1) / (B))\000"
-.LASF2511:
-	.ascii	"CLOCK_INTENSET_CTTO_Enabled (1UL)\000"
+.LASF7000:
+	.ascii	"PPI_CHENSET_CH3_Disabled (0UL)\000"
 .LASF3300:
 	.ascii	"I2S_INTEN_STOPPED_Msk (0x1UL << I2S_INTEN_STOPPED_P"
 	.ascii	"os)\000"
@@ -61435,6 +61740,8 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_IN_PIN5_Pos (5UL)\000"
 .LASF8678:
 	.ascii	"RTC_EVTENCLR_COMPARE2_Clear (1UL)\000"
+.LASF9307:
+	.ascii	"SPIM_PSEL_MOSI_PORT_Pos (5UL)\000"
 .LASF3649:
 	.ascii	"MWU_INTENSET_PREGION0WA_Enabled (1UL)\000"
 .LASF10832:
@@ -61444,7 +61751,7 @@ touchpanel_get_register_value:
 	.ascii	"_TRIGGERED11_Pos)\000"
 .LASF7705:
 	.ascii	"QSPI_WRITE_SRC_SRC_Pos (0UL)\000"
-.LASF13549:
+.LASF13571:
 	.ascii	"sd_power_ram_power_set\000"
 .LASF8750:
 	.ascii	"SAADC_INTEN_CH5LIMITH_Msk (0x1UL << SAADC_INTEN_CH5"
@@ -61469,11 +61776,11 @@ touchpanel_get_register_value:
 	.ascii	"E_CC_Pos)\000"
 .LASF9957:
 	.ascii	"TWIM_INTENCLR_TXSTARTED_Pos (20UL)\000"
-.LASF13458:
+.LASF13480:
 	.ascii	"event\000"
-.LASF13392:
+.LASF13409:
 	.ascii	"SD_ECB_BLOCKS_ENCRYPT\000"
-.LASF13351:
+.LASF13368:
 	.ascii	"__StackLimit\000"
 .LASF6816:
 	.ascii	"PPI_CHEN_CH10_Disabled (0UL)\000"
@@ -61489,13 +61796,13 @@ touchpanel_get_register_value:
 	.ascii	"TPI_FIFO0_ETM_ATVALID_Pos 26U\000"
 .LASF6710:
 	.ascii	"POWER_RAM_POWERCLR_S5POWER_Off (1UL)\000"
-.LASF13379:
+.LASF13396:
 	.ascii	"SD_POWER_RAM_POWER_CLR\000"
 .LASF10503:
 	.ascii	"UARTE_INTENSET_TXDRDY_Disabled (0UL)\000"
 .LASF6911:
 	.ascii	"PPI_CHENSET_CH21_Enabled (1UL)\000"
-.LASF13570:
+.LASF13592:
 	.ascii	"p_reset_reason\000"
 .LASF2103:
 	.ascii	"CoreDebug_DEMCR_MON_STEP_Msk (1UL << CoreDebug_DEMC"
@@ -61751,8 +62058,6 @@ touchpanel_get_register_value:
 	.ascii	"LW_Pos)\000"
 .LASF6644:
 	.ascii	"POWER_RAM_POWERCLR_S11RETENTION_Off (1UL)\000"
-.LASF1605:
-	.ascii	"__STATIC_INLINE static inline\000"
 .LASF1721:
 	.ascii	"SCB_CCR_STKALIGN_Msk (1UL << SCB_CCR_STKALIGN_Pos)\000"
 .LASF9463:
@@ -61784,8 +62089,6 @@ touchpanel_get_register_value:
 	.ascii	"GPIOTE_INTENCLR_IN4_Disabled (0UL)\000"
 .LASF6581:
 	.ascii	"POWER_RAM_POWERSET_S0RETENTION_On (1UL)\000"
-.LASF3367:
-	.ascii	"I2S_CONFIG_MCKFREQ_MCKFREQ_32MDIV16 (0x10000000UL)\000"
 .LASF1818:
 	.ascii	"ITM_TCR_GTSFREQ_Pos 10U\000"
 .LASF11728:
@@ -61804,6 +62107,8 @@ touchpanel_get_register_value:
 	.ascii	"MAX(a,b) ((a) < (b) ? (b) : (a))\000"
 .LASF8426:
 	.ascii	"RADIO_STATE_STATE_TxDisable (12UL)\000"
+.LASF815:
+	.ascii	"NRFX_SPI0_ENABLED 0\000"
 .LASF1116:
 	.ascii	"MEMORY_MANAGER_SMALL_BLOCK_SIZE 32\000"
 .LASF12371:
@@ -61819,10 +62124,12 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIR_PIN18_Pos (18UL)\000"
 .LASF2275:
 	.ascii	"NRF_PPI ((NRF_PPI_Type *) NRF_PPI_BASE)\000"
-.LASF13387:
+.LASF13404:
 	.ascii	"SD_CLOCK_HFCLK_REQUEST\000"
 .LASF3066:
 	.ascii	"FICR_INFO_RAM_RAM_K16 (0x10UL)\000"
+.LASF13205:
+	.ascii	"_G_GPIO_H_ \000"
 .LASF1470:
 	.ascii	"NFC_T4T_HL_DETECTION_PROCEDURES_INFO_COLOR 0\000"
 .LASF8188:
@@ -62070,14 +62377,16 @@ touchpanel_get_register_value:
 	.ascii	"NFCT_INTENCLR_FIELDLOST_Disabled (0UL)\000"
 .LASF3096:
 	.ascii	"FICR_TEMP_B0_B_Pos (0UL)\000"
-.LASF13334:
+.LASF13351:
 	.ascii	"RESERVED11\000"
 .LASF642:
 	.ascii	"NRFX_COMP_CONFIG_SPEED_MODE 2\000"
 .LASF11146:
 	.ascii	"USBD_HALTED_EPIN_GETSTATUS_Pos (0UL)\000"
-.LASF13339:
+.LASF13356:
 	.ascii	"RESERVED14\000"
+.LASF13358:
+	.ascii	"RESERVED15\000"
 .LASF7457:
 	.ascii	"PWM_PRESCALER_PRESCALER_Msk (0x7UL << PWM_PRESCALER"
 	.ascii	"_PRESCALER_Pos)\000"
@@ -62171,7 +62480,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHENSET_CH31_Enabled (1UL)\000"
 .LASF9696:
 	.ascii	"TIMER_BITMODE_BITMODE_08Bit (1UL)\000"
-.LASF13352:
+.LASF13369:
 	.ascii	"_vectors\000"
 .LASF9218:
 	.ascii	"SPIM_TASKS_RESUME_TASKS_RESUME_Msk (0x1UL << SPIM_T"
@@ -62212,7 +62521,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_INTENSET_PAYLOAD_Set (1UL)\000"
 .LASF11738:
 	.ascii	"PPI_CHG0_CH5_Pos PPI_CHG_CH5_Pos\000"
-.LASF13282:
+.LASF13299:
 	.ascii	"__RAL_c_locale_abbrev_day_names\000"
 .LASF8616:
 	.ascii	"RTC_EVTEN_COMPARE3_Msk (0x1UL << RTC_EVTEN_COMPARE3"
@@ -62363,8 +62672,6 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_INTENCLR_BCMATCH_Pos (10UL)\000"
 .LASF4162:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR3_Access (1UL)\000"
-.LASF815:
-	.ascii	"NRFX_SPI0_ENABLED 1\000"
 .LASF5040:
 	.ascii	"GPIO_OUT_PIN3_High (1UL)\000"
 .LASF9080:
@@ -62397,7 +62704,7 @@ touchpanel_get_register_value:
 	.ascii	"PDM_INTENSET_STOPPED_Enabled (1UL)\000"
 .LASF8557:
 	.ascii	"RTC_INTENSET_COMPARE3_Disabled (0UL)\000"
-.LASF13257:
+.LASF13274:
 	.ascii	"date_time_format\000"
 .LASF1314:
 	.ascii	"WDT_CONFIG_DEBUG_COLOR 0\000"
@@ -62592,7 +62899,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_RNG_CONFIG_LOG_LEVEL\000"
 .LASF11418:
 	.ascii	"USBD_EPOUTEN_OUT2_Disable (0UL)\000"
-.LASF13438:
+.LASF13455:
 	.ascii	"__RAL_FILE\000"
 .LASF11598:
 	.ascii	"UICR_RBPCONF_PALL_Disabled UICR_APPROTECT_PALL_Disa"
@@ -62603,7 +62910,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHENCLR_CH4_Clear (1UL)\000"
 .LASF12425:
 	.ascii	"NRFX_RTC_CONFIG_INFO_COLOR\000"
-.LASF13508:
+.LASF13530:
 	.ascii	"p_ecb_data\000"
 .LASF11752:
 	.ascii	"PPI_CHG0_CH2_Excluded PPI_CHG_CH2_Excluded\000"
@@ -62675,7 +62982,7 @@ touchpanel_get_register_value:
 .LASF1767:
 	.ascii	"SCB_HFSR_DEBUGEVT_Msk (1UL << SCB_HFSR_DEBUGEVT_Pos"
 	.ascii	")\000"
-.LASF13496:
+.LASF13518:
 	.ascii	"sd_flash_write\000"
 .LASF5343:
 	.ascii	"GPIO_OUTCLR_PIN5_Pos (5UL)\000"
@@ -62812,9 +63119,9 @@ touchpanel_get_register_value:
 	.ascii	"TWIS_INTENSET_READ_Pos (26UL)\000"
 .LASF7263:
 	.ascii	"PPI_CHG_CH11_Msk (0x1UL << PPI_CHG_CH11_Pos)\000"
-.LASF5533:
-	.ascii	"GPIO_DIR_PIN23_Pos (23UL)\000"
-.LASF13471:
+.LASF1904:
+	.ascii	"DWT_FUNCTION_CYCMATCH_Pos 7U\000"
+.LASF13488:
 	.ascii	"touchpoints\000"
 .LASF11960:
 	.ascii	"I2S_CONFIG_MODE_MODE_SLAVE I2S_CONFIG_MODE_MODE_Sla"
@@ -62855,6 +63162,8 @@ touchpanel_get_register_value:
 .LASF9585:
 	.ascii	"TIMER_SHORTS_COMPARE4_STOP_Msk (0x1UL << TIMER_SHOR"
 	.ascii	"TS_COMPARE4_STOP_Pos)\000"
+.LASF1644:
+	.ascii	"xPSR_Z_Pos 30U\000"
 .LASF2635:
 	.ascii	"COMP_EVENTS_DOWN_EVENTS_DOWN_Msk (0x1UL << COMP_EVE"
 	.ascii	"NTS_DOWN_EVENTS_DOWN_Pos)\000"
@@ -62864,13 +63173,13 @@ touchpanel_get_register_value:
 	.ascii	"MWU_REGIONEN_RGN2RA_Disable (0UL)\000"
 .LASF5075:
 	.ascii	"GPIO_OUTSET_PIN27_Low (0UL)\000"
-.LASF13331:
+.LASF13348:
 	.ascii	"INTENCLR\000"
 .LASF12094:
 	.ascii	"UARTE_PRESENT \000"
 .LASF7068:
 	.ascii	"PPI_CHENCLR_CH21_Pos (21UL)\000"
-.LASF13483:
+.LASF13505:
 	.ascii	"result\000"
 .LASF227:
 	.ascii	"__ULLFRACT_MIN__ 0.0ULLR\000"
@@ -62882,13 +63191,13 @@ touchpanel_get_register_value:
 	.ascii	"EGU_INTENCLR_TRIGGERED11_Disabled (0UL)\000"
 .LASF12760:
 	.ascii	"BIT_16 0x00010000\000"
-.LASF13390:
+.LASF13407:
 	.ascii	"SD_RADIO_NOTIFICATION_CFG_SET\000"
 .LASF12117:
 	.ascii	"PWM0_CH_NUM 4\000"
 .LASF5704:
 	.ascii	"GPIO_DIRSET_PIN16_Pos (16UL)\000"
-.LASF13567:
+.LASF13589:
 	.ascii	"sd_power_reset_reason_clr\000"
 .LASF7737:
 	.ascii	"QSPI_PSEL_IO0_PORT_Msk (0x1UL << QSPI_PSEL_IO0_PORT"
@@ -62939,7 +63248,7 @@ touchpanel_get_register_value:
 .LASF8360:
 	.ascii	"RADIO_PREFIX1_AP5_Msk (0xFFUL << RADIO_PREFIX1_AP5_"
 	.ascii	"Pos)\000"
-.LASF13373:
+.LASF13390:
 	.ascii	"SD_POWER_RESET_REASON_GET\000"
 .LASF3441:
 	.ascii	"I2S_PSEL_SDIN_PORT_Msk (0x1UL << I2S_PSEL_SDIN_PORT"
@@ -62948,7 +63257,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_PWM_CONFIG_LOG_LEVEL\000"
 .LASF6049:
 	.ascii	"GPIO_LATCH_PIN6_Pos (6UL)\000"
-.LASF13236:
+.LASF13253:
 	.ascii	"int_frac_digits\000"
 .LASF5106:
 	.ascii	"GPIO_OUTSET_PIN21_High (1UL)\000"
@@ -62965,7 +63274,7 @@ touchpanel_get_register_value:
 	.ascii	"\000"
 .LASF9392:
 	.ascii	"SPIS_TASKS_RELEASE_TASKS_RELEASE_Pos (0UL)\000"
-.LASF13287:
+.LASF13304:
 	.ascii	"__RAL_data_utf8_space\000"
 .LASF10769:
 	.ascii	"USBD_SHORTS_EP0DATADONE_STARTEPOUT0_Msk (0x1UL << U"
@@ -63070,9 +63379,8 @@ touchpanel_get_register_value:
 	.ascii	"SAADC_INTENSET_DONE_Pos (2UL)\000"
 .LASF5703:
 	.ascii	"GPIO_DIRSET_PIN17_Set (1UL)\000"
-.LASF7640:
-	.ascii	"QDEC_PSEL_LED_PIN_Msk (0x1FUL << QDEC_PSEL_LED_PIN_"
-	.ascii	"Pos)\000"
+.LASF3259:
+	.ascii	"GPIOTE_INTENCLR_IN1_Enabled (1UL)\000"
 .LASF8977:
 	.ascii	"SAADC_INTENCLR_CH2LIMITL_Pos (11UL)\000"
 .LASF1911:
@@ -63128,7 +63436,9 @@ touchpanel_get_register_value:
 .LASF9786:
 	.ascii	"TWI_INTENCLR_RXDREADY_Enabled (1UL)\000"
 .LASF792:
-	.ascii	"NRFX_SPIM0_ENABLED 1\000"
+	.ascii	"NRFX_SPIM0_ENABLED 0\000"
+.LASF5425:
+	.ascii	"GPIO_IN_PIN18_Pos (18UL)\000"
 .LASF6409:
 	.ascii	"POWER_RAM_POWER_S15RETENTION_On (1UL)\000"
 .LASF8657:
@@ -63156,6 +63466,8 @@ touchpanel_get_register_value:
 	.ascii	"KS_RXEN_TASKS_RXEN_Pos)\000"
 .LASF2573:
 	.ascii	"CLOCK_LFCLKRUN_STATUS_Triggered (1UL)\000"
+.LASF13203:
+	.ascii	"_G_TWIM_H_ \000"
 .LASF7533:
 	.ascii	"QDEC_SHORTS_REPORTRDY_RDCLRACC_Pos (2UL)\000"
 .LASF3426:
@@ -63168,7 +63480,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUT_PIN0_Msk (0x1UL << GPIO_OUT_PIN0_Pos)\000"
 .LASF1343:
 	.ascii	"NRF_BALLOC_CONFIG_INITIAL_LOG_LEVEL 3\000"
-.LASF13554:
+.LASF13576:
 	.ascii	"sd_power_usbregstatus_get\000"
 .LASF5147:
 	.ascii	"GPIO_OUTSET_PIN13_Set (1UL)\000"
@@ -63259,7 +63571,7 @@ touchpanel_get_register_value:
 	.ascii	"EGU_INTENCLR_TRIGGERED9_Clear (1UL)\000"
 .LASF855:
 	.ascii	"NRFX_TWIM_DEFAULT_CONFIG_IRQ_PRIORITY 7\000"
-.LASF13333:
+.LASF13350:
 	.ascii	"ERRORSRC\000"
 .LASF12361:
 	.ascii	"NRFX_QSPI_ENABLED\000"
@@ -63281,6 +63593,8 @@ touchpanel_get_register_value:
 	.ascii	"MWU_INTENCLR_PREGION1WA_Clear (1UL)\000"
 .LASF3783:
 	.ascii	"MWU_NMIEN_REGION1RA_Pos (3UL)\000"
+.LASF2188:
+	.ascii	"NRF_EGU2_BASE 0x40016000UL\000"
 .LASF12574:
 	.ascii	"NRFX_TWI_CONFIG_LOG_LEVEL\000"
 .LASF3797:
@@ -63289,7 +63603,7 @@ touchpanel_get_register_value:
 	.ascii	"TASKS_CHG1DIS TASKS_CHG[1].DIS\000"
 .LASF10842:
 	.ascii	"USBD_INTEN_ENDEPIN6_Disabled (0UL)\000"
-.LASF13530:
+.LASF13552:
 	.ascii	"sd_app_evt_wait\000"
 .LASF3873:
 	.ascii	"MWU_NMIENCLR_PREGION0RA_Clear (1UL)\000"
@@ -63351,7 +63665,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_INTENSET_DEVMISS_Set (1UL)\000"
 .LASF9951:
 	.ascii	"TWIM_INTENCLR_LASTTX_Clear (1UL)\000"
-.LASF13578:
+.LASF13600:
 	.ascii	"p_mutex\000"
 .LASF4776:
 	.ascii	"NFCT_FIELDPRESENT_FIELDPRESENT_Msk (0x1UL << NFCT_F"
@@ -63418,7 +63732,7 @@ touchpanel_get_register_value:
 .LASF5695:
 	.ascii	"GPIO_DIRSET_PIN18_Msk (0x1UL << GPIO_DIRSET_PIN18_P"
 	.ascii	"os)\000"
-.LASF13506:
+.LASF13528:
 	.ascii	"p_data_blocks\000"
 .LASF9022:
 	.ascii	"SAADC_INTENCLR_DONE_Pos (2UL)\000"
@@ -63488,14 +63802,13 @@ touchpanel_get_register_value:
 .LASF8480:
 	.ascii	"RADIO_DACNF_ENA0_Msk (0x1UL << RADIO_DACNF_ENA0_Pos"
 	.ascii	")\000"
+.LASF3115:
+	.ascii	"FICR_TEMP_T3_T_Msk (0xFFUL << FICR_TEMP_T3_T_Pos)\000"
 .LASF851:
-	.ascii	"NRFX_TWIM0_ENABLED 0\000"
-.LASF11421:
-	.ascii	"USBD_EPOUTEN_OUT1_Msk (0x1UL << USBD_EPOUTEN_OUT1_P"
-	.ascii	"os)\000"
+	.ascii	"NRFX_TWIM0_ENABLED 1\000"
 .LASF6812:
 	.ascii	"PPI_CHEN_CH11_Disabled (0UL)\000"
-.LASF13401:
+.LASF13418:
 	.ascii	"SD_POWER_USBREGSTATUS_GET\000"
 .LASF2199:
 	.ascii	"NRF_PDM_BASE 0x4001D000UL\000"
@@ -63525,7 +63838,7 @@ touchpanel_get_register_value:
 	.ascii	"DKSGEN_Pos)\000"
 .LASF10148:
 	.ascii	"TWIS_INTENCLR_ERROR_Enabled (1UL)\000"
-.LASF13562:
+.LASF13584:
 	.ascii	"sd_power_pof_enable\000"
 .LASF470:
 	.ascii	"BLE_ANCS_C_ENABLED 0\000"
@@ -63633,8 +63946,8 @@ touchpanel_get_register_value:
 .LASF11961:
 	.ascii	"I2S_CONFIG_RXEN_RXEN_DISABLE I2S_CONFIG_RXEN_RXEN_D"
 	.ascii	"isabled\000"
-.LASF2683:
-	.ascii	"COMP_INTENSET_UP_Disabled (0UL)\000"
+.LASF326:
+	.ascii	"__SIZEOF_WCHAR_T__ 4\000"
 .LASF12108:
 	.ascii	"GPIOTE_FEATURE_CLR_PRESENT \000"
 .LASF12653:
@@ -63654,7 +63967,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIRSET_PIN19_Input (0UL)\000"
 .LASF4025:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR5_NoAccess (0UL)\000"
-.LASF13276:
+.LASF13293:
 	.ascii	"__RAL_global_locale\000"
 .LASF6799:
 	.ascii	"PPI_CHEN_CH14_Msk (0x1UL << PPI_CHEN_CH14_Pos)\000"
@@ -63675,8 +63988,8 @@ touchpanel_get_register_value:
 	.ascii	"TIMER_SHORTS_COMPARE2_STOP_Pos (10UL)\000"
 .LASF11617:
 	.ascii	"AMOUNTTX TXD.AMOUNT\000"
-.LASF10909:
-	.ascii	"USBD_INTENSET_ENDEPOUT6_Enabled (1UL)\000"
+.LASF9536:
+	.ascii	"TEMP_A2_A2_Pos (0UL)\000"
 .LASF2010:
 	.ascii	"MPU_RASR_B_Pos 16U\000"
 .LASF11525:
@@ -63700,7 +64013,7 @@ touchpanel_get_register_value:
 	.ascii	"LPCOMP_SHORTS_UP_STOP_Pos (3UL)\000"
 .LASF11607:
 	.ascii	"PSELCSN PSEL.CSN\000"
-.LASF13277:
+.LASF13294:
 	.ascii	"__RAL_c_locale\000"
 .LASF1464:
 	.ascii	"NFC_T4T_CC_FILE_PARSER_LOG_LEVEL 3\000"
@@ -63735,7 +64048,7 @@ touchpanel_get_register_value:
 	.ascii	"EOUT_Pos)\000"
 .LASF1806:
 	.ascii	"SysTick_CALIB_NOREF_Pos 31U\000"
-.LASF13410:
+.LASF13427:
 	.ascii	"nrf_radio_request_normal_t\000"
 .LASF11571:
 	.ascii	"NRF51_TO_NRF52840_H \000"
@@ -63779,8 +64092,6 @@ touchpanel_get_register_value:
 	.ascii	"NRF_ECB ((NRF_ECB_Type *) NRF_ECB_BASE)\000"
 .LASF3959:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR21_Pos (21UL)\000"
-.LASF5618:
-	.ascii	"GPIO_DIR_PIN2_Msk (0x1UL << GPIO_DIR_PIN2_Pos)\000"
 .LASF6284:
 	.ascii	"POWER_INTENCLR_SLEEPENTER_Enabled (1UL)\000"
 .LASF12947:
@@ -63869,7 +64180,7 @@ touchpanel_get_register_value:
 	.ascii	"RX_Pos)\000"
 .LASF1127:
 	.ascii	"MEMORY_MANAGER_XXSMALL_BLOCK_COUNT 0\000"
-.LASF13245:
+.LASF13262:
 	.ascii	"int_n_cs_precedes\000"
 .LASF3816:
 	.ascii	"MWU_NMIENSET_PREGION0WA_Disabled (0UL)\000"
@@ -63902,8 +64213,8 @@ touchpanel_get_register_value:
 .LASF9477:
 	.ascii	"SPIS_PSEL_MOSI_PIN_Msk (0x1FUL << SPIS_PSEL_MOSI_PI"
 	.ascii	"N_Pos)\000"
-.LASF8952:
-	.ascii	"SAADC_INTENCLR_CH5LIMITH_Pos (16UL)\000"
+.LASF10458:
+	.ascii	"UARTE_INTEN_ENDRX_Enabled (1UL)\000"
 .LASF2981:
 	.ascii	"EGU_INTENCLR_TRIGGERED9_Msk (0x1UL << EGU_INTENCLR_"
 	.ascii	"TRIGGERED9_Pos)\000"
@@ -63993,8 +64304,8 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIRSET_PIN1_Input (0UL)\000"
 .LASF7827:
 	.ascii	"QSPI_ADDRCONF_MODE_NoInstr (0UL)\000"
-.LASF10875:
-	.ascii	"USBD_INTEN_USBRESET_Enabled (1UL)\000"
+.LASF9919:
+	.ascii	"TWIM_INTENSET_LASTRX_Disabled (0UL)\000"
 .LASF2093:
 	.ascii	"CoreDebug_DHCSR_C_DEBUGEN_Msk (1UL )\000"
 .LASF9981:
@@ -64011,7 +64322,7 @@ touchpanel_get_register_value:
 	.ascii	"TRCENA_Pos)\000"
 .LASF5230:
 	.ascii	"GPIO_OUTCLR_PIN28_Low (0UL)\000"
-.LASF13406:
+.LASF13423:
 	.ascii	"length_us\000"
 .LASF2657:
 	.ascii	"COMP_SHORTS_READY_SAMPLE_Msk (0x1UL << COMP_SHORTS_"
@@ -64041,7 +64352,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIR_PIN12_Input (0UL)\000"
 .LASF5874:
 	.ascii	"GPIO_DIRCLR_PIN14_Pos (14UL)\000"
-.LASF13395:
+.LASF13412:
 	.ascii	"SD_RADIO_REQUEST\000"
 .LASF11788:
 	.ascii	"PPI_CHG1_CH9_Excluded PPI_CHG_CH9_Excluded\000"
@@ -64072,8 +64383,6 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_PWM_DEFAULT_CONFIG_OUT1_PIN\000"
 .LASF4282:
 	.ascii	"MWU_REGIONENSET_RGN0WA_Set (1UL)\000"
-.LASF10337:
-	.ascii	"UART_PSEL_TXD_PIN_Pos (0UL)\000"
 .LASF7537:
 	.ascii	"QDEC_SHORTS_SAMPLERDY_STOP_Pos (1UL)\000"
 .LASF9216:
@@ -64187,9 +64496,8 @@ touchpanel_get_register_value:
 .LASF1893:
 	.ascii	"DWT_FUNCTION_MATCHED_Msk (0x1UL << DWT_FUNCTION_MAT"
 	.ascii	"CHED_Pos)\000"
-.LASF10182:
-	.ascii	"TWIS_PSEL_SDA_CONNECT_Msk (0x1UL << TWIS_PSEL_SDA_C"
-	.ascii	"ONNECT_Pos)\000"
+.LASF1122:
+	.ascii	"MEMORY_MANAGER_XLARGE_BLOCK_SIZE 1320\000"
 .LASF343:
 	.ascii	"__ARM_ARCH 7\000"
 .LASF2162:
@@ -64298,6 +64606,8 @@ touchpanel_get_register_value:
 .LASF8312:
 	.ascii	"RADIO_PCNF0_PLEN_Msk (0x3UL << RADIO_PCNF0_PLEN_Pos"
 	.ascii	")\000"
+.LASF3569:
+	.ascii	"LPCOMP_ANADETECT_ANADETECT_Up (1UL)\000"
 .LASF9298:
 	.ascii	"SPIM_PSEL_SCK_CONNECT_Disconnected (1UL)\000"
 .LASF10294:
@@ -64318,7 +64628,7 @@ touchpanel_get_register_value:
 	.ascii	"BIT_20 0x00100000\000"
 .LASF6534:
 	.ascii	"POWER_RAM_POWERSET_S15RETENTION_Pos (31UL)\000"
-.LASF13585:
+.LASF13608:
 	.ascii	"sd_mutex_new\000"
 .LASF8435:
 	.ascii	"RADIO_DACNF_TXADD7_Pos (15UL)\000"
@@ -64396,7 +64706,7 @@ touchpanel_get_register_value:
 .LASF11634:
 	.ascii	"LPCOMP_REFSEL_REFSEL_SupplyFourEighthsPrescaling LP"
 	.ascii	"COMP_REFSEL_REFSEL_Ref4_8Vdd\000"
-.LASF13362:
+.LASF13379:
 	.ascii	"SD_FLASH_PAGE_ERASE\000"
 .LASF3418:
 	.ascii	"I2S_PSEL_MCK_PIN_Pos (0UL)\000"
@@ -64470,7 +64780,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUTSET_PIN3_Pos (3UL)\000"
 .LASF2671:
 	.ascii	"COMP_INTEN_DOWN_Enabled (1UL)\000"
-.LASF13428:
+.LASF13445:
 	.ascii	"p_key\000"
 .LASF3549:
 	.ascii	"LPCOMP_REFSEL_REFSEL_Ref4_8Vdd (3UL)\000"
@@ -64499,7 +64809,7 @@ touchpanel_get_register_value:
 	.ascii	"M, id, _INST_IDX), }\000"
 .LASF10356:
 	.ascii	"UART_RXD_RXD_Msk (0xFFUL << UART_RXD_RXD_Pos)\000"
-.LASF13560:
+.LASF13582:
 	.ascii	"sd_power_usbpwrrdy_enable\000"
 .LASF7243:
 	.ascii	"PPI_CHG_CH16_Msk (0x1UL << PPI_CHG_CH16_Pos)\000"
@@ -64577,7 +64887,7 @@ touchpanel_get_register_value:
 	.ascii	"MWU_PREGION_SUBS_SR9_Exclude (0UL)\000"
 .LASF13144:
 	.ascii	"ESB_PPI_CHANNELS_USED 0uL\000"
-.LASF13358:
+.LASF13375:
 	.ascii	"SD_PPI_GROUP_TASK_ENABLE\000"
 .LASF2222:
 	.ascii	"NRF_UICR ((NRF_UICR_Type *) NRF_UICR_BASE)\000"
@@ -64602,7 +64912,7 @@ touchpanel_get_register_value:
 	.ascii	"PDM_INTENSET_STOPPED_Pos (1UL)\000"
 .LASF1131:
 	.ascii	"MEM_MANAGER_CONFIG_INFO_COLOR 0\000"
-.LASF13516:
+.LASF13538:
 	.ascii	"channel_msk\000"
 .LASF12337:
 	.ascii	"NRFX_QDEC_CONFIG_PIO_A\000"
@@ -64614,7 +64924,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_TWIS_ASSUME_INIT_AFTER_RESET_ONLY 0\000"
 .LASF1073:
 	.ascii	"APP_USBD_CONFIG_EVENT_QUEUE_ENABLE 1\000"
-.LASF13371:
+.LASF13388:
 	.ascii	"SD_POWER_MODE_SET\000"
 .LASF5825:
 	.ascii	"GPIO_DIRCLR_PIN24_Msk (0x1UL << GPIO_DIRCLR_PIN24_P"
@@ -64627,8 +64937,8 @@ touchpanel_get_register_value:
 .LASF7324:
 	.ascii	"PWM_EVENTS_PWMPERIODEND_EVENTS_PWMPERIODEND_Pos (0U"
 	.ascii	"L)\000"
-.LASF9423:
-	.ascii	"SPIS_INTENCLR_ACQUIRED_Clear (1UL)\000"
+.LASF2528:
+	.ascii	"CLOCK_INTENCLR_CTSTOPPED_Pos (11UL)\000"
 .LASF2530:
 	.ascii	"CLOCK_INTENCLR_CTSTOPPED_Disabled (0UL)\000"
 .LASF436:
@@ -64637,6 +64947,8 @@ touchpanel_get_register_value:
 	.ascii	"__VFP_FP__ 1\000"
 .LASF11567:
 	.ascii	"WDT_CONFIG_SLEEP_Run (1UL)\000"
+.LASF2511:
+	.ascii	"CLOCK_INTENSET_CTTO_Enabled (1UL)\000"
 .LASF11100:
 	.ascii	"USBD_INTENCLR_ENDEPIN3_Clear (1UL)\000"
 .LASF5012:
@@ -64767,7 +65079,7 @@ touchpanel_get_register_value:
 .LASF2707:
 	.ascii	"COMP_INTENCLR_DOWN_Msk (0x1UL << COMP_INTENCLR_DOWN"
 	.ascii	"_Pos)\000"
-.LASF13436:
+.LASF13453:
 	.ascii	"FILE\000"
 .LASF7946:
 	.ascii	"RADIO_EVENTS_CCASTOPPED_EVENTS_CCASTOPPED_Msk (0x1U"
@@ -64798,7 +65110,7 @@ touchpanel_get_register_value:
 	.ascii	"TWIS_INTENCLR_TXSTARTED_Enabled (1UL)\000"
 .LASF9620:
 	.ascii	"TIMER_SHORTS_COMPARE1_CLEAR_Pos (1UL)\000"
-.LASF13232:
+.LASF13249:
 	.ascii	"mon_thousands_sep\000"
 .LASF3037:
 	.ascii	"FICR_ER_ER_Msk (0xFFFFFFFFUL << FICR_ER_ER_Pos)\000"
@@ -64906,7 +65218,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG1_CH3_Excluded PPI_CHG_CH3_Excluded\000"
 .LASF928:
 	.ascii	"PWM_DEFAULT_CONFIG_BASE_CLOCK 4\000"
-.LASF13199:
+.LASF13212:
 	.ascii	"ADDRESS_REGISTER_TOUCH_1 0x03\000"
 .LASF10945:
 	.ascii	"USBD_INTENSET_ENDISOIN_Set (1UL)\000"
@@ -64972,11 +65284,11 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_RNG_CONFIG_DEBUG_COLOR RNG_CONFIG_DEBUG_COLOR\000"
 .LASF4307:
 	.ascii	"MWU_REGIONENCLR_RGN3RA_Clear (1UL)\000"
-.LASF13284:
+.LASF13301:
 	.ascii	"__RAL_c_locale_abbrev_month_names\000"
 .LASF11224:
 	.ascii	"USBD_EPSTATUS_EPIN0_NoData (0UL)\000"
-.LASF13581:
+.LASF13603:
 	.ascii	"C:\\Users\\shinra\\CHIC-pocs\\Pierre\\nRF5_SDK_15.0"
 	.ascii	".0_a53641a\\examples\\ble_peripheral\\ble_app_hrs_f"
 	.ascii	"reertos\\pca10056\\s140\\ses\\g_lib\\lib_touch_pane"
@@ -65086,7 +65398,7 @@ touchpanel_get_register_value:
 .LASF1669:
 	.ascii	"SCB_CPUID_IMPLEMENTER_Msk (0xFFUL << SCB_CPUID_IMPL"
 	.ascii	"EMENTER_Pos)\000"
-.LASF13546:
+.LASF13568:
 	.ascii	"p_ram_power\000"
 .LASF3053:
 	.ascii	"FICR_INFO_VARIANT_VARIANT_AAAB (0x41414142UL)\000"
@@ -65162,7 +65474,7 @@ touchpanel_get_register_value:
 	.ascii	"RTC_INTENSET_OVRFLW_Set (1UL)\000"
 .LASF2233:
 	.ascii	"NRF_TWIS0 ((NRF_TWIS_Type *) NRF_TWIS0_BASE)\000"
-.LASF13343:
+.LASF13360:
 	.ascii	"NRF_TWI_Type\000"
 .LASF5045:
 	.ascii	"GPIO_OUT_PIN1_Pos (1UL)\000"
@@ -65180,7 +65492,7 @@ touchpanel_get_register_value:
 	.ascii	"DEND_Pos)\000"
 .LASF2666:
 	.ascii	"COMP_INTEN_UP_Disabled (0UL)\000"
-.LASF13528:
+.LASF13550:
 	.ascii	"p_channel_enable\000"
 .LASF4248:
 	.ascii	"MWU_REGIONENSET_RGN3WA_Pos (6UL)\000"
@@ -65247,7 +65559,7 @@ touchpanel_get_register_value:
 	.ascii	"__CORE_CM4_H_DEPENDANT \000"
 .LASF3228:
 	.ascii	"GPIOTE_INTENCLR_IN7_Disabled (0UL)\000"
-.LASF13389:
+.LASF13406:
 	.ascii	"SD_CLOCK_HFCLK_IS_RUNNING\000"
 .LASF10236:
 	.ascii	"UART_SHORTS_NCTS_STOPRX_Msk (0x1UL << UART_SHORTS_N"
@@ -65268,7 +65580,7 @@ touchpanel_get_register_value:
 	.ascii	"PTR_Pos)\000"
 .LASF702:
 	.ascii	"NRFX_PPI_CONFIG_INFO_COLOR 0\000"
-.LASF13311:
+.LASF13328:
 	.ascii	"RESERVED1\000"
 .LASF839:
 	.ascii	"NRFX_TIMER2_ENABLED 0\000"
@@ -65280,19 +65592,19 @@ touchpanel_get_register_value:
 	.ascii	"os)\000"
 .LASF6617:
 	.ascii	"POWER_RAM_POWERSET_S4POWER_On (1UL)\000"
-.LASF13460:
+.LASF13482:
 	.ascii	"pos_x\000"
-.LASF13461:
+.LASF13483:
 	.ascii	"pos_y\000"
 .LASF10201:
 	.ascii	"TWIS_ADDRESS_ADDRESS_Pos (0UL)\000"
-.LASF13327:
+.LASF13344:
 	.ascii	"RESERVED8\000"
 .LASF10197:
 	.ascii	"TWIS_TXD_MAXCNT_MAXCNT_Pos (0UL)\000"
 .LASF5195:
 	.ascii	"GPIO_OUTSET_PIN3_Low (0UL)\000"
-.LASF13222:
+.LASF13239:
 	.ascii	"__state\000"
 .LASF3456:
 	.ascii	"LPCOMP_TASKS_SAMPLE_TASKS_SAMPLE_Pos (0UL)\000"
@@ -65314,7 +65626,7 @@ touchpanel_get_register_value:
 	.ascii	"COMP_MODE_MAIN_Diff (1UL)\000"
 .LASF6283:
 	.ascii	"POWER_INTENCLR_SLEEPENTER_Disabled (0UL)\000"
-.LASF13572:
+.LASF13594:
 	.ascii	"p_buff\000"
 .LASF1299:
 	.ascii	"TWI_CONFIG_LOG_ENABLED 0\000"
@@ -65491,9 +65803,9 @@ touchpanel_get_register_value:
 .LASF7024:
 	.ascii	"PPI_CHENCLR_CH30_Msk (0x1UL << PPI_CHENCLR_CH30_Pos"
 	.ascii	")\000"
-.LASF9908:
-	.ascii	"TWIM_INTEN_STOPPED_Pos (1UL)\000"
-.LASF13322:
+.LASF13319:
+	.ascii	"TWIM_PSEL_Type\000"
+.LASF13339:
 	.ascii	"EVENTS_ERROR\000"
 .LASF5922:
 	.ascii	"GPIO_DIRCLR_PIN5_Output (1UL)\000"
@@ -65538,7 +65850,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_INTENCLR_ENDEPOUT0_Pos (12UL)\000"
 .LASF6457:
 	.ascii	"POWER_RAM_POWER_S3RETENTION_On (1UL)\000"
-.LASF13531:
+.LASF13553:
 	.ascii	"sd_clock_hfclk_is_running\000"
 .LASF9514:
 	.ascii	"TEMP_TASKS_START_TASKS_START_Pos (0UL)\000"
@@ -65548,7 +65860,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG3_CH3_Pos PPI_CHG_CH3_Pos\000"
 .LASF3997:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR12_NoAccess (0UL)\000"
-.LASF13466:
+.LASF13489:
 	.ascii	"m_twi\000"
 .LASF6441:
 	.ascii	"POWER_RAM_POWER_S7RETENTION_On (1UL)\000"
@@ -65562,7 +65874,7 @@ touchpanel_get_register_value:
 .LASF9978:
 	.ascii	"TWIM_INTENCLR_STOPPED_Msk (0x1UL << TWIM_INTENCLR_S"
 	.ascii	"TOPPED_Pos)\000"
-.LASF13226:
+.LASF13243:
 	.ascii	"decimal_point\000"
 .LASF2453:
 	.ascii	"CC_HOST_RGF_HOST_IOT_KPRTL_LOCK_HOST_IOT_KPRTL_LOCK"
@@ -65593,7 +65905,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_IN_PIN21_Pos (21UL)\000"
 .LASF10135:
 	.ascii	"TWIS_INTENCLR_TXSTARTED_Pos (20UL)\000"
-.LASF13541:
+.LASF13563:
 	.ascii	"sd_power_gpregret_clr\000"
 .LASF5317:
 	.ascii	"GPIO_OUTCLR_PIN11_Clear (1UL)\000"
@@ -65628,6 +65940,8 @@ touchpanel_get_register_value:
 	.ascii	"SS_Pos)\000"
 .LASF12341:
 	.ascii	"NRFX_QDEC_CONFIG_PIO_LED\000"
+.LASF13208:
+	.ascii	"GPIO_REG_LIST {NRF_P0, NRF_P1}\000"
 .LASF3991:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR13_Pos (13UL)\000"
 .LASF11970:
@@ -65710,7 +66024,7 @@ touchpanel_get_register_value:
 	.ascii	"SAADC_CH_CONFIG_TACQ_5us (1UL)\000"
 .LASF1188:
 	.ascii	"NRF_CLI_ENABLED 0\000"
-.LASF13397:
+.LASF13414:
 	.ascii	"SD_TEMP_GET\000"
 .LASF11279:
 	.ascii	"USBD_EPDATASTATUS_EPIN1_Msk (0x1UL << USBD_EPDATAST"
@@ -65908,7 +66222,7 @@ touchpanel_get_register_value:
 	.ascii	"OUNT_AMOUNT_Pos)\000"
 .LASF4207:
 	.ascii	"MWU_REGIONEN_RGN1RA_Pos (3UL)\000"
-.LASF13295:
+.LASF13312:
 	.ascii	"decode\000"
 .LASF9321:
 	.ascii	"SPIM_PSEL_CSN_CONNECT_Connected (0UL)\000"
@@ -65922,6 +66236,8 @@ touchpanel_get_register_value:
 	.ascii	"RTC_EVENTS_TICK_EVENTS_TICK_Pos (0UL)\000"
 .LASF2403:
 	.ascii	"CCM_INTENCLR_ENDCRYPT_Clear (1UL)\000"
+.LASF4218:
+	.ascii	"MWU_REGIONEN_RGN0RA_Enable (1UL)\000"
 .LASF11468:
 	.ascii	"USBD_EPOUT_AMOUNT_AMOUNT_Pos (0UL)\000"
 .LASF5700:
@@ -66090,7 +66406,7 @@ touchpanel_get_register_value:
 	.ascii	"TIMER_INTENSET_COMPARE4_Disabled (0UL)\000"
 .LASF11142:
 	.ascii	"USBD_EVENTCAUSE_ISOOUTCRC_Pos (0UL)\000"
-.LASF13312:
+.LASF13329:
 	.ascii	"TASKS_STOP\000"
 .LASF4399:
 	.ascii	"MWU_PREGION_SUBS_SR19_Pos (19UL)\000"
@@ -66156,7 +66472,7 @@ touchpanel_get_register_value:
 	.ascii	"SPIS_INTENCLR_ENDRX_Enabled (1UL)\000"
 .LASF8008:
 	.ascii	"RADIO_SHORTS_ADDRESS_BCSTART_Enabled (1UL)\000"
-.LASF13456:
+.LASF13478:
 	.ascii	"RESERVED\000"
 .LASF6197:
 	.ascii	"PDM_PSEL_CLK_CONNECT_Connected (0UL)\000"
@@ -66296,6 +66612,8 @@ touchpanel_get_register_value:
 	.ascii	"VENTS_ENDRX_EVENTS_ENDRX_Pos)\000"
 .LASF8667:
 	.ascii	"RTC_EVTENSET_TICK_Enabled (1UL)\000"
+.LASF9360:
+	.ascii	"SPIM_CONFIG_CPOL_ActiveHigh (0UL)\000"
 .LASF5791:
 	.ascii	"GPIO_DIRCLR_PIN31_Input (0UL)\000"
 .LASF2728:
@@ -66312,6 +66630,8 @@ touchpanel_get_register_value:
 .LASF5865:
 	.ascii	"GPIO_DIRCLR_PIN16_Msk (0x1UL << GPIO_DIRCLR_PIN16_P"
 	.ascii	"os)\000"
+.LASF4159:
+	.ascii	"MWU_PERREGION_SUBSTATRA_SR3_Pos (3UL)\000"
 .LASF9079:
 	.ascii	"SAADC_CH_CONFIG_TACQ_Pos (16UL)\000"
 .LASF2851:
@@ -66328,7 +66648,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_MEMOBJ_CONFIG_LOG_LEVEL 3\000"
 .LASF6372:
 	.ascii	"POWER_POFCON_THRESHOLD_Pos (1UL)\000"
-.LASF13293:
+.LASF13310:
 	.ascii	"__RAL_error_decoder_fn_t\000"
 .LASF12069:
 	.ascii	"SPIM0_FEATURE_RXDELAY_PRESENT 0\000"
@@ -66380,8 +66700,6 @@ touchpanel_get_register_value:
 	.ascii	"SAADC_INTENSET_CH3LIMITH_Disabled (0UL)\000"
 .LASF11984:
 	.ascii	"POWER_PRESENT \000"
-.LASF33:
-	.ascii	"__PTRDIFF_TYPE__ int\000"
 .LASF820:
 	.ascii	"NRFX_SPI_CONFIG_LOG_ENABLED 0\000"
 .LASF11933:
@@ -66476,6 +66794,8 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIRCLR_PIN9_Pos (9UL)\000"
 .LASF8775:
 	.ascii	"SAADC_INTEN_CH2LIMITH_Disabled (0UL)\000"
+.LASF13207:
+	.ascii	"NUMBER_OF_PINS (P0_PIN_NUM + P1_PIN_NUM)\000"
 .LASF2888:
 	.ascii	"EGU_INTENSET_TRIGGERED12_Enabled (1UL)\000"
 .LASF3433:
@@ -66483,7 +66803,7 @@ touchpanel_get_register_value:
 	.ascii	"_Pos)\000"
 .LASF8195:
 	.ascii	"RADIO_INTENCLR_FRAMESTART_Disabled (0UL)\000"
-.LASF13565:
+.LASF13587:
 	.ascii	"sd_power_mode_set\000"
 .LASF1624:
 	.ascii	"__IO volatile\000"
@@ -66507,8 +66827,8 @@ touchpanel_get_register_value:
 	.ascii	"PHYEND_Pos)\000"
 .LASF11998:
 	.ascii	"GPIO_COUNT 2\000"
-.LASF9360:
-	.ascii	"SPIM_CONFIG_CPOL_ActiveHigh (0UL)\000"
+.LASF9537:
+	.ascii	"TEMP_A2_A2_Msk (0xFFFUL << TEMP_A2_A2_Pos)\000"
 .LASF6525:
 	.ascii	"POWER_RAM_POWER_S2POWER_On (1UL)\000"
 .LASF4905:
@@ -66526,13 +66846,13 @@ touchpanel_get_register_value:
 	.ascii	"S_1(__VA_ARGS__), __VA_ARGS__)\000"
 .LASF4493:
 	.ascii	"NFCT_EVENTS_READY_EVENTS_READY_Pos (0UL)\000"
-.LASF13203:
+.LASF13220:
 	.ascii	"TOUCH_X_H_MASK 0x0f\000"
 .LASF6962:
 	.ascii	"PPI_CHENSET_CH11_Set (1UL)\000"
 .LASF713:
 	.ascii	"NRFX_PRS_CONFIG_DEBUG_COLOR 0\000"
-.LASF13254:
+.LASF13271:
 	.ascii	"am_pm_indicator\000"
 .LASF4969:
 	.ascii	"GPIO_OUT_PIN20_Pos (20UL)\000"
@@ -66716,7 +67036,7 @@ touchpanel_get_register_value:
 	.ascii	"NFC_T2T_HAL_ENABLED 0\000"
 .LASF13090:
 	.ascii	"_PRIO_SD_HIGH 0\000"
-.LASF13256:
+.LASF13273:
 	.ascii	"time_format\000"
 .LASF9630:
 	.ascii	"TIMER_INTENSET_COMPARE5_Disabled (0UL)\000"
@@ -66780,7 +67100,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG2_CH10_Pos PPI_CHG_CH10_Pos\000"
 .LASF6484:
 	.ascii	"POWER_RAM_POWER_S12POWER_Off (0UL)\000"
-.LASF13416:
+.LASF13433:
 	.ascii	"p_next\000"
 .LASF1859:
 	.ascii	"DWT_CTRL_LSUEVTENA_Msk (0x1UL << DWT_CTRL_LSUEVTENA"
@@ -66791,7 +67111,7 @@ touchpanel_get_register_value:
 	.ascii	"__FLT_HAS_INFINITY__ 1\000"
 .LASF689:
 	.ascii	"NRFX_PDM_CONFIG_CLOCK_FREQ 138412032\000"
-.LASF13510:
+.LASF13532:
 	.ascii	"type\000"
 .LASF3672:
 	.ascii	"MWU_INTENSET_REGION1RA_Msk (0x1UL << MWU_INTENSET_R"
@@ -66827,6 +67147,8 @@ touchpanel_get_register_value:
 	.ascii	"OR_Pos)\000"
 .LASF4046:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR0_Access (1UL)\000"
+.LASF13216:
+	.ascii	"RESET_TP_PIN 45\000"
 .LASF4301:
 	.ascii	"MWU_REGIONENCLR_PRGN0WA_Enabled (1UL)\000"
 .LASF9827:
@@ -66843,11 +67165,11 @@ touchpanel_get_register_value:
 	.ascii	"NFCT_INTENCLR_READY_Disabled (0UL)\000"
 .LASF193:
 	.ascii	"__SFRACT_MAX__ 0X7FP-7HR\000"
-.LASF13412:
+.LASF13429:
 	.ascii	"normal\000"
-.LASF13294:
+.LASF13311:
 	.ascii	"__RAL_error_decoder_s\000"
-.LASF13297:
+.LASF13314:
 	.ascii	"__RAL_error_decoder_t\000"
 .LASF4695:
 	.ascii	"NFCT_INTENCLR_ENDRX_Pos (11UL)\000"
@@ -66908,8 +67230,6 @@ touchpanel_get_register_value:
 .LASF5660:
 	.ascii	"GPIO_DIRSET_PIN25_Msk (0x1UL << GPIO_DIRSET_PIN25_P"
 	.ascii	"os)\000"
-.LASF12765:
-	.ascii	"BIT_21 0x00200000\000"
 .LASF2790:
 	.ascii	"ECB_INTENCLR_ERRORECB_Pos (1UL)\000"
 .LASF2311:
@@ -66925,14 +67245,14 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHEN_CH24_Pos (24UL)\000"
 .LASF2359:
 	.ascii	"ACL_ACL_PERM_WRITE_Enable (0UL)\000"
-.LASF13452:
+.LASF13474:
 	.ascii	"nrf_drv_twi_t\000"
 .LASF3906:
 	.ascii	"MWU_NMIENCLR_REGION1WA_Disabled (0UL)\000"
 .LASF12811:
 	.ascii	"GET_ARG_1(a1,a2) a1\000"
-.LASF3259:
-	.ascii	"GPIOTE_INTENCLR_IN1_Enabled (1UL)\000"
+.LASF13335:
+	.ascii	"EVENTS_RXDREADY\000"
 .LASF12017:
 	.ascii	"PPI_COUNT 1\000"
 .LASF3191:
@@ -67049,8 +67369,6 @@ touchpanel_get_register_value:
 .LASF10160:
 	.ascii	"TWIS_ERRORSRC_DNACK_Msk (0x1UL << TWIS_ERRORSRC_DNA"
 	.ascii	"CK_Pos)\000"
-.LASF9537:
-	.ascii	"TEMP_A2_A2_Msk (0xFFFUL << TEMP_A2_A2_Pos)\000"
 .LASF9990:
 	.ascii	"TWIM_ERRORSRC_OVERRUN_Pos (0UL)\000"
 .LASF2664:
@@ -67061,7 +67379,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIR_PIN22_Input (0UL)\000"
 .LASF10373:
 	.ascii	"UART_BAUDRATE_BAUDRATE_Baud115200 (0x01D7E000UL)\000"
-.LASF13394:
+.LASF13411:
 	.ascii	"SD_RADIO_SESSION_CLOSE\000"
 .LASF8956:
 	.ascii	"SAADC_INTENCLR_CH5LIMITH_Clear (1UL)\000"
@@ -67096,8 +67414,8 @@ touchpanel_get_register_value:
 	.ascii	"SAADC_INTENCLR_CH4LIMITH_Disabled (0UL)\000"
 .LASF1856:
 	.ascii	"DWT_CTRL_FOLDEVTENA_Pos 21U\000"
-.LASF7216:
-	.ascii	"PPI_CHG_CH23_Excluded (0UL)\000"
+.LASF3367:
+	.ascii	"I2S_CONFIG_MCKFREQ_MCKFREQ_32MDIV16 (0x10000000UL)\000"
 .LASF10962:
 	.ascii	"USBD_INTENSET_ENDEPIN5_Msk (0x1UL << USBD_INTENSET_"
 	.ascii	"ENDEPIN5_Pos)\000"
@@ -67131,12 +67449,12 @@ touchpanel_get_register_value:
 .LASF8655:
 	.ascii	"RTC_EVTENSET_COMPARE0_Msk (0x1UL << RTC_EVTENSET_CO"
 	.ascii	"MPARE0_Pos)\000"
-.LASF13370:
+.LASF13387:
 	.ascii	"SD_RAND_APPLICATION_VECTOR_GET\000"
 .LASF615:
 	.ascii	"I2S_CONFIG_FORMAT 0\000"
-.LASF9536:
-	.ascii	"TEMP_A2_A2_Pos (0UL)\000"
+.LASF6346:
+	.ascii	"POWER_USBREGSTATUS_OUTPUTRDY_Ready (1UL)\000"
 .LASF9029:
 	.ascii	"SAADC_INTENCLR_END_Disabled (0UL)\000"
 .LASF7352:
@@ -67215,7 +67533,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_INTENSET_RXREADY_Enabled (1UL)\000"
 .LASF10349:
 	.ascii	"UART_PSEL_RXD_CONNECT_Connected (0UL)\000"
-.LASF13221:
+.LASF13238:
 	.ascii	"long long unsigned int\000"
 .LASF8892:
 	.ascii	"SAADC_INTENSET_CH0LIMITH_Pos (6UL)\000"
@@ -67249,7 +67567,7 @@ touchpanel_get_register_value:
 	.ascii	"APP_TIMER_ENABLED 1\000"
 .LASF7244:
 	.ascii	"PPI_CHG_CH16_Excluded (0UL)\000"
-.LASF13502:
+.LASF13524:
 	.ascii	"sd_evt_get\000"
 .LASF11156:
 	.ascii	"USBD_EPSTATUS_EPOUT8_NoData (0UL)\000"
@@ -67264,7 +67582,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_SDH_BLE_CENTRAL_LINK_COUNT 0\000"
 .LASF5:
 	.ascii	"__GNUC__ 6\000"
-.LASF13484:
+.LASF13506:
 	.ascii	"nrf_drv_twi_rx\000"
 .LASF10720:
 	.ascii	"USBD_TASKS_STARTEPOUT_TASKS_STARTEPOUT_Pos (0UL)\000"
@@ -67284,7 +67602,7 @@ touchpanel_get_register_value:
 .LASF11203:
 	.ascii	"USBD_EPSTATUS_EPIN5_Msk (0x1UL << USBD_EPSTATUS_EPI"
 	.ascii	"N5_Pos)\000"
-.LASF13523:
+.LASF13545:
 	.ascii	"sd_ppi_channel_enable_clr\000"
 .LASF4914:
 	.ascii	"NVMC_ICACHECNF_CACHEPROFEN_Msk (0x1UL << NVMC_ICACH"
@@ -67316,7 +67634,7 @@ touchpanel_get_register_value:
 	.ascii	"PWM_INTENSET_STOPPED_Enabled (1UL)\000"
 .LASF6278:
 	.ascii	"POWER_INTENCLR_SLEEPEXIT_Disabled (0UL)\000"
-.LASF13575:
+.LASF13597:
 	.ascii	"sd_rand_application_pool_capacity_get\000"
 .LASF3782:
 	.ascii	"MWU_NMIEN_REGION2WA_Enabled (1UL)\000"
@@ -67368,7 +67686,7 @@ touchpanel_get_register_value:
 	.ascii	"__UINT_LEAST8_TYPE__ unsigned char\000"
 .LASF11177:
 	.ascii	"USBD_EPSTATUS_EPOUT3_DataDone (1UL)\000"
-.LASF13522:
+.LASF13544:
 	.ascii	"task_endpoint\000"
 .LASF8652:
 	.ascii	"RTC_EVTENSET_COMPARE1_Enabled (1UL)\000"
@@ -67444,7 +67762,7 @@ touchpanel_get_register_value:
 .LASF4452:
 	.ascii	"MWU_PREGION_SUBS_SR6_Msk (0x1UL << MWU_PREGION_SUBS"
 	.ascii	"_SR6_Pos)\000"
-.LASF13455:
+.LASF13477:
 	.ascii	"CONTACT\000"
 .LASF12435:
 	.ascii	"NRFX_SAADC_CONFIG_LP_MODE\000"
@@ -67481,7 +67799,7 @@ touchpanel_get_register_value:
 	.ascii	"COLOR\000"
 .LASF831:
 	.ascii	"NRFX_SWI5_DISABLED 0\000"
-.LASF13290:
+.LASF13307:
 	.ascii	"__RAL_data_empty_string\000"
 .LASF4988:
 	.ascii	"GPIO_OUT_PIN16_High (1UL)\000"
@@ -67509,7 +67827,7 @@ touchpanel_get_register_value:
 .LASF6447:
 	.ascii	"POWER_RAM_POWER_S5RETENTION_Msk (0x1UL << POWER_RAM"
 	.ascii	"_POWER_S5RETENTION_Pos)\000"
-.LASF13223:
+.LASF13240:
 	.ascii	"__wchar\000"
 .LASF903:
 	.ascii	"NRFX_UART_CONFIG_INFO_COLOR 0\000"
@@ -67612,8 +67930,6 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_IN_PIN2_High (1UL)\000"
 .LASF1079:
 	.ascii	"APP_USBD_CONFIG_INFO_COLOR 0\000"
-.LASF3093:
-	.ascii	"FICR_TEMP_A4_A_Msk (0xFFFUL << FICR_TEMP_A4_A_Pos)\000"
 .LASF9163:
 	.ascii	"SPI_PSEL_SCK_CONNECT_Msk (0x1UL << SPI_PSEL_SCK_CON"
 	.ascii	"NECT_Pos)\000"
@@ -67676,7 +67992,7 @@ touchpanel_get_register_value:
 	.ascii	"CLOCK_INTENCLR_HFCLKSTARTED_Pos (0UL)\000"
 .LASF1471:
 	.ascii	"APDU_BUFF_SIZE 250\000"
-.LASF13219:
+.LASF13236:
 	.ascii	"unsigned int\000"
 .LASF12419:
 	.ascii	"NRFX_RTC_MAXIMUM_LATENCY_US\000"
@@ -67829,7 +68145,7 @@ touchpanel_get_register_value:
 	.ascii	"T_RGN1RA_Pos)\000"
 .LASF12195:
 	.ascii	"NRFX_GPIOTE_CONFIG_LOG_LEVEL\000"
-.LASF13409:
+.LASF13426:
 	.ascii	"distance_us\000"
 .LASF1717:
 	.ascii	"SCB_SCR_SLEEPDEEP_Msk (1UL << SCB_SCR_SLEEPDEEP_Pos"
@@ -67869,7 +68185,7 @@ touchpanel_get_register_value:
 .LASF3207:
 	.ascii	"GPIOTE_INTENSET_IN2_Msk (0x1UL << GPIOTE_INTENSET_I"
 	.ascii	"N2_Pos)\000"
-.LASF13367:
+.LASF13384:
 	.ascii	"SD_MUTEX_RELEASE\000"
 .LASF5529:
 	.ascii	"GPIO_DIR_PIN24_Pos (24UL)\000"
@@ -68025,8 +68341,8 @@ touchpanel_get_register_value:
 .LASF4108:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR16_Msk (0x1UL << MWU_PERR"
 	.ascii	"EGION_SUBSTATRA_SR16_Pos)\000"
-.LASF4218:
-	.ascii	"MWU_REGIONEN_RGN0RA_Enable (1UL)\000"
+.LASF3676:
+	.ascii	"MWU_INTENSET_REGION1WA_Pos (2UL)\000"
 .LASF10339:
 	.ascii	"UART_PSEL_CTS_CONNECT_Pos (31UL)\000"
 .LASF7899:
@@ -68044,7 +68360,7 @@ touchpanel_get_register_value:
 	.ascii	" CC_HOST_RGF_HOST_IOT_LCS_LCS_IS_VALID_Pos)\000"
 .LASF5590:
 	.ascii	"GPIO_DIR_PIN9_Msk (0x1UL << GPIO_DIR_PIN9_Pos)\000"
-.LASF13576:
+.LASF13598:
 	.ascii	"p_pool_capacity\000"
 .LASF5113:
 	.ascii	"GPIO_OUTSET_PIN19_Pos (19UL)\000"
@@ -68064,7 +68380,7 @@ touchpanel_get_register_value:
 .LASF7755:
 	.ascii	"QSPI_PSEL_IO2_PIN_Msk (0x1FUL << QSPI_PSEL_IO2_PIN_"
 	.ascii	"Pos)\000"
-.LASF13239:
+.LASF13256:
 	.ascii	"p_sep_by_space\000"
 .LASF2985:
 	.ascii	"EGU_INTENCLR_TRIGGERED8_Pos (8UL)\000"
@@ -68108,7 +68424,7 @@ touchpanel_get_register_value:
 .LASF2773:
 	.ascii	"ECB_TASKS_STARTECB_TASKS_STARTECB_Msk (0x1UL << ECB"
 	.ascii	"_TASKS_STARTECB_TASKS_STARTECB_Pos)\000"
-.LASF13255:
+.LASF13272:
 	.ascii	"date_format\000"
 .LASF10946:
 	.ascii	"USBD_INTENSET_EP0DATADONE_Pos (10UL)\000"
@@ -68181,7 +68497,7 @@ touchpanel_get_register_value:
 	.ascii	"WER_S11POWER_Pos)\000"
 .LASF6219:
 	.ascii	"POWER_EVENTS_POFWARN_EVENTS_POFWARN_Pos (0UL)\000"
-.LASF13357:
+.LASF13374:
 	.ascii	"SD_PPI_CHANNEL_ASSIGN\000"
 .LASF8837:
 	.ascii	"SAADC_INTENSET_CH5LIMITL_Pos (17UL)\000"
@@ -68245,11 +68561,10 @@ touchpanel_get_register_value:
 .LASF9149:
 	.ascii	"SPI_INTENSET_READY_Msk (0x1UL << SPI_INTENSET_READY"
 	.ascii	"_Pos)\000"
-.LASF4516:
-	.ascii	"NFCT_EVENTS_AUTOCOLRESSTARTED_EVENTS_AUTOCOLRESSTAR"
-	.ascii	"TED_Msk (0x1UL << NFCT_EVENTS_AUTOCOLRESSTARTED_EVE"
-	.ascii	"NTS_AUTOCOLRESSTARTED_Pos)\000"
-.LASF13260:
+.LASF12242:
+	.ascii	"NRFX_LPCOMP_CONFIG_DETECTION LPCOMP_CONFIG_DETECTIO"
+	.ascii	"N\000"
+.LASF13277:
 	.ascii	"__toupper\000"
 .LASF9895:
 	.ascii	"TWIM_INTEN_TXSTARTED_Enabled (1UL)\000"
@@ -68298,7 +68613,7 @@ touchpanel_get_register_value:
 	.ascii	"SCB_CCR_DIV_0_TRP_Pos 4U\000"
 .LASF11226:
 	.ascii	"USBD_EPDATASTATUS_EPOUT7_Pos (23UL)\000"
-.LASF13330:
+.LASF13347:
 	.ascii	"INTENSET\000"
 .LASF7229:
 	.ascii	"PPI_CHG_CH20_Included (1UL)\000"
@@ -68357,7 +68672,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_IN_PIN16_Msk (0x1UL << GPIO_IN_PIN16_Pos)\000"
 .LASF8311:
 	.ascii	"RADIO_PCNF0_PLEN_Pos (24UL)\000"
-.LASF13400:
+.LASF13417:
 	.ascii	"SD_POWER_USBREMOVED_ENABLE\000"
 .LASF10386:
 	.ascii	"UART_CONFIG_HWFC_Enabled (1UL)\000"
@@ -68521,7 +68836,7 @@ touchpanel_get_register_value:
 	.ascii	"QSPI_INTENSET_READY_Disabled (0UL)\000"
 .LASF2195:
 	.ascii	"NRF_SWI5_BASE 0x40019000UL\000"
-.LASF13540:
+.LASF13562:
 	.ascii	"p_gpregret\000"
 .LASF6622:
 	.ascii	"POWER_RAM_POWERSET_S2POWER_Msk (0x1UL << POWER_RAM_"
@@ -68678,9 +68993,8 @@ touchpanel_get_register_value:
 	.ascii	"TED_Pos (0UL)\000"
 .LASF10558:
 	.ascii	"UARTE_INTENCLR_TXDRDY_Disabled (0UL)\000"
-.LASF6078:
-	.ascii	"GPIO_DETECTMODE_DETECTMODE_Msk (0x1UL << GPIO_DETEC"
-	.ascii	"TMODE_DETECTMODE_Pos)\000"
+.LASF451:
+	.ascii	"NRFX_H__ \000"
 .LASF10014:
 	.ascii	"TWIM_FREQUENCY_FREQUENCY_Pos (0UL)\000"
 .LASF9172:
@@ -68699,13 +69013,13 @@ touchpanel_get_register_value:
 	.ascii	"EGU_INTENSET_TRIGGERED0_Disabled (0UL)\000"
 .LASF11661:
 	.ascii	"TASKS_CHG3DIS TASKS_CHG[3].DIS\000"
-.LASF13369:
+.LASF13386:
 	.ascii	"SD_RAND_APPLICATION_BYTES_AVAILABLE_GET\000"
 .LASF8991:
 	.ascii	"SAADC_INTENCLR_CH1LIMITL_Clear (1UL)\000"
 .LASF7588:
 	.ascii	"QDEC_INTENCLR_REPORTRDY_Enabled (1UL)\000"
-.LASF13320:
+.LASF13337:
 	.ascii	"EVENTS_TXDSENT\000"
 .LASF3165:
 	.ascii	"FICR_TRNG90B_ROSC4_ROSC4_Msk (0xFFFFFFFFUL << FICR_"
@@ -68860,8 +69174,6 @@ touchpanel_get_register_value:
 	.ascii	"<< POWER_EVENTS_SLEEPEXIT_EVENTS_SLEEPEXIT_Pos)\000"
 .LASF6653:
 	.ascii	"POWER_RAM_POWERCLR_S8RETENTION_Off (1UL)\000"
-.LASF816:
-	.ascii	"NRFX_SPI1_ENABLED 1\000"
 .LASF7173:
 	.ascii	"PPI_CHENCLR_CH0_Pos (0UL)\000"
 .LASF8973:
@@ -68880,7 +69192,7 @@ touchpanel_get_register_value:
 .LASF13067:
 	.ascii	"NRF_ERROR_STORAGE_FULL (NRF_ERROR_SDK_COMMON_ERROR_"
 	.ascii	"BASE + 0x0006)\000"
-.LASF13520:
+.LASF13542:
 	.ascii	"channel_num\000"
 .LASF8128:
 	.ascii	"RADIO_INTENSET_PAYLOAD_Pos (2UL)\000"
@@ -68988,16 +69300,14 @@ touchpanel_get_register_value:
 .LASF3425:
 	.ascii	"I2S_PSEL_SCK_PORT_Msk (0x1UL << I2S_PSEL_SCK_PORT_P"
 	.ascii	"os)\000"
-.LASF3676:
-	.ascii	"MWU_INTENSET_REGION1WA_Pos (2UL)\000"
 .LASF2332:
 	.ascii	"AAR_INTENCLR_END_Disabled (0UL)\000"
 .LASF3258:
 	.ascii	"GPIOTE_INTENCLR_IN1_Disabled (0UL)\000"
 .LASF7840:
 	.ascii	"QSPI_CINSTRCONF_LFEN_Pos (16UL)\000"
-.LASF12239:
-	.ascii	"NRFX_LPCOMP_CONFIG_REFERENCE\000"
+.LASF13468:
+	.ascii	"NRF_TWI_FREQ_400K\000"
 .LASF7708:
 	.ascii	"QSPI_WRITE_CNT_CNT_Msk (0x1FFFFFUL << QSPI_WRITE_CN"
 	.ascii	"T_CNT_Pos)\000"
@@ -69221,6 +69531,9 @@ touchpanel_get_register_value:
 	.ascii	"C_EXTERNAL_Pos)\000"
 .LASF3911:
 	.ascii	"MWU_NMIENCLR_REGION0RA_Disabled (0UL)\000"
+.LASF9320:
+	.ascii	"SPIM_PSEL_CSN_CONNECT_Msk (0x1UL << SPIM_PSEL_CSN_C"
+	.ascii	"ONNECT_Pos)\000"
 .LASF1926:
 	.ascii	"TPI_TRIGGER_TRIGGER_Pos 0U\000"
 .LASF11887:
@@ -69254,7 +69567,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG_CH13_Excluded (0UL)\000"
 .LASF10275:
 	.ascii	"UART_INTENCLR_RXTO_Disabled (0UL)\000"
-.LASF13501:
+.LASF13523:
 	.ascii	"p_temp\000"
 .LASF1492:
 	.ascii	"NRF_SDH_BLE_OBSERVER_PRIO_LEVELS 4\000"
@@ -69324,7 +69637,7 @@ touchpanel_get_register_value:
 .LASF8014:
 	.ascii	"RADIO_SHORTS_ADDRESS_RSSISTART_Msk (0x1UL << RADIO_"
 	.ascii	"SHORTS_ADDRESS_RSSISTART_Pos)\000"
-.LASF13252:
+.LASF13269:
 	.ascii	"month_names\000"
 .LASF12270:
 	.ascii	"NRFX_PDM_CONFIG_LOG_LEVEL PDM_CONFIG_LOG_LEVEL\000"
@@ -69396,9 +69709,7 @@ touchpanel_get_register_value:
 .LASF8448:
 	.ascii	"RADIO_DACNF_TXADD1_Msk (0x1UL << RADIO_DACNF_TXADD1"
 	.ascii	"_Pos)\000"
-.LASF13464:
-	.ascii	"touchpoint\000"
-.LASF13216:
+.LASF13233:
 	.ascii	"short unsigned int\000"
 .LASF7076:
 	.ascii	"PPI_CHENCLR_CH20_Enabled (1UL)\000"
@@ -69428,6 +69739,8 @@ touchpanel_get_register_value:
 	.ascii	"USBD_EPSTATUS_EPOUT4_DataDone (1UL)\000"
 .LASF6153:
 	.ascii	"PDM_INTENCLR_STOPPED_Disabled (0UL)\000"
+.LASF2683:
+	.ascii	"COMP_INTENSET_UP_Disabled (0UL)\000"
 .LASF6103:
 	.ascii	"GPIO_PIN_CNF_INPUT_Connect (0UL)\000"
 .LASF9290:
@@ -69447,6 +69760,8 @@ touchpanel_get_register_value:
 	.ascii	"COMP_HYST_HYST_Pos (0UL)\000"
 .LASF6432:
 	.ascii	"POWER_RAM_POWER_S9RETENTION_Off (0UL)\000"
+.LASF13217:
+	.ascii	"EN_TP_POWER_PIN 47\000"
 .LASF6831:
 	.ascii	"PPI_CHEN_CH6_Msk (0x1UL << PPI_CHEN_CH6_Pos)\000"
 .LASF6638:
@@ -69504,7 +69819,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHENCLR_CH28_Enabled (1UL)\000"
 .LASF6764:
 	.ascii	"PPI_CHEN_CH23_Disabled (0UL)\000"
-.LASF13348:
+.LASF13365:
 	.ascii	"INTEN\000"
 .LASF9732:
 	.ascii	"TWI_SHORTS_BB_SUSPEND_Enabled (1UL)\000"
@@ -69512,7 +69827,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIOTE_CONFIG_PORT_Pos (13UL)\000"
 .LASF6659:
 	.ascii	"POWER_RAM_POWERCLR_S6RETENTION_Off (1UL)\000"
-.LASF13349:
+.LASF13366:
 	.ascii	"NRF_TWIM_Type\000"
 .LASF6298:
 	.ascii	"POWER_RESETREAS_NFC_Detected (1UL)\000"
@@ -69572,7 +69887,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_INTENSET_EPDATA_Set (1UL)\000"
 .LASF3110:
 	.ascii	"FICR_TEMP_T1_T_Pos (0UL)\000"
-.LASF13238:
+.LASF13255:
 	.ascii	"p_cs_precedes\000"
 .LASF1340:
 	.ascii	"NRF_ATFIFO_CONFIG_DEBUG_COLOR 0\000"
@@ -69598,14 +69913,12 @@ touchpanel_get_register_value:
 .LASF8398:
 	.ascii	"RADIO_CRCCNF_SKIPADDR_Msk (0x3UL << RADIO_CRCCNF_SK"
 	.ascii	"IPADDR_Pos)\000"
-.LASF1077:
-	.ascii	"APP_USBD_CONFIG_LOG_ENABLED 0\000"
 .LASF3047:
 	.ascii	"FICR_INFO_PART_PART_Msk (0xFFFFFFFFUL << FICR_INFO_"
 	.ascii	"PART_PART_Pos)\000"
 .LASF4624:
 	.ascii	"NFCT_INTENSET_ENDRX_Set (1UL)\000"
-.LASF13583:
+.LASF13605:
 	.ascii	"NRF_SOC_SVCS\000"
 .LASF2383:
 	.ascii	"CCM_INTENSET_ERROR_Set (1UL)\000"
@@ -69624,7 +69937,7 @@ touchpanel_get_register_value:
 	.ascii	"APP_ERROR_H__ \000"
 .LASF11045:
 	.ascii	"USBD_INTENCLR_ENDEPOUT4_Clear (1UL)\000"
-.LASF13577:
+.LASF13599:
 	.ascii	"sd_mutex_release\000"
 .LASF10777:
 	.ascii	"USBD_INTEN_EPDATA_Msk (0x1UL << USBD_INTEN_EPDATA_P"
@@ -69662,6 +69975,8 @@ touchpanel_get_register_value:
 .LASF2083:
 	.ascii	"CoreDebug_DHCSR_S_REGRDY_Msk (1UL << CoreDebug_DHCS"
 	.ascii	"R_S_REGRDY_Pos)\000"
+.LASF13201:
+	.ascii	"NRF_GPIOTE_INT_IN_MASK\000"
 .LASF5418:
 	.ascii	"GPIO_IN_PIN20_Msk (0x1UL << GPIO_IN_PIN20_Pos)\000"
 .LASF8083:
@@ -69697,12 +70012,14 @@ touchpanel_get_register_value:
 	.ascii	"_EVENTS_STOPPED_EVENTS_STOPPED_Pos)\000"
 .LASF11190:
 	.ascii	"USBD_EPSTATUS_EPIN8_Pos (8UL)\000"
+.LASF13464:
+	.ascii	"NRFX_TWIM_ENABLED_COUNT\000"
 .LASF3534:
 	.ascii	"LPCOMP_PSEL_PSEL_Pos (0UL)\000"
 .LASF11577:
 	.ascii	"SWI0_IRQHandler SWI0_EGU0_IRQHandler\000"
-.LASF11282:
-	.ascii	"USBD_USBADDR_ADDR_Pos (0UL)\000"
+.LASF13486:
+	.ascii	"touchpoint\000"
 .LASF8282:
 	.ascii	"RADIO_TXPOWER_TXPOWER_Pos2dBm (0x2UL)\000"
 .LASF11440:
@@ -69932,7 +70249,7 @@ touchpanel_get_register_value:
 	.ascii	"SPI_COUNT 3\000"
 .LASF2771:
 	.ascii	"CRYPTOCELL_ENABLE_ENABLE_Enabled (1UL)\000"
-.LASF13230:
+.LASF13247:
 	.ascii	"currency_symbol\000"
 .LASF11883:
 	.ascii	"PPI_CHG2_CH1_Msk PPI_CHG_CH1_Msk\000"
@@ -69958,7 +70275,7 @@ touchpanel_get_register_value:
 	.ascii	"RROR_Pos)\000"
 .LASF8688:
 	.ascii	"RTC_EVTENCLR_COMPARE0_Clear (1UL)\000"
-.LASF13517:
+.LASF13539:
 	.ascii	"sd_ppi_group_task_disable\000"
 .LASF11479:
 	.ascii	"WDT_EVENTS_TIMEOUT_EVENTS_TIMEOUT_Msk (0x1UL << WDT"
@@ -69969,7 +70286,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_INTENCLR_EDEND_Enabled (1UL)\000"
 .LASF5008:
 	.ascii	"GPIO_OUT_PIN11_High (1UL)\000"
-.LASF13478:
+.LASF13500:
 	.ascii	"rx_data_size\000"
 .LASF5394:
 	.ascii	"GPIO_IN_PIN26_Msk (0x1UL << GPIO_IN_PIN26_Pos)\000"
@@ -70021,7 +70338,7 @@ touchpanel_get_register_value:
 	.ascii	"SPI_FREQUENCY_FREQUENCY_M2 (0x20000000UL)\000"
 .LASF10890:
 	.ascii	"USBD_INTENSET_USBEVENT_Set (1UL)\000"
-.LASF13383:
+.LASF13400:
 	.ascii	"SD_POWER_GPREGRET_GET\000"
 .LASF5127:
 	.ascii	"GPIO_OUTSET_PIN17_Set (1UL)\000"
@@ -70032,7 +70349,7 @@ touchpanel_get_register_value:
 .LASF12854:
 	.ascii	"MACRO_MAP_4(macro,a,...) macro(a) MACRO_MAP_3 (macr"
 	.ascii	"o, __VA_ARGS__, )\000"
-.LASF13300:
+.LASF13317:
 	.ascii	"SystemCoreClock\000"
 .LASF879:
 	.ascii	"NRFX_TWI_DEFAULT_CONFIG_IRQ_PRIORITY 7\000"
@@ -70041,8 +70358,8 @@ touchpanel_get_register_value:
 .LASF9605:
 	.ascii	"TIMER_SHORTS_COMPARE5_CLEAR_Msk (0x1UL << TIMER_SHO"
 	.ascii	"RTS_COMPARE5_CLEAR_Pos)\000"
-.LASF10540:
-	.ascii	"UARTE_INTENCLR_RXSTARTED_Clear (1UL)\000"
+.LASF33:
+	.ascii	"__PTRDIFF_TYPE__ int\000"
 .LASF13057:
 	.ascii	"NRF_ERROR_BLE_IPSP_ERR_BASE (0x8400)\000"
 .LASF5346:
@@ -70093,7 +70410,7 @@ touchpanel_get_register_value:
 	.ascii	": \"I\" (ARG2), \"r\" (__ARG1) ); __RES; })\000"
 .LASF13164:
 	.ascii	"NRFX_TWIM_FLAG_REPEATED_XFER (1UL << 4)\000"
-.LASF13211:
+.LASF13228:
 	.ascii	"signed char\000"
 .LASF11074:
 	.ascii	"USBD_INTENCLR_EP0DATADONE_Enabled (1UL)\000"
@@ -70144,7 +70461,7 @@ touchpanel_get_register_value:
 	.ascii	"MWU_REGIONENCLR_PRGN1WA_Enabled (1UL)\000"
 .LASF9501:
 	.ascii	"SPIS_CONFIG_CPOL_ActiveLow (1UL)\000"
-.LASF13224:
+.LASF13241:
 	.ascii	"long int\000"
 .LASF12637:
 	.ascii	"NRFX_UART_DEFAULT_CONFIG_IRQ_PRIORITY UART_DEFAULT_"
@@ -70171,7 +70488,7 @@ touchpanel_get_register_value:
 	.ascii	"UARTE_SHORTS_ENDRX_STOPRX_Pos (6UL)\000"
 .LASF298:
 	.ascii	"__UHA_FBIT__ 8\000"
-.LASF13479:
+.LASF13501:
 	.ascii	"p_instance\000"
 .LASF10390:
 	.ascii	"UARTE_TASKS_STOPRX_TASKS_STOPRX_Msk (0x1UL << UARTE"
@@ -70354,6 +70671,8 @@ touchpanel_get_register_value:
 	.ascii	"VENTS_ERROR_EVENTS_ERROR_Pos)\000"
 .LASF3893:
 	.ascii	"MWU_NMIENCLR_REGION2RA_Clear (1UL)\000"
+.LASF13198:
+	.ascii	"NRF_GPIOTE_H__ \000"
 .LASF11153:
 	.ascii	"USBD_HALTED_EPOUT_GETSTATUS_Halted (1UL)\000"
 .LASF6099:
@@ -70381,6 +70700,8 @@ touchpanel_get_register_value:
 	.ascii	"USBD_INTENSET_ENDEPIN3_Pos (5UL)\000"
 .LASF7394:
 	.ascii	"PWM_INTENSET_SEQEND0_Enabled (1UL)\000"
+.LASF1196:
+	.ascii	"NRF_CLI_HISTORY_ELEMENT_SIZE 32\000"
 .LASF7726:
 	.ascii	"QSPI_PSEL_CSN_CONNECT_Connected (0UL)\000"
 .LASF12559:
@@ -70442,8 +70763,6 @@ touchpanel_get_register_value:
 	.ascii	"USBD_INTEN_ENDEPOUT2_Disabled (0UL)\000"
 .LASF4195:
 	.ascii	"MWU_REGIONEN_RGN3WA_Pos (6UL)\000"
-.LASF1122:
-	.ascii	"MEMORY_MANAGER_XLARGE_BLOCK_SIZE 1320\000"
 .LASF10750:
 	.ascii	"USBD_EVENTS_USBEVENT_EVENTS_USBEVENT_Pos (0UL)\000"
 .LASF896:
@@ -70485,9 +70804,9 @@ touchpanel_get_register_value:
 	.ascii	"__O volatile\000"
 .LASF3347:
 	.ascii	"I2S_CONFIG_RXEN_RXEN_Disabled (0UL)\000"
-.LASF5944:
-	.ascii	"GPIO_DIRCLR_PIN0_Pos (0UL)\000"
-.LASF13212:
+.LASF1970:
+	.ascii	"TPI_DEVID_AsynClkIn_Pos 5U\000"
+.LASF13229:
 	.ascii	"unsigned char\000"
 .LASF8502:
 	.ascii	"RADIO_CCACTRL_CCAEDTHRES_Pos (8UL)\000"
@@ -70559,7 +70878,7 @@ touchpanel_get_register_value:
 	.ascii	"Pos)\000"
 .LASF9272:
 	.ascii	"SPIM_INTENCLR_END_Clear (1UL)\000"
-.LASF13298:
+.LASF13315:
 	.ascii	"__RAL_error_decoder_head\000"
 .LASF11291:
 	.ascii	"USBD_BMREQUESTTYPE_TYPE_Class (1UL)\000"
@@ -70618,8 +70937,8 @@ touchpanel_get_register_value:
 	.ascii	"RTC2_ENABLED 0\000"
 .LASF7701:
 	.ascii	"QSPI_READ_CNT_CNT_Pos (0UL)\000"
-.LASF3076:
-	.ascii	"FICR_INFO_FLASH_FLASH_K512 (0x200UL)\000"
+.LASF1605:
+	.ascii	"__STATIC_INLINE static inline\000"
 .LASF7360:
 	.ascii	"PWM_INTEN_SEQEND0_Pos (4UL)\000"
 .LASF2889:
@@ -70699,7 +71018,7 @@ touchpanel_get_register_value:
 	.ascii	"MWU_NMIENCLR_PREGION0RA_Disabled (0UL)\000"
 .LASF5212:
 	.ascii	"GPIO_OUTSET_PIN0_Set (1UL)\000"
-.LASF13337:
+.LASF13354:
 	.ascii	"PSEL\000"
 .LASF11010:
 	.ascii	"USBD_INTENCLR_EP0SETUP_Clear (1UL)\000"
@@ -70739,7 +71058,7 @@ touchpanel_get_register_value:
 	.ascii	"ET_CH2LIMITH_Pos)\000"
 .LASF11589:
 	.ascii	"SWI1_IRQn SWI1_EGU1_IRQn\000"
-.LASF13485:
+.LASF13507:
 	.ascii	"nrf_drv_twi_tx\000"
 .LASF2747:
 	.ascii	"COMP_EXTREFSEL_EXTREFSEL_AnalogReference4 (4UL)\000"
@@ -70806,6 +71125,8 @@ touchpanel_get_register_value:
 	.ascii	"SPIS_INTENSET_ENDRX_Set (1UL)\000"
 .LASF6035:
 	.ascii	"GPIO_LATCH_PIN10_NotLatched (0UL)\000"
+.LASF1526:
+	.ascii	"NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1\000"
 .LASF5985:
 	.ascii	"GPIO_LATCH_PIN22_Pos (22UL)\000"
 .LASF8659:
@@ -71033,7 +71354,7 @@ touchpanel_get_register_value:
 	.ascii	"ANON_UNIONS_ENABLE struct semicolon_swallower\000"
 .LASF101:
 	.ascii	"__INT_LEAST64_MAX__ 0x7fffffffffffffffLL\000"
-.LASF13543:
+.LASF13565:
 	.ascii	"sd_power_gpregret_set\000"
 .LASF3411:
 	.ascii	"I2S_RXTXD_MAXCNT_MAXCNT_Msk (0x3FFFUL << I2S_RXTXD_"
@@ -71110,6 +71431,9 @@ touchpanel_get_register_value:
 	.ascii	"_ERR_CODE = (ERR_CODE); if (LOCAL_ERR_CODE != NRF_S"
 	.ascii	"UCCESS) { APP_ERROR_HANDLER(LOCAL_ERR_CODE); } } wh"
 	.ascii	"ile (0)\000"
+.LASF7640:
+	.ascii	"QDEC_PSEL_LED_PIN_Msk (0x1FUL << QDEC_PSEL_LED_PIN_"
+	.ascii	"Pos)\000"
 .LASF8331:
 	.ascii	"RADIO_PCNF1_WHITEEN_Disabled (0UL)\000"
 .LASF7977:
@@ -71238,7 +71562,7 @@ touchpanel_get_register_value:
 	.ascii	")\000"
 .LASF10950:
 	.ascii	"USBD_INTENSET_EP0DATADONE_Set (1UL)\000"
-.LASF13537:
+.LASF13559:
 	.ascii	"sd_power_dcdc_mode_set\000"
 .LASF2337:
 	.ascii	"AAR_ENABLE_ENABLE_Pos (0UL)\000"
@@ -71282,7 +71606,7 @@ touchpanel_get_register_value:
 .LASF5920:
 	.ascii	"GPIO_DIRCLR_PIN5_Msk (0x1UL << GPIO_DIRCLR_PIN5_Pos"
 	.ascii	")\000"
-.LASF13519:
+.LASF13541:
 	.ascii	"sd_ppi_channel_assign\000"
 .LASF420:
 	.ascii	"INT_FAST32_MIN INT32_MIN\000"
@@ -71349,7 +71673,7 @@ touchpanel_get_register_value:
 .LASF10927:
 	.ascii	"USBD_INTENSET_ENDEPOUT2_Msk (0x1UL << USBD_INTENSET"
 	.ascii	"_ENDEPOUT2_Pos)\000"
-.LASF13414:
+.LASF13431:
 	.ascii	"params\000"
 .LASF5884:
 	.ascii	"GPIO_DIRCLR_PIN12_Pos (12UL)\000"
@@ -71552,7 +71876,7 @@ touchpanel_get_register_value:
 	.ascii	"IG_COUNT_MODE\000"
 .LASF5275:
 	.ascii	"GPIO_OUTCLR_PIN19_Low (0UL)\000"
-.LASF13368:
+.LASF13385:
 	.ascii	"SD_RAND_APPLICATION_POOL_CAPACITY_GET\000"
 .LASF1807:
 	.ascii	"SysTick_CALIB_NOREF_Msk (1UL << SysTick_CALIB_NOREF"
@@ -71614,7 +71938,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_COMP_CONFIG_DEBUG_COLOR\000"
 .LASF8514:
 	.ascii	"RADIO_POWER_POWER_Enabled (1UL)\000"
-.LASF13536:
+.LASF13558:
 	.ascii	"dcdc_mode\000"
 .LASF12781:
 	.ascii	"CODE_START ((uint32_t)&_vectors)\000"
@@ -71629,6 +71953,8 @@ touchpanel_get_register_value:
 	.ascii	"POWERCLR_S3POWER_Pos)\000"
 .LASF7877:
 	.ascii	"QSPI_CINSTRDAT1_BYTE7_Pos (24UL)\000"
+.LASF6957:
+	.ascii	"PPI_CHENSET_CH12_Set (1UL)\000"
 .LASF5199:
 	.ascii	"GPIO_OUTSET_PIN2_Msk (0x1UL << GPIO_OUTSET_PIN2_Pos"
 	.ascii	")\000"
@@ -71674,7 +72000,7 @@ touchpanel_get_register_value:
 	.ascii	"COMP_ENABLED 0\000"
 .LASF5389:
 	.ascii	"GPIO_IN_PIN27_Pos (27UL)\000"
-.LASF13491:
+.LASF13513:
 	.ascii	"p_request\000"
 .LASF1118:
 	.ascii	"MEMORY_MANAGER_MEDIUM_BLOCK_SIZE 256\000"
@@ -71688,7 +72014,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIR_PIN27_Pos (27UL)\000"
 .LASF12735:
 	.ascii	"CONCAT_2_(p1,p2) p1 ##p2\000"
-.LASF13251:
+.LASF13268:
 	.ascii	"abbrev_day_names\000"
 .LASF9004:
 	.ascii	"SAADC_INTENCLR_CH0LIMITH_Disabled (0UL)\000"
@@ -72000,6 +72326,9 @@ touchpanel_get_register_value:
 	.ascii	"os)\000"
 .LASF9460:
 	.ascii	"SPIS_PSEL_SCK_PIN_Pos (0UL)\000"
+.LASF2951:
+	.ascii	"EGU_INTENCLR_TRIGGERED15_Msk (0x1UL << EGU_INTENCLR"
+	.ascii	"_TRIGGERED15_Pos)\000"
 .LASF3774:
 	.ascii	"MWU_NMIEN_REGION3WA_Enabled (1UL)\000"
 .LASF574:
@@ -72025,7 +72354,7 @@ touchpanel_get_register_value:
 	.ascii	"PWM_INTENCLR_PWMPERIODEND_Pos (6UL)\000"
 .LASF4099:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR18_Pos (18UL)\000"
-.LASF13271:
+.LASF13288:
 	.ascii	"__RAL_locale_t\000"
 .LASF5536:
 	.ascii	"GPIO_DIR_PIN23_Output (1UL)\000"
@@ -72314,8 +72643,6 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_INTENCLR_CRCOK_Pos (12UL)\000"
 .LASF11693:
 	.ascii	"CH15_TEP CH[15].TEP\000"
-.LASF1970:
-	.ascii	"TPI_DEVID_AsynClkIn_Pos 5U\000"
 .LASF6112:
 	.ascii	"PDM_TASKS_STOP_TASKS_STOP_Msk (0x1UL << PDM_TASKS_S"
 	.ascii	"TOP_TASKS_STOP_Pos)\000"
@@ -72323,7 +72650,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUTSET_PIN6_High (1UL)\000"
 .LASF6273:
 	.ascii	"POWER_INTENCLR_USBDETECTED_Disabled (0UL)\000"
-.LASF13544:
+.LASF13566:
 	.ascii	"sd_power_ram_power_get\000"
 .LASF1998:
 	.ascii	"MPU_RASR_ATTRS_Pos 16U\000"
@@ -72341,7 +72668,7 @@ touchpanel_get_register_value:
 	.ascii	"TWI_ERRORSRC_ANACK_NotPresent (0UL)\000"
 .LASF2558:
 	.ascii	"CLOCK_HFCLKRUN_STATUS_Pos (0UL)\000"
-.LASF13457:
+.LASF13479:
 	.ascii	"touchpoint_event\000"
 .LASF748:
 	.ascii	"NRFX_QSPI_ENABLED 0\000"
@@ -72492,7 +72819,7 @@ touchpanel_get_register_value:
 	.ascii	"QDEC_LEDPRE_LEDPRE_Pos (0UL)\000"
 .LASF7828:
 	.ascii	"QSPI_ADDRCONF_MODE_Opcode (1UL)\000"
-.LASF13451:
+.LASF13473:
 	.ascii	"use_easy_dma\000"
 .LASF4653:
 	.ascii	"NFCT_INTENSET_TXFRAMESTART_Enabled (1UL)\000"
@@ -72526,7 +72853,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_INTENSET_ENDEPIN5_Set (1UL)\000"
 .LASF6811:
 	.ascii	"PPI_CHEN_CH11_Msk (0x1UL << PPI_CHEN_CH11_Pos)\000"
-.LASF13417:
+.LASF13434:
 	.ascii	"request\000"
 .LASF8762:
 	.ascii	"SAADC_INTEN_CH3LIMITL_Msk (0x1UL << SAADC_INTEN_CH3"
@@ -72555,7 +72882,7 @@ touchpanel_get_register_value:
 	.ascii	"RADIO_INTENCLR_CCAIDLE_Enabled (1UL)\000"
 .LASF2865:
 	.ascii	"EGU_INTEN_TRIGGERED1_Enabled (1UL)\000"
-.LASF13441:
+.LASF13458:
 	.ascii	"stderr\000"
 .LASF5669:
 	.ascii	"GPIO_DIRSET_PIN23_Pos (23UL)\000"
@@ -72567,7 +72894,7 @@ touchpanel_get_register_value:
 	.ascii	"ADC_IRQn SAADC_IRQn\000"
 .LASF9705:
 	.ascii	"TWI_TASKS_STARTTX_TASKS_STARTTX_Pos (0UL)\000"
-.LASF13344:
+.LASF13361:
 	.ascii	"EVENTS_RXSTARTED\000"
 .LASF12396:
 	.ascii	"NRFX_RNG_CONFIG_IRQ_PRIORITY RNG_CONFIG_IRQ_PRIORIT"
@@ -72666,7 +72993,7 @@ touchpanel_get_register_value:
 	.ascii	"FICR_INFO_FLASH_FLASH_K256 (0x100UL)\000"
 .LASF1211:
 	.ascii	"NRF_LOG_ENABLED 1\000"
-.LASF13447:
+.LASF13469:
 	.ascii	"p_twi\000"
 .LASF3428:
 	.ascii	"I2S_PSEL_LRCK_CONNECT_Pos (31UL)\000"
@@ -72734,7 +73061,7 @@ touchpanel_get_register_value:
 	.ascii	"ENDEPIN6_Pos)\000"
 .LASF8310:
 	.ascii	"RADIO_PCNF0_CRCINC_Include (1UL)\000"
-.LASF13525:
+.LASF13547:
 	.ascii	"sd_ppi_channel_enable_set\000"
 .LASF4004:
 	.ascii	"MWU_PERREGION_SUBSTATWA_SR10_Msk (0x1UL << MWU_PERR"
@@ -72773,7 +73100,7 @@ touchpanel_get_register_value:
 .LASF12350:
 	.ascii	"NRFX_QDEC_CONFIG_SAMPLE_INTEN QDEC_CONFIG_SAMPLE_IN"
 	.ascii	"TEN\000"
-.LASF13515:
+.LASF13537:
 	.ascii	"sd_ppi_group_assign\000"
 .LASF6884:
 	.ascii	"PPI_CHENSET_CH26_Msk (0x1UL << PPI_CHENSET_CH26_Pos"
@@ -72809,7 +73136,7 @@ touchpanel_get_register_value:
 	.ascii	"EGU_INTENCLR_TRIGGERED11_Clear (1UL)\000"
 .LASF6692:
 	.ascii	"POWER_RAM_POWERCLR_S11POWER_Off (1UL)\000"
-.LASF13229:
+.LASF13246:
 	.ascii	"int_curr_symbol\000"
 .LASF1886:
 	.ascii	"DWT_LSUCNT_LSUCNT_Pos 0U\000"
@@ -72823,7 +73150,7 @@ touchpanel_get_register_value:
 .LASF3471:
 	.ascii	"LPCOMP_SHORTS_UP_STOP_Msk (0x1UL << LPCOMP_SHORTS_U"
 	.ascii	"P_STOP_Pos)\000"
-.LASF13475:
+.LASF13497:
 	.ascii	"offset\000"
 .LASF8986:
 	.ascii	"SAADC_INTENCLR_CH2LIMITH_Clear (1UL)\000"
@@ -72874,7 +73201,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG3_CH0_Included PPI_CHG_CH0_Included\000"
 .LASF1368:
 	.ascii	"NRF_PWR_MGMT_CONFIG_INFO_COLOR 0\000"
-.LASF13426:
+.LASF13443:
 	.ascii	"ciphertext\000"
 .LASF12113:
 	.ascii	"COMP_PRESENT \000"
@@ -72895,7 +73222,7 @@ touchpanel_get_register_value:
 	.ascii	"WDT_CONFIG_HALT_Pos (3UL)\000"
 .LASF3827:
 	.ascii	"MWU_NMIENSET_REGION3WA_Enabled (1UL)\000"
-.LASF13542:
+.LASF13564:
 	.ascii	"gpregret_msk\000"
 .LASF3279:
 	.ascii	"GPIOTE_CONFIG_PSEL_Msk (0x1FUL << GPIOTE_CONFIG_PSE"
@@ -72908,7 +73235,7 @@ touchpanel_get_register_value:
 	.ascii	"USBD_EVENTS_SOF_EVENTS_SOF_Pos (0UL)\000"
 .LASF159:
 	.ascii	"__LDBL_MAX_EXP__ 1024\000"
-.LASF13336:
+.LASF13353:
 	.ascii	"RESERVED12\000"
 .LASF5424:
 	.ascii	"GPIO_IN_PIN19_High (1UL)\000"
@@ -72968,7 +73295,7 @@ touchpanel_get_register_value:
 	.ascii	"_RELIABLE\000"
 .LASF11416:
 	.ascii	"USBD_EPOUTEN_OUT2_Pos (2UL)\000"
-.LASF13559:
+.LASF13581:
 	.ascii	"usbdetected_enable\000"
 .LASF11186:
 	.ascii	"USBD_EPSTATUS_EPOUT0_Pos (16UL)\000"
@@ -73004,7 +73331,7 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_COMP_CONFIG_HYST 0\000"
 .LASF12618:
 	.ascii	"NRFX_UART0_ENABLED\000"
-.LASF13518:
+.LASF13540:
 	.ascii	"sd_ppi_group_task_enable\000"
 .LASF361:
 	.ascii	"__ARM_FEATURE_IDIV 1\000"
@@ -73169,10 +73496,10 @@ touchpanel_get_register_value:
 	.ascii	"UT_Pos)\000"
 .LASF9882:
 	.ascii	"TWIM_SHORTS_LASTTX_STARTRX_Disabled (0UL)\000"
-.LASF13418:
+.LASF13435:
 	.ascii	"extend\000"
-.LASF1526:
-	.ascii	"NFC_BLE_PAIR_LIB_BLE_OBSERVER_PRIO 1\000"
+.LASF11860:
+	.ascii	"PPI_CHG2_CH7_Excluded PPI_CHG_CH7_Excluded\000"
 .LASF1146:
 	.ascii	"NRF_CSENSE_MAX_PADS_NUMBER 20\000"
 .LASF725:
@@ -73187,7 +73514,7 @@ touchpanel_get_register_value:
 	.ascii	"__UDA_FBIT__ 32\000"
 .LASF11721:
 	.ascii	"PPI_CHG0_CH10_Included PPI_CHG_CH10_Included\000"
-.LASF13495:
+.LASF13517:
 	.ascii	"page_number\000"
 .LASF6943:
 	.ascii	"PPI_CHENSET_CH14_Pos (14UL)\000"
@@ -73205,7 +73532,7 @@ touchpanel_get_register_value:
 	.ascii	"GET_VA_ARG_1_(a1,...) a1\000"
 .LASF7245:
 	.ascii	"PPI_CHG_CH16_Included (1UL)\000"
-.LASF13273:
+.LASF13290:
 	.ascii	"__locale_s\000"
 .LASF9023:
 	.ascii	"SAADC_INTENCLR_DONE_Msk (0x1UL << SAADC_INTENCLR_DO"
@@ -73280,7 +73607,7 @@ touchpanel_get_register_value:
 	.ascii	"SET_RXFRAMESTART_Pos)\000"
 .LASF7593:
 	.ascii	"QDEC_INTENCLR_SAMPLERDY_Enabled (1UL)\000"
-.LASF13462:
+.LASF13484:
 	.ascii	"touchpoint_t\000"
 .LASF7632:
 	.ascii	"QDEC_ACCREAD_ACCREAD_Msk (0xFFFFFFFFUL << QDEC_ACCR"
@@ -73289,7 +73616,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUT_PIN7_Low (0UL)\000"
 .LASF9935:
 	.ascii	"TWIM_INTENSET_SUSPENDED_Enabled (1UL)\000"
-.LASF13584:
+.LASF13606:
 	.ascii	"touchpanel_parse_touches\000"
 .LASF3134:
 	.ascii	"FICR_NFC_TAGHEADER2_UD11_Pos (24UL)\000"
@@ -73388,7 +73715,7 @@ touchpanel_get_register_value:
 	.ascii	")\000"
 .LASF10473:
 	.ascii	"UARTE_INTENSET_TXSTOPPED_Disabled (0UL)\000"
-.LASF13296:
+.LASF13313:
 	.ascii	"next\000"
 .LASF8901:
 	.ascii	"SAADC_INTENSET_STOPPED_Set (1UL)\000"
@@ -73501,7 +73828,7 @@ touchpanel_get_register_value:
 	.ascii	"__VA_ARGS__, )\000"
 .LASF12243:
 	.ascii	"NRFX_LPCOMP_CONFIG_INPUT\000"
-.LASF13573:
+.LASF13595:
 	.ascii	"sd_rand_application_bytes_available_get\000"
 .LASF5880:
 	.ascii	"GPIO_DIRCLR_PIN13_Msk (0x1UL << GPIO_DIRCLR_PIN13_P"
@@ -73568,14 +73895,14 @@ touchpanel_get_register_value:
 	.ascii	"CCM_INTENSET_ENDKSGEN_Disabled (0UL)\000"
 .LASF9545:
 	.ascii	"TEMP_B0_B0_Msk (0x3FFFUL << TEMP_B0_B0_Pos)\000"
-.LASF3156:
-	.ascii	"FICR_TRNG90B_STARTUP_STARTUP_Pos (0UL)\000"
+.LASF2044:
+	.ascii	"FPU_FPDSCR_RMode_Pos 22U\000"
 .LASF8723:
 	.ascii	"SAADC_EVENTS_STOPPED_EVENTS_STOPPED_Pos (0UL)\000"
 .LASF9316:
 	.ascii	"SPIM_PSEL_MISO_PORT_Msk (0x1UL << SPIM_PSEL_MISO_PO"
 	.ascii	"RT_Pos)\000"
-.LASF13472:
+.LASF13493:
 	.ascii	"tx_buffer\000"
 .LASF3843:
 	.ascii	"MWU_NMIENSET_REGION1RA_Set (1UL)\000"
@@ -73769,6 +74096,9 @@ touchpanel_get_register_value:
 	.ascii	"TWIM_RXD_LIST_LIST_Pos (0UL)\000"
 .LASF3789:
 	.ascii	"MWU_NMIEN_REGION1WA_Disabled (0UL)\000"
+.LASF9410:
+	.ascii	"SPIS_INTENSET_ENDRX_Msk (0x1UL << SPIS_INTENSET_END"
+	.ascii	"RX_Pos)\000"
 .LASF1672:
 	.ascii	"SCB_CPUID_ARCHITECTURE_Pos 16U\000"
 .LASF214:
@@ -73811,7 +74141,7 @@ touchpanel_get_register_value:
 	.ascii	"ET_CH4LIMITL_Pos)\000"
 .LASF6842:
 	.ascii	"PPI_CHEN_CH3_Pos (3UL)\000"
-.LASF13200:
+.LASF13213:
 	.ascii	"TOUCHES_SIZE 0x1B\000"
 .LASF1722:
 	.ascii	"SCB_CCR_BFHFNMIGN_Pos 8U\000"
@@ -73852,7 +74182,7 @@ touchpanel_get_register_value:
 	.ascii	"UART_INTENSET_RXTO_Disabled (0UL)\000"
 .LASF1078:
 	.ascii	"APP_USBD_CONFIG_LOG_LEVEL 3\000"
-.LASF13286:
+.LASF13303:
 	.ascii	"__RAL_data_utf8_comma\000"
 .LASF11685:
 	.ascii	"CH11_TEP CH[11].TEP\000"
@@ -73894,9 +74224,9 @@ touchpanel_get_register_value:
 	.ascii	")\000"
 .LASF477:
 	.ascii	"BLE_BAS_CONFIG_DEBUG_COLOR 0\000"
-.LASF13227:
+.LASF13244:
 	.ascii	"thousands_sep\000"
-.LASF13303:
+.LASF13320:
 	.ascii	"MAXCNT\000"
 .LASF12851:
 	.ascii	"MACRO_MAP_1(macro,a,...) macro(a)\000"
@@ -73927,7 +74257,7 @@ touchpanel_get_register_value:
 .LASF6087:
 	.ascii	"GPIO_PIN_CNF_DRIVE_Msk (0x7UL << GPIO_PIN_CNF_DRIVE"
 	.ascii	"_Pos)\000"
-.LASF13493:
+.LASF13515:
 	.ascii	"p_radio_signal_callback\000"
 .LASF8344:
 	.ascii	"RADIO_BASE0_BASE0_Msk (0xFFFFFFFFUL << RADIO_BASE0_"
@@ -73947,7 +74277,7 @@ touchpanel_get_register_value:
 	.ascii	"D_Pos)\000"
 .LASF1303:
 	.ascii	"UART_CONFIG_LOG_ENABLED 0\000"
-.LASF13470:
+.LASF13494:
 	.ascii	"touchpanel_get_pressed_buttons\000"
 .LASF9679:
 	.ascii	"TIMER_INTENCLR_COMPARE1_Msk (0x1UL << TIMER_INTENCL"
@@ -73959,7 +74289,7 @@ touchpanel_get_register_value:
 	.ascii	"IM_EVENTS_STOPPED_EVENTS_STOPPED_Pos)\000"
 .LASF12657:
 	.ascii	"NRFX_WDT_ENABLED WDT_ENABLED\000"
-.LASF13556:
+.LASF13578:
 	.ascii	"sd_power_usbremoved_enable\000"
 .LASF5505:
 	.ascii	"GPIO_DIR_PIN30_Pos (30UL)\000"
@@ -74023,11 +74353,12 @@ touchpanel_get_register_value:
 	.ascii	"TIMER_SHORTS_COMPARE4_CLEAR_Disabled (0UL)\000"
 .LASF7503:
 	.ascii	"QDEC_TASKS_RDCLRACC_TASKS_RDCLRACC_Pos (0UL)\000"
-.LASF9410:
-	.ascii	"SPIS_INTENSET_ENDRX_Msk (0x1UL << SPIS_INTENSET_END"
-	.ascii	"RX_Pos)\000"
+.LASF816:
+	.ascii	"NRFX_SPI1_ENABLED 0\000"
 .LASF6789:
 	.ascii	"PPI_CHEN_CH17_Enabled (1UL)\000"
+.LASF13206:
+	.ascii	"NRF_GPIO_H__ \000"
 .LASF9127:
 	.ascii	"SAADC_OVERSAMPLE_OVERSAMPLE_Over4x (2UL)\000"
 .LASF9755:
@@ -74174,7 +74505,7 @@ touchpanel_get_register_value:
 .LASF4584:
 	.ascii	"NFCT_INTEN_FIELDLOST_Msk (0x1UL << NFCT_INTEN_FIELD"
 	.ascii	"LOST_Pos)\000"
-.LASF13486:
+.LASF13508:
 	.ascii	"no_stop\000"
 .LASF2815:
 	.ascii	"EGU_INTEN_TRIGGERED13_Msk (0x1UL << EGU_INTEN_TRIGG"
@@ -74238,6 +74569,9 @@ touchpanel_get_register_value:
 	.ascii	"UART_CONFIG_LOG_LEVEL 3\000"
 .LASF1648:
 	.ascii	"xPSR_V_Pos 28U\000"
+.LASF10182:
+	.ascii	"TWIS_PSEL_SDA_CONNECT_Msk (0x1UL << TWIS_PSEL_SDA_C"
+	.ascii	"ONNECT_Pos)\000"
 .LASF476:
 	.ascii	"BLE_BAS_CONFIG_INFO_COLOR 0\000"
 .LASF1040:
@@ -74279,6 +74613,8 @@ touchpanel_get_register_value:
 	.ascii	"MWU_REGIONENCLR_RGN1RA_Clear (1UL)\000"
 .LASF12972:
 	.ascii	"GCC_CAST_CPP \000"
+.LASF8899:
+	.ascii	"SAADC_INTENSET_STOPPED_Disabled (0UL)\000"
 .LASF1178:
 	.ascii	"NRF_TWI_MNGR_ENABLED 0\000"
 .LASF7321:
@@ -74509,6 +74845,8 @@ touchpanel_get_register_value:
 	.ascii	"1\000"
 .LASF323:
 	.ascii	"__GCC_ATOMIC_TEST_AND_SET_TRUEVAL 1\000"
+.LASF10844:
+	.ascii	"USBD_INTEN_ENDEPIN5_Pos (7UL)\000"
 .LASF3612:
 	.ascii	"MWU_INTEN_REGION2WA_Msk (0x1UL << MWU_INTEN_REGION2"
 	.ascii	"WA_Pos)\000"
@@ -74518,7 +74856,7 @@ touchpanel_get_register_value:
 	.ascii	"NFCT_INTENSET_FIELDLOST_Set (1UL)\000"
 .LASF3523:
 	.ascii	"LPCOMP_INTENCLR_READY_Disabled (0UL)\000"
-.LASF13503:
+.LASF13525:
 	.ascii	"p_evt_id\000"
 .LASF1580:
 	.ascii	"__RAL_WCHAR_T_DEFINED \000"
@@ -74535,7 +74873,7 @@ touchpanel_get_register_value:
 .LASF2410:
 	.ascii	"CCM_MICSTATUS_MICSTATUS_Msk (0x1UL << CCM_MICSTATUS"
 	.ascii	"_MICSTATUS_Pos)\000"
-.LASF13356:
+.LASF13373:
 	.ascii	"SD_PPI_CHANNEL_ENABLE_CLR\000"
 .LASF9376:
 	.ascii	"SPIM_CSNPOL_CSNPOL_LOW (0UL)\000"
@@ -74602,7 +74940,7 @@ touchpanel_get_register_value:
 	.ascii	"BYTES_TO_WORDS(n_bytes) (((n_bytes) + 3) >> 2)\000"
 .LASF1497:
 	.ascii	"BLE_BAS_C_BLE_OBSERVER_PRIO 2\000"
-.LASF13445:
+.LASF13462:
 	.ascii	"nrfx_twim_t\000"
 .LASF7460:
 	.ascii	"PWM_PRESCALER_PRESCALER_DIV_4 (2UL)\000"
@@ -74795,7 +75133,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_OUTSET_PIN23_Set (1UL)\000"
 .LASF7742:
 	.ascii	"QSPI_PSEL_IO1_CONNECT_Connected (0UL)\000"
-.LASF13364:
+.LASF13381:
 	.ascii	"SD_PROTECTED_REGISTER_WRITE\000"
 .LASF2594:
 	.ascii	"CLOCK_LFCLKSRC_BYPASS_Disabled (0UL)\000"
@@ -74812,6 +75150,8 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_TIMER3_ENABLED 0\000"
 .LASF712:
 	.ascii	"NRFX_PRS_CONFIG_INFO_COLOR 0\000"
+.LASF13214:
+	.ascii	"INT_TOUCHPANEL_PORT 1\000"
 .LASF1027:
 	.ascii	"TWI1_USE_EASY_DMA 1\000"
 .LASF1048:
@@ -74834,7 +75174,7 @@ touchpanel_get_register_value:
 .LASF12567:
 	.ascii	"NRFX_TWI_DEFAULT_CONFIG_IRQ_PRIORITY TWI_DEFAULT_CO"
 	.ascii	"NFIG_IRQ_PRIORITY\000"
-.LASF13292:
+.LASF13309:
 	.ascii	"__user_get_time_of_day\000"
 .LASF12051:
 	.ascii	"TEMP_PRESENT \000"
@@ -75009,9 +75349,11 @@ touchpanel_get_register_value:
 	.ascii	"_Enabled (1UL)\000"
 .LASF6741:
 	.ascii	"PPI_CHEN_CH29_Enabled (1UL)\000"
-.LASF2951:
-	.ascii	"EGU_INTENCLR_TRIGGERED15_Msk (0x1UL << EGU_INTENCLR"
-	.ascii	"_TRIGGERED15_Pos)\000"
+.LASF648:
+	.ascii	"NRFX_COMP_CONFIG_LOG_LEVEL 3\000"
+.LASF13182:
+	.ascii	"NRF_DRV_TWI_INSTANCE_0 { 0, { .twim = NRFX_TWIM_INS"
+	.ascii	"TANCE(0) }, true }\000"
 .LASF10968:
 	.ascii	"USBD_INTENSET_ENDEPIN4_Disabled (0UL)\000"
 .LASF7583:
@@ -75052,8 +75394,6 @@ touchpanel_get_register_value:
 .LASF2544:
 	.ascii	"CLOCK_INTENCLR_DONE_Msk (0x1UL << CLOCK_INTENCLR_DO"
 	.ascii	"NE_Pos)\000"
-.LASF814:
-	.ascii	"NRFX_SPI_ENABLED 1\000"
 .LASF4736:
 	.ascii	"NFCT_INTENCLR_FIELDDETECTED_Msk (0x1UL << NFCT_INTE"
 	.ascii	"NCLR_FIELDDETECTED_Pos)\000"
@@ -75218,7 +75558,7 @@ touchpanel_get_register_value:
 	.ascii	"d\000"
 .LASF2964:
 	.ascii	"EGU_INTENCLR_TRIGGERED13_Clear (1UL)\000"
-.LASF13514:
+.LASF13536:
 	.ascii	"p_channel_msk\000"
 .LASF7556:
 	.ascii	"QDEC_INTENSET_ACCOF_Msk (0x1UL << QDEC_INTENSET_ACC"
@@ -75368,9 +75708,8 @@ touchpanel_get_register_value:
 	.ascii	"NRFX_I2S_CONFIG_ALIGN I2S_CONFIG_ALIGN\000"
 .LASF9170:
 	.ascii	"SPI_PSEL_MOSI_CONNECT_Pos (31UL)\000"
-.LASF9320:
-	.ascii	"SPIM_PSEL_CSN_CONNECT_Msk (0x1UL << SPIM_PSEL_CSN_C"
-	.ascii	"ONNECT_Pos)\000"
+.LASF7810:
+	.ascii	"QSPI_STATUS_DPM_Msk (0x1UL << QSPI_STATUS_DPM_Pos)\000"
 .LASF12144:
 	.ascii	"NRFX_ROUNDED_DIV(a,b) (((a) + ((b) / 2)) / (b))\000"
 .LASF9000:
@@ -75451,7 +75790,7 @@ touchpanel_get_register_value:
 	.ascii	"CLOCK_LFCLKSRC_BYPASS_Enabled (1UL)\000"
 .LASF857:
 	.ascii	"NRFX_TWIM_CONFIG_LOG_LEVEL 3\000"
-.LASF13214:
+.LASF13231:
 	.ascii	"uint8_t\000"
 .LASF6237:
 	.ascii	"POWER_INTENSET_USBREMOVED_Msk (0x1UL << POWER_INTEN"
@@ -75549,7 +75888,7 @@ touchpanel_get_register_value:
 	.ascii	"sk\000"
 .LASF10371:
 	.ascii	"UART_BAUDRATE_BAUDRATE_Baud57600 (0x00EBF000UL)\000"
-.LASF13269:
+.LASF13286:
 	.ascii	"data\000"
 .LASF11774:
 	.ascii	"PPI_CHG1_CH12_Pos PPI_CHG_CH12_Pos\000"
@@ -75560,9 +75899,9 @@ touchpanel_get_register_value:
 .LASF3667:
 	.ascii	"MWU_INTENSET_REGION2WA_Msk (0x1UL << MWU_INTENSET_R"
 	.ascii	"EGION2WA_Pos)\000"
-.LASF2188:
-	.ascii	"NRF_EGU2_BASE 0x40016000UL\000"
-.LASF13437:
+.LASF5944:
+	.ascii	"GPIO_DIRCLR_PIN0_Pos (0UL)\000"
+.LASF13454:
 	.ascii	"timeval\000"
 .LASF6902:
 	.ascii	"PPI_CHENSET_CH23_Set (1UL)\000"
@@ -75625,7 +75964,7 @@ touchpanel_get_register_value:
 	.ascii	"_PRESENT))\000"
 .LASF1982:
 	.ascii	"MPU_TYPE_SEPARATE_Pos 0U\000"
-.LASF13301:
+.LASF13318:
 	.ascii	"TWI_PSEL_Type\000"
 .LASF4432:
 	.ascii	"MWU_PREGION_SUBS_SR11_Msk (0x1UL << MWU_PREGION_SUB"
@@ -75647,6 +75986,9 @@ touchpanel_get_register_value:
 	.ascii	"SPIM2_MAX_DATARATE 8\000"
 .LASF3770:
 	.ascii	"MWU_NMIEN_REGION3RA_Enabled (1UL)\000"
+.LASF3125:
+	.ascii	"FICR_NFC_TAGHEADER0_MFGID_Msk (0xFFUL << FICR_NFC_T"
+	.ascii	"AGHEADER0_MFGID_Pos)\000"
 .LASF7101:
 	.ascii	"PPI_CHENCLR_CH15_Enabled (1UL)\000"
 .LASF3260:
@@ -75713,25 +76055,25 @@ touchpanel_get_register_value:
 .LASF9234:
 	.ascii	"SPIM_INTENSET_STARTED_Msk (0x1UL << SPIM_INTENSET_S"
 	.ascii	"TARTED_Pos)\000"
-.LASF13309:
+.LASF13326:
 	.ascii	"RESERVED0\000"
 .LASF11214:
 	.ascii	"USBD_EPSTATUS_EPIN2_Pos (2UL)\000"
-.LASF13313:
+.LASF13330:
 	.ascii	"RESERVED2\000"
-.LASF13316:
+.LASF13333:
 	.ascii	"RESERVED3\000"
-.LASF13319:
+.LASF13336:
 	.ascii	"RESERVED4\000"
-.LASF13321:
+.LASF13338:
 	.ascii	"RESERVED5\000"
-.LASF13323:
+.LASF13340:
 	.ascii	"RESERVED6\000"
-.LASF13325:
+.LASF13342:
 	.ascii	"RESERVED7\000"
 .LASF7081:
 	.ascii	"PPI_CHENCLR_CH19_Enabled (1UL)\000"
-.LASF13329:
+.LASF13346:
 	.ascii	"RESERVED9\000"
 .LASF2710:
 	.ascii	"COMP_INTENCLR_DOWN_Clear (1UL)\000"
@@ -75790,7 +76132,7 @@ touchpanel_get_register_value:
 	.ascii	"APP_SCHEDULER_WITH_PAUSE 0\000"
 .LASF8999:
 	.ascii	"SAADC_INTENCLR_CH0LIMITL_Disabled (0UL)\000"
-.LASF13553:
+.LASF13575:
 	.ascii	"sd_power_pof_threshold_set\000"
 .LASF2116:
 	.ascii	"CoreDebug_DEMCR_VC_CHKERR_Pos 6U\000"
@@ -75832,7 +76174,7 @@ touchpanel_get_register_value:
 	.ascii	"GPIO_DIRSET_PIN18_Set (1UL)\000"
 .LASF6234:
 	.ascii	"POWER_INTENSET_USBPWRRDY_Enabled (1UL)\000"
-.LASF13350:
+.LASF13367:
 	.ascii	"__StackTop\000"
 .LASF12862:
 	.ascii	"MACRO_MAP_12(macro,a,...) macro(a) MACRO_MAP_11(mac"
@@ -75854,7 +76196,7 @@ touchpanel_get_register_value:
 .LASF8645:
 	.ascii	"RTC_EVTENSET_COMPARE2_Msk (0x1UL << RTC_EVTENSET_CO"
 	.ascii	"MPARE2_Pos)\000"
-.LASF13198:
+.LASF13211:
 	.ascii	"ADDRESS_TOUCHPANEL_I2C 0x38\000"
 .LASF6053:
 	.ascii	"GPIO_LATCH_PIN5_Pos (5UL)\000"
@@ -76033,9 +76375,9 @@ touchpanel_get_register_value:
 	.ascii	"OWER_TASKS_CONSTLAT_TASKS_CONSTLAT_Pos)\000"
 .LASF8619:
 	.ascii	"RTC_EVTEN_COMPARE2_Pos (18UL)\000"
-.LASF13361:
+.LASF13378:
 	.ascii	"SD_PPI_GROUP_GET\000"
-.LASF13574:
+.LASF13596:
 	.ascii	"p_bytes_available\000"
 .LASF3671:
 	.ascii	"MWU_INTENSET_REGION1RA_Pos (3UL)\000"
@@ -76082,7 +76424,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHENSET_CH17_Enabled (1UL)\000"
 .LASF8015:
 	.ascii	"RADIO_SHORTS_ADDRESS_RSSISTART_Disabled (0UL)\000"
-.LASF13424:
+.LASF13441:
 	.ascii	"soc_ecb_ciphertext_t\000"
 .LASF3311:
 	.ascii	"I2S_INTENSET_TXPTRUPD_Set (1UL)\000"
@@ -76154,7 +76496,7 @@ touchpanel_get_register_value:
 	.ascii	"RNG_INTENSET_VALRDY_Pos (0UL)\000"
 .LASF10494:
 	.ascii	"UARTE_INTENSET_ERROR_Enabled (1UL)\000"
-.LASF13360:
+.LASF13377:
 	.ascii	"SD_PPI_GROUP_ASSIGN\000"
 .LASF2892:
 	.ascii	"EGU_INTENSET_TRIGGERED11_Disabled (0UL)\000"
@@ -76170,7 +76512,7 @@ touchpanel_get_register_value:
 	.ascii	"_ENDEPOUT1_Pos)\000"
 .LASF622:
 	.ascii	"I2S_CONFIG_LOG_ENABLED 0\000"
-.LASF13427:
+.LASF13444:
 	.ascii	"nrf_ecb_hal_data_t\000"
 .LASF1539:
 	.ascii	"NRF_SDH_CLOCK_LF_ACCURACY 7\000"
@@ -76197,7 +76539,7 @@ touchpanel_get_register_value:
 .LASF6688:
 	.ascii	"POWER_RAM_POWERCLR_S12POWER_Msk (0x1UL << POWER_RAM"
 	.ascii	"_POWERCLR_S12POWER_Pos)\000"
-.LASF13535:
+.LASF13557:
 	.ascii	"sd_power_dcdc0_mode_set\000"
 .LASF11804:
 	.ascii	"PPI_CHG1_CH5_Excluded PPI_CHG_CH5_Excluded\000"
@@ -76232,8 +76574,8 @@ touchpanel_get_register_value:
 .LASF6869:
 	.ascii	"PPI_CHENSET_CH29_Msk (0x1UL << PPI_CHENSET_CH29_Pos"
 	.ascii	")\000"
-.LASF38:
-	.ascii	"__CHAR16_TYPE__ short unsigned int\000"
+.LASF13463:
+	.ascii	"NRFX_TWIM0_INST_IDX\000"
 .LASF12097:
 	.ascii	"UARTE1_EASYDMA_MAXCNT_SIZE 16\000"
 .LASF3342:
@@ -76256,7 +76598,7 @@ touchpanel_get_register_value:
 	.ascii	"NRF_BREAKPOINT_COND do { if (CoreDebug->DHCSR & Cor"
 	.ascii	"eDebug_DHCSR_C_DEBUGEN_Msk) { NRF_BREAKPOINT; } }wh"
 	.ascii	"ile (0)\000"
-.LASF13563:
+.LASF13585:
 	.ascii	"pof_enable\000"
 .LASF6428:
 	.ascii	"POWER_RAM_POWER_S10RETENTION_Off (0UL)\000"
@@ -76382,7 +76724,7 @@ touchpanel_get_register_value:
 	.ascii	"_Pos)\000"
 .LASF9157:
 	.ascii	"SPI_INTENCLR_READY_Clear (1UL)\000"
-.LASF13291:
+.LASF13308:
 	.ascii	"__user_set_time_of_day\000"
 .LASF10140:
 	.ascii	"TWIS_INTENCLR_RXSTARTED_Pos (19UL)\000"
@@ -76469,7 +76811,7 @@ touchpanel_get_register_value:
 	.ascii	"PPI_CHG_CH26_Included (1UL)\000"
 .LASF12672:
 	.ascii	"NRFX_IRQS_H__ \000"
-.LASF13359:
+.LASF13376:
 	.ascii	"SD_PPI_GROUP_TASK_DISABLE\000"
 .LASF1157:
 	.ascii	"NRF_FSTORAGE_SD_QUEUE_SIZE 4\000"
@@ -76831,8 +77173,8 @@ touchpanel_get_register_value:
 	.ascii	"NRF_TWI_SENSOR_CONFIG_INFO_COLOR 0\000"
 .LASF612:
 	.ascii	"I2S_CONFIG_SDOUT_PIN 29\000"
-.LASF9307:
-	.ascii	"SPIM_PSEL_MOSI_PORT_Pos (5UL)\000"
+.LASF7484:
+	.ascii	"PWM_SEQ_REFRESH_CNT_Pos (0UL)\000"
 .LASF4169:
 	.ascii	"MWU_PERREGION_SUBSTATRA_SR1_NoAccess (0UL)\000"
 .LASF7337:
@@ -76905,6 +77247,9 @@ touchpanel_get_register_value:
 .LASF5978:
 	.ascii	"GPIO_LATCH_PIN24_Msk (0x1UL << GPIO_LATCH_PIN24_Pos"
 	.ascii	")\000"
+.LASF7079:
+	.ascii	"PPI_CHENCLR_CH19_Msk (0x1UL << PPI_CHENCLR_CH19_Pos"
+	.ascii	")\000"
 .LASF23:
 	.ascii	"__SIZEOF_SIZE_T__ 4\000"
 .LASF12612:
@@ -76917,8 +77262,6 @@ touchpanel_get_register_value:
 	.ascii	"UART_ERRORSRC_FRAMING_Pos (2UL)\000"
 .LASF8177:
 	.ascii	"RADIO_INTENCLR_CCABUSY_Clear (1UL)\000"
-.LASF11756:
-	.ascii	"PPI_CHG0_CH1_Excluded PPI_CHG_CH1_Excluded\000"
 .LASF6595:
 	.ascii	"POWER_RAM_POWERSET_S11POWER_Msk (0x1UL << POWER_RAM"
 	.ascii	"_POWERSET_S11POWER_Pos)\000"
@@ -76945,7 +77288,7 @@ touchpanel_get_register_value:
 	.ascii	"CoreDebug_DEMCR_VC_CORERESET_Msk (1UL )\000"
 .LASF5072:
 	.ascii	"GPIO_OUTSET_PIN28_Set (1UL)\000"
-.LASF13317:
+.LASF13334:
 	.ascii	"EVENTS_STOPPED\000"
 .LASF7585:
 	.ascii	"QDEC_INTENCLR_REPORTRDY_Pos (1UL)\000"
@@ -77004,7 +77347,7 @@ touchpanel_get_register_value:
 .LASF6196:
 	.ascii	"PDM_PSEL_CLK_CONNECT_Msk (0x1UL << PDM_PSEL_CLK_CON"
 	.ascii	"NECT_Pos)\000"
-.LASF13489:
+.LASF13511:
 	.ascii	"value\000"
 .LASF7576:
 	.ascii	"QDEC_INTENCLR_DBLRDY_Msk (0x1UL << QDEC_INTENCLR_DB"
@@ -77067,7 +77410,7 @@ touchpanel_get_register_value:
 .LASF9995:
 	.ascii	"TWIM_ENABLE_ENABLE_Msk (0xFUL << TWIM_ENABLE_ENABLE"
 	.ascii	"_Pos)\000"
-.LASF13242:
+.LASF13259:
 	.ascii	"p_sign_posn\000"
 .LASF878:
 	.ascii	"NRFX_TWI_DEFAULT_CONFIG_HOLD_BUS_UNINIT 0\000"
@@ -77096,7 +77439,7 @@ touchpanel_get_register_value:
 	.ascii	"__INT_LEAST8_MAX__ 0x7f\000"
 .LASF7027:
 	.ascii	"PPI_CHENCLR_CH30_Clear (1UL)\000"
-.LASF13374:
+.LASF13391:
 	.ascii	"SD_POWER_RESET_REASON_CLR\000"
 .LASF79:
 	.ascii	"__PTRDIFF_MAX__ 0x7fffffff\000"
@@ -77290,6 +77633,10 @@ touchpanel_get_register_value:
 	.ascii	"SAADC_INTENCLR_CH7LIMITL_Pos (21UL)\000"
 .LASF5551:
 	.ascii	"GPIO_DIR_PIN19_Input (0UL)\000"
+.LASF13200:
+	.ascii	"NRF_GPIOTE_INT_IN_MASK (NRF_GPIOTE_INT_IN0_MASK | N"
+	.ascii	"RF_GPIOTE_INT_IN1_MASK | NRF_GPIOTE_INT_IN2_MASK | "
+	.ascii	"NRF_GPIOTE_INT_IN3_MASK)\000"
 .LASF13152:
 	.ascii	"NRFX_PPI_GROUPS_USED NRF_PPI_GROUPS_USED\000"
 .LASF2535:
@@ -77427,7 +77774,7 @@ touchpanel_get_register_value:
 .LASF12418:
 	.ascii	"NRFX_RTC_DEFAULT_CONFIG_IRQ_PRIORITY RTC_DEFAULT_CO"
 	.ascii	"NFIG_IRQ_PRIORITY\000"
-.LASF13434:
+.LASF13451:
 	.ascii	"nrf_nvic_state_t\000"
 .LASF6575:
 	.ascii	"POWER_RAM_POWERSET_S2RETENTION_On (1UL)\000"
@@ -77446,6 +77793,8 @@ touchpanel_get_register_value:
 	.ascii	"EGU_INTEN_TRIGGERED11_Pos (11UL)\000"
 .LASF9478:
 	.ascii	"SPIS_PSEL_CSN_CONNECT_Pos (31UL)\000"
+.LASF11282:
+	.ascii	"USBD_USBADDR_ADDR_Pos (0UL)\000"
 .LASF11106:
 	.ascii	"USBD_INTENCLR_ENDEPIN1_Pos (3UL)\000"
 .LASF7048:
@@ -77522,7 +77871,7 @@ touchpanel_get_register_value:
 	.ascii	"00)\000"
 .LASF9020:
 	.ascii	"SAADC_INTENCLR_RESULTDONE_Enabled (1UL)\000"
-.LASF13314:
+.LASF13331:
 	.ascii	"TASKS_SUSPEND\000"
 .LASF2541:
 	.ascii	"CLOCK_INTENCLR_CTTO_Enabled (1UL)\000"

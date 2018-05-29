@@ -48,6 +48,10 @@ void HardFault_Handler(void) __attribute__(( naked ));
 
 void HardFault_Handler(void)
 {
+    uint32_t *sp = (uint32_t *) __get_MSP(); // Get stack pointer
+    uint32_t ia = sp[12]; // Get instruction address from stack
+
+    printf("Hard Fault at address: 0x%08x\r\n", (unsigned int)ia);
     __ASM volatile(
     "   tst lr, #4                              \n"
 

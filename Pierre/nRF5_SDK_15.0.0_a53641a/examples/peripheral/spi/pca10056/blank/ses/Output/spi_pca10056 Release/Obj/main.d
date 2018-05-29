@@ -1,5 +1,5 @@
 Output/spi_pca10056\ Release/Obj/main.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\examples\peripheral\spi\main.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\examples\peripheral\spi\main.c \
  ../../../../../../integration/nrfx/legacy/nrf_drv_spi.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \

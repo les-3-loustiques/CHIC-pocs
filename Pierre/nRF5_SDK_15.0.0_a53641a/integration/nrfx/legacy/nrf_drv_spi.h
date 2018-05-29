@@ -116,6 +116,7 @@ typedef struct
 /**
  * @brief Macro for creating an SPI master driver instance.
  */
+
 #define NRF_DRV_SPI_INSTANCE(id)    NRF_DRV_SPI_INSTANCE_(id)
 #define NRF_DRV_SPI_INSTANCE_(id)   NRF_DRV_SPI_INSTANCE_ ## id
 #if NRFX_CHECK(NRFX_SPIM0_ENABLED)

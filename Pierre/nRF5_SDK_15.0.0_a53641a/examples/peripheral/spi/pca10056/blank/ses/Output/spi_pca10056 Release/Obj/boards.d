@@ -1,6 +1,6 @@
 Output/spi_pca10056\ Release/Obj/boards.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\boards\boards.c \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\boards\boards.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\boards\boards.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\boards\boards.h \
  ../../../../../../modules/nrfx/hal/nrf_gpio.h \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
@@ -43,4 +43,4 @@ Output/spi_pca10056\ Release/Obj/boards.o: \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\boards\pca10056.h
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\boards\pca10056.h

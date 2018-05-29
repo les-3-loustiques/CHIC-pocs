@@ -1,5 +1,5 @@
 Output/spi_pca10056\ Release/Obj/nrfx_gpiote.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\nrfx_gpiote.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\nrfx_gpiote.c \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \

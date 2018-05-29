@@ -158,7 +158,7 @@ typedef struct
     .miso_pin       = NRFX_SPIM_PIN_NOT_USED,                \
     .ss_pin         = NRFX_SPIM_PIN_NOT_USED,                \
     .ss_active_high = false,                                 \
-    .irq_priority   = NRFX_SPIM_DEFAULT_CONFIG_IRQ_PRIORITY, \
+    .irq_priority   = 2, \
     .orc            = 0xFF,                                  \
     .frequency      = NRF_SPIM_FREQ_4M,                      \
     .mode           = NRF_SPIM_MODE_0,                       \

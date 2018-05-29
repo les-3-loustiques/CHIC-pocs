@@ -63,7 +63,6 @@ Output/CHIC_main\ Release/Obj/port_cmsis_systick.o: \
  ../../../../../../components/libraries/util/app_error.h \
  ../../../../../../modules/nrfx/hal/nrf_rtc.h \
  ../../../../../../modules/nrfx/nrfx.h \
- ../../../../../../integration/nrfx/nrfx_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
  ../../../../../../modules/nrfx/mdk/nrf_peripherals.h \
  ../../../../../../modules/nrfx/mdk/nrf52840_peripherals.h \

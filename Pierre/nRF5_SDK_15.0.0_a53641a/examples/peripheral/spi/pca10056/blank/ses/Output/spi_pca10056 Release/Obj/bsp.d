@@ -1,6 +1,6 @@
 Output/spi_pca10056\ Release/Obj/bsp.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp.c \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdbool.h \
  ../../../../../../components/boards/boards.h \
@@ -47,5 +47,5 @@ Output/spi_pca10056\ Release/Obj/bsp.o: \
  ../../../../../../components/boards/pca10056.h \
  ../../../../../../components/libraries/button/app_button.h \
  ../../../../../../components/libraries/util/app_error.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp_config.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\bsp\bsp_config.h \
  ../../../../../../components/libraries/timer/app_timer.h

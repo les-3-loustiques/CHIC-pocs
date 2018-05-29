@@ -1,5 +1,5 @@
 Output/spi_pca10056\ Release/Obj/nrfx_prs.o: \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\prs\nrfx_prs.c \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\prs\nrfx_prs.c \
  ../../../../../../modules/nrfx/nrfx.h \
  ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
@@ -41,7 +41,7 @@ Output/spi_pca10056\ Release/Obj/nrfx_prs.o: \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
- C:\Users\shinra\Desktop\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\prs\nrfx_prs.h \
+ C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\prs\nrfx_prs.h \
  ../../../../../../integration/nrfx/nrfx_log.h \
  ../../../../../../components/libraries/experimental_log/nrf_log.h \
  ../../../../../../components/libraries/util/sdk_common.h \
