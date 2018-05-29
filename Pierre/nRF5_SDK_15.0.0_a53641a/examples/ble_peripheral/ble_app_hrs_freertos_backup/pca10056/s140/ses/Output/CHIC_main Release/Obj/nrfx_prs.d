@@ -1,7 +1,6 @@
 Output/CHIC_main\ Release/Obj/nrfx_prs.o: \
  C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\prs\nrfx_prs.c \
  ../../../../../../modules/nrfx/nrfx.h \
- ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stddef.h \
@@ -46,18 +45,4 @@ Output/CHIC_main\ Release/Obj/nrfx_prs.o: \
  ../../../../../../components/libraries/util/sdk_errors.h \
  ../../../../../../components/libraries/util/sdk_resources.h \
  ../../../../../../components/softdevice/s140/headers/nrf_sd_def.h \
- ../../../../../../modules/nrfx/drivers/nrfx_errors.h \
- C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\modules\nrfx\drivers\src\prs\nrfx_prs.h \
- ../../../../../../integration/nrfx/nrfx_log.h \
- ../../../../../../components/libraries/experimental_log/nrf_log.h \
- ../../../../../../components/libraries/util/sdk_common.h \
- C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/string.h \
- ../../../../../../components/libraries/util/sdk_os.h \
- ../../../../../../components/libraries/util/app_util.h \
- ../../../../../../components/libraries/util/sdk_macros.h \
- ../../../../../../components/libraries/experimental_section_vars/nrf_section.h \
- ../../../../../../components/libraries/strerror/nrf_strerror.h \
- ../../../../../../components/libraries/experimental_log/src/nrf_log_internal.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_instance.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
- ../../../../../../components/libraries/experimental_log/nrf_log_types.h
+ ../../../../../../modules/nrfx/drivers/nrfx_errors.h

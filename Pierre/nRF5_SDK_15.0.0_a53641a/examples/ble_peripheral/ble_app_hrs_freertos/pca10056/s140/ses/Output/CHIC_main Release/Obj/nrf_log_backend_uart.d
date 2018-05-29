@@ -53,7 +53,8 @@ Output/CHIC_main\ Release/Obj/nrf_log_backend_uart.o: \
  C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\components\libraries\experimental_log\src\nrf_log_internal.h \
  ../../../../../../components/libraries/experimental_log/nrf_log_types.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_uart.h \
- ../../../../../../modules/nrfx/nrfx.h ../config/nrfx_config.h \
+ ../../../../../../modules/nrfx/nrfx.h \
+ ../../../../../../integration/nrfx/nrfx_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
  ../../../../../../modules/nrfx/mdk/nrf_peripherals.h \
  ../../../../../../modules/nrfx/mdk/nrf52840_peripherals.h \

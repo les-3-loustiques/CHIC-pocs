@@ -48,11 +48,11 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
-#define SPI_INSTANCE  0 /**< SPI instance index. */
+#define SPI_INSTANCE  2 /**< SPI instance index. */
 static const nrf_drv_spi_t spi = NRF_DRV_SPI_INSTANCE(SPI_INSTANCE);  /**< SPI instance. */
 static volatile bool spi_xfer_done;  /**< Flag used to indicate that SPI instance completed the transfer. */
 
-#define TEST_STRING "0b111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000111110001111100011111000"
+#define TEST_STRING  "0x4440"
 static uint8_t       m_tx_buf[] = TEST_STRING;           /**< TX buffer. */
 static uint8_t       m_rx_buf[sizeof(TEST_STRING) + 1];    /**< RX buffer. */
 static const uint8_t m_length = sizeof(m_tx_buf);        /**< Transfer length. */
@@ -83,20 +83,20 @@ int main(void)
     nrf_drv_spi_config_t spi_config = NRF_DRV_SPI_DEFAULT_CONFIG;
     spi_config.ss_pin   = SPI_SS_PIN;
     spi_config.miso_pin = SPI_MISO_PIN;
-    spi_config.mosi_pin = SPI_MOSI_PIN;
-    spi_config.sck_pin  = SPI_SCK_PIN;
+    spi_config.mosi_pin = 21;
+    spi_config.sck_pin  = 23;
     spi_config.mode     = NRF_DRV_SPI_MODE_2;
     APP_ERROR_CHECK(nrf_drv_spi_init(&spi, &spi_config, spi_event_handler, NULL));
 
     NRF_LOG_INFO("SPI example started.");
 
-    while (1)
-    {
+    //while (1)
+    //{
         // Reset rx buffer and transfer done flag
         memset(m_rx_buf, 0, m_length);
         spi_xfer_done = false;
-
-        nrf_drv_spi_transfer(&spi, m_tx_buf, m_length, m_rx_buf, m_length);
+      uint8_t caca = 0x08;
+        nrf_drv_spi_transfer(&spi, &caca, 1, m_rx_buf, m_length);
 
         while (!spi_xfer_done)
         {
@@ -107,5 +107,5 @@ int main(void)
 
         //bsp_board_led_invert(BSP_BOARD_LED_0);
         //nrf_delay_ms(200);
-    }
+   // }
 }

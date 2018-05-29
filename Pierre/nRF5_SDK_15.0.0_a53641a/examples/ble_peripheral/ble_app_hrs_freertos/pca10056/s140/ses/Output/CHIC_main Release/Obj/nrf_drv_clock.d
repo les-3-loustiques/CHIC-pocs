@@ -3,8 +3,8 @@ Output/CHIC_main\ Release/Obj/nrf_drv_clock.o: \
  ../../../../../../components/libraries/util/nordic_common.h \
  C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\integration\nrfx\legacy\nrf_drv_clock.h \
  ../../../../../../modules/nrfx/drivers/include/nrfx_clock.h \
- ../../../../../../modules/nrfx/nrfx.h ../config/nrfx_config.h \
- ../config/sdk_config.h \
+ ../../../../../../modules/nrfx/nrfx.h \
+ ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stddef.h \

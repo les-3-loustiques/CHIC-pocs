@@ -83,22 +83,6 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-//#include "g_gpiote.h"
-
-/* Gabriel =======================================================================================*/
-/*#include <stdio.h>
-#include "boards.h"
-#include "app_util_platform.h"
-#include "nrf_drv_twi.h"
-#include "nrf_gpiote.h"
-#include "g_gpio.h"
-#include "lib_touch_panel.h"
-#include "g_twim.h"
-#include "g_gpiote.h"
-
-
-
-/*=======================================================================================*/
 
 
 #define DEVICE_NAME "Guido"       /**< Name of device. Will be included in the advertising data. */
@@ -176,6 +160,7 @@ static TimerHandle_t m_heart_rate_timer;     /**< Definition of heart rate timer
 static TimerHandle_t m_rr_interval_timer;    /**< Definition of RR interval timer. */
 static TimerHandle_t m_sensor_contact_timer; /**< Definition of sensor contact detected timer. */
 
+#define NRF_LOG_ENABLED 0
 #if NRF_LOG_ENABLED
 static TaskHandle_t m_logger_thread; /**< Definition of Logger thread. */
 #endif
@@ -926,11 +911,15 @@ static void clock_init(void) {
 /**@brief Function for application main entry.
  */
 
-int main(void) {
+  int main(void) {
+
+
   bool erase_bonds;
 
+
   // Initialize modules.
-  log_init();
+  //log_init();
+
   clock_init();
 
   // Do not start any interrupt that uses system functions before system initialisation.
@@ -944,7 +933,7 @@ int main(void) {
 #endif
 
   // Activate deep sleep mode.
-  SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+  //SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
   // Configure and initialize the BLE stack.
   ble_stack_init();
 
@@ -961,12 +950,13 @@ int main(void) {
   application_timers_start();
   game_initTasks();
 
+
   // Create a FreeRTOS task for the BLE stack.
   // The task will run advertising_start() before entering its loop.
-  nrf_sdh_freertos_init(advertising_start, &erase_bonds);
+  //nrf_sdh_freertos_init(advertising_start, &erase_bonds);
 
   NRF_LOG_INFO("HRS FreeRTOS example started.");
-
+ 
   
   // Start FreeRTOS scheduler.
   vTaskStartScheduler();

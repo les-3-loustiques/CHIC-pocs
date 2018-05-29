@@ -78,8 +78,8 @@
 #define configENABLE_BACKWARD_COMPATIBILITY                                       1
 
 /* Hook function related definitions. */
-#define configUSE_IDLE_HOOK                                                       0
-#define configUSE_TICK_HOOK                                                       0
+#define configUSE_IDLE_HOOK                                                       1 //////
+#define configUSE_TICK_HOOK                                                       1 //////
 #define configCHECK_FOR_STACK_OVERFLOW                                            0
 #define configUSE_MALLOC_FAILED_HOOK                                              0
 
@@ -93,13 +93,13 @@
 #define configMAX_CO_ROUTINE_PRIORITIES                                           ( 2 )
 
 /* Software timer definitions. */
-#define configUSE_TIMERS                                                          0
+#define configUSE_TIMERS                                                          1 /////
 #define configTIMER_TASK_PRIORITY                                                 ( 2 )
 #define configTIMER_QUEUE_LENGTH                                                  32
 #define configTIMER_TASK_STACK_DEPTH                                              ( 80 )
 
 /* Tickless Idle configuration. */
-#define configEXPECTED_IDLE_TIME_BEFORE_SLEEP                                     2
+#define configEXPECTED_IDLE_TIME_BEFORE_SLEEP                                     1 //////
 
 /* Tickless idle/low power functionality. */
 
@@ -202,6 +202,6 @@ standard names - or at least those used in the unmodified vector table. */
      *    RTOS tick might cause asserts. Setting configUSE_DISABLE_TICK_AUTO_CORRECTION_DEBUG to 1 will make RTC and RTOS go out of sync but could be
      *    convenient for debugging.
      */
-#define configUSE_DISABLE_TICK_AUTO_CORRECTION_DEBUG     0
+#define configUSE_DISABLE_TICK_AUTO_CORRECTION_DEBUG     1
 
 #endif /* FREERTOS_CONFIG_H */

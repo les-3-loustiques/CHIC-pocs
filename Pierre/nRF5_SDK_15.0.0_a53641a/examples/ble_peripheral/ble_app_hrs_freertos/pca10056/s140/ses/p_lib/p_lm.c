@@ -1,11 +1,11 @@
 #include "p_lm.h"
 
-TaskHandle_t* xDisplayManagerHandleSPI = NULL;
 static uint8_t m[MATRIXSIZE];
+TaskHandle_t *xDisplayManagerHandleSPI = NULL;
 //least significant bits for g
 //most significant bits for b
 
-bool lm_init(int spiChannel0, int spiChannel1, TaskHandle_t* handle) {
+bool lm_init(int spiChannel0, int spiChannel1, TaskHandle_t *handle) {
   nrf_drv_spi_config_t spi_config0 = NRF_DRV_SPI_DEFAULT_CONFIG;
   spi_config0.ss_pin = LM_SPI0_SS_PIN;
   spi_config0.miso_pin = LM_SPI0_MISO_PIN;
@@ -20,7 +20,6 @@ bool lm_init(int spiChannel0, int spiChannel1, TaskHandle_t* handle) {
     m[i] = 0; //reset bytes to be sent before each frame
   }
   xDisplayManagerHandleSPI = handle;
-  lm_spi_send();
 }
 /**
  * @brief SPI user event handler.
@@ -28,11 +27,14 @@ bool lm_init(int spiChannel0, int spiChannel1, TaskHandle_t* handle) {
  */
 void lm_spi0_event_handler(nrf_drv_spi_evt_t const *p_event,
     void *p_context) {
-  xTaskNotifyFromISR(&xDisplayManagerHandleSPI, 0x2, eSetBits, pdFALSE);
+  //xTaskGetHandle("DisplayManager")
+  //  xTaskNotifyFromISR(*xDisplayManagerHandleSPI, 0x2, eSetBits, pdFALSE);
 }
 
 void lm_spi_send() {
-  APP_ERROR_CHECK(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1));
+  //nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1);
+ while(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1) == NRF_ERROR_BUSY);
+ //APP_ERROR_CHECK(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1));
 }
 
 void lm_setSingleLedColor(int x, int y, int color) {

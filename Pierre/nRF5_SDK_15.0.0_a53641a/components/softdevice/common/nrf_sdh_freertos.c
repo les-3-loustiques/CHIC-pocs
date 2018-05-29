@@ -51,7 +51,7 @@
 #include "nrf_log.h"
 NRF_LOG_MODULE_REGISTER();
 
-#define NRF_BLE_FREERTOS_SDH_TASK_STACK 100 //256
+#define NRF_BLE_FREERTOS_SDH_TASK_STACK 200 //256
 
 
 static TaskHandle_t                 m_softdevice_task;  //!< Reference to SoftDevice FreeRTOS task.
@@ -99,7 +99,7 @@ void nrf_sdh_freertos_init(nrf_sdh_freertos_task_hook_t hook_fn, void * p_contex
                                        "BLE",
                                        NRF_BLE_FREERTOS_SDH_TASK_STACK,
                                        p_context,
-                                       2,
+                                       5,
                                        &m_softdevice_task);
     if (xReturned != pdPASS)
     {

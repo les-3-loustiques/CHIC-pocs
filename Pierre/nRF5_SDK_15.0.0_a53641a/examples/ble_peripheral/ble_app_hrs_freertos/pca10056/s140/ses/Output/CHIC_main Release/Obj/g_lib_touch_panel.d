@@ -3,8 +3,8 @@ Output/CHIC_main\ Release/Obj/g_lib_touch_panel.o: \
  C:\Users\shinra\CHIC-pocs\Pierre\nRF5_SDK_15.0.0_a53641a\examples\ble_peripheral\ble_app_hrs_freertos\pca10056\s140\ses\g_lib\g_lib_touch_panel.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stdint.h \
  ../../../../../../integration/nrfx/legacy/nrf_drv_twi.h \
- ../../../../../../modules/nrfx/nrfx.h ../config/nrfx_config.h \
- ../config/sdk_config.h \
+ ../../../../../../modules/nrfx/nrfx.h \
+ ../../../../../../integration/nrfx/nrfx_config.h ../config/sdk_config.h \
  ../../../../../../modules/nrfx/drivers/nrfx_common.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/stddef.h \
  C:/Program\ Files/SEGGER/SEGGER\ Embedded\ Studio\ for\ ARM\ 3.34b/include/__crossworks.h \

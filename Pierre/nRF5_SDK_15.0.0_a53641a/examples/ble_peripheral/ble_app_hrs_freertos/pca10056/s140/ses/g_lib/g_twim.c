@@ -1,11 +1,6 @@
 #include "g_twim.h"
 
 
-
-
-/**
- * @brief TWI initialization.
- */
 void twi_init ()
 {
     ret_code_t err_code;
