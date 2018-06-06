@@ -41,6 +41,7 @@ const  val REQUEST_ENABLE_BT = 1
 
 class MainActivity : AppCompatActivity() {
 
+
     private lateinit var mBluetoothAdapter: BluetoothAdapter
     private lateinit var mLEScanner: BluetoothLeScanner
     private var mScanning: Boolean = false
@@ -59,6 +60,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         recycleView = resultLeScan
 
