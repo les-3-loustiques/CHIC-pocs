@@ -4,9 +4,25 @@ void touchpanel_init(){
     twi_init(); // init the two wire interface for touch panel
     gpiote_init_TP(); // init Config[0] of gpiote for touch panel
     gpio_init_TP(); // set reset and enable of DC-DC converter for touchpanel
-    uint8_t soeur = 0;
-    // enable polling mode instead of trigger mode
-    //touchpanel_send_cmd(&m_twi, 0xA4 , &soeur);
+
+    uint8_t addr_thGroup = 0x80; // valid touching detect threshold
+    uint8_t addr_thpeak = 0x81; // valid touching peak detect threshold
+
+    uint8_t soeur = 3; // 60
+    uint8_t soeur2 = 3; // 20
+   // enable polling mode instead of trigger mode
+   touchpanel_send_cmd(&m_twi, addr_thpeak , &soeur);
+    touchpanel_send_cmd(&m_twi, addr_thGroup , &soeur2);
+
+   
+    // 0x80 valid touching detect threshold
+    // 0x81 valid touching peak detect threshold
+    printf(" blalbls  %d\n", soeur2);
+    touchpanel_get_register_value(&m_twi, addr_thpeak, &soeur);
+    touchpanel_get_register_value(&m_twi, addr_thGroup, &soeur2);
+    printf(" blalbls sgsdfgsdfgsdfgsdfgsdfgsaser %d\n", soeur);
+
+    printf(" blalbls sgsdfgsdfgsdfgsdfgsdfgsfedgsfgsfgaser %d\n", soeur2);
 }
 
 /**< Global variable storing touch points*/

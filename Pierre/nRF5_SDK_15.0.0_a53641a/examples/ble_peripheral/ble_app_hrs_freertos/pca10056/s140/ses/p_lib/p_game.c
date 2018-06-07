@@ -311,7 +311,7 @@ void game_initTasks() {
       "TouchPanel",        /* Text name for the task. */
       30,                  /* Stack size in words, not bytes. */
       &gData,              /* Parameter passed into the task. */
-      4,                   //tskIDLE_PRIORITY, /* Priority at which the task is created. */
+      2,                   //tskIDLE_PRIORITY, /* Priority at which the task is created. */
       &xTouchPanelHandle); /* Used to pass out the created task's handle. */
 
   if (xTouchPanelReturned != pdPASS) {
@@ -336,9 +336,9 @@ void game_initTasks() {
 // handler for GPIOTE
 void GPIOTE_IRQHandler(void) {
   if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)) {
-    uint8_t ulNotifiedValue = touchpanel_get_pressed_buttons();
-
- int del = 100;
+     uint8_t ulNotifiedValue = touchpanel_get_pressed_buttons();
+    printf("sadfas %d\n", ulNotifiedValue);
+ int del = 150;
     if ((ulNotifiedValue & 0x01) != 0) {
       nrf_gpio_pin_write(33, 1);
       nrf_delay_ms(del);
