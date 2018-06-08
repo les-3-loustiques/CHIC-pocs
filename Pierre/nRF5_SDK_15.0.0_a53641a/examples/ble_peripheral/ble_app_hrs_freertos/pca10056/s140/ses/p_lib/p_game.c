@@ -190,7 +190,9 @@ void vTouchPanel(void *pvParameters) {
   while (gData->gameState == 1) {
     ulTaskNotifyTake(pdTRUE,                                                         /* Clear the notification value before exiting. */
         portMAX_DELAY);                                                              /* Block indefinitely. */
-    xTaskNotify(&xGMainHandle, (uint8_t)touchpanel_get_pressed_buttons(), eSetBits); //send picture
+
+		// à besoin d'être modifié avec une variable gloable ///////////////////////////////////////////////////////////////////////////////
+    xTaskNotify(&xGMainHandle, (uint16_t)touchpanel_get_pressed_buttons(0), eSetBits); //send picture
   }
 
   /* Tasks must not attempt to return from their implementing
@@ -335,10 +337,16 @@ void game_initTasks() {
 
 // handler for GPIOTE
 void GPIOTE_IRQHandler(void) {
-  if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)) {
-     uint8_t ulNotifiedValue = touchpanel_get_pressed_buttons();
+
+	uint8_t event_0 = 0;
+	uint8_t event_1 = 0;
+  if ( (event_0 = nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)) || (event_1 = nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_1) << 1)) {
+
+     uint8_t ulNotifiedValue = touchpanel_get_pressed_buttons(event_0 | event_1);
+
     printf("sadfas %d\n", ulNotifiedValue);
- int del = 150;
+
+	int del = 150;
     if ((ulNotifiedValue & 0x01) != 0) {
       nrf_gpio_pin_write(33, 1);
       nrf_delay_ms(del);
@@ -396,6 +404,7 @@ void GPIOTE_IRQHandler(void) {
     }
 
     vTaskNotifyGiveFromISR(xTouchPanelHandle,pdTRUE);
-    nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_0);
+	if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)) nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_0);
+    if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_1)) nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_1);
   }
 }
