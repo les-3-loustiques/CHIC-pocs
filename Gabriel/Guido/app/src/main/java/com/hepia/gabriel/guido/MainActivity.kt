@@ -33,15 +33,43 @@ import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.recycle.view.*
 import android.bluetooth.BluetoothGattService
 import android.bluetooth.BluetoothGatt
-
-
+import android.net.Uri
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
+import android.util.TypedValue
 
 
 const  val REQUEST_ENABLE_BT = 1
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+        Login_fragment.OnFragmentInteractionListener,
+        GuidoConnexion.OnFragmentInteractionListener{
 
+    private lateinit var adapterViewPager : FragmentPagerAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Set logo on action bar
+        supportActionBar?.setLogo(R.mipmap.ic_launcher)
+        supportActionBar?.setDisplayUseLogoEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        adapterViewPager = CustomFragmentPagerAdapter(supportFragmentManager, this)
+        pager.adapter = adapterViewPager
+        pager_header.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20f)
+        pager_header.drawFullUnderline = false
+        pager_header.setNonPrimaryAlpha(0.2f)
+        pager_header.setTextColor(ContextCompat.getColor(baseContext, R.color.colorBluePastel))
+        pager_header.tabIndicatorColor = ContextCompat.getColor(baseContext, R.color.colorBluePastel)
+    }
+
+    override fun onFragmentInteraction(uri : Uri){
+
+    }
+
+/*
     private lateinit var mBluetoothAdapter: BluetoothAdapter
     private lateinit var mLEScanner: BluetoothLeScanner
     private var mScanning: Boolean = false
@@ -57,12 +85,15 @@ class MainActivity : AppCompatActivity() {
     // Stops scanning after 10 seconds.
     private val SCAN_PERIOD: Long = 10000
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        recycleView = resultLeScan
+        //recycleView = resultLeScan
 
         //définit l'agencement des cellules, ici de façon verticale, comme une ListView
         recycleView.layoutManager = LinearLayoutManager(this)
@@ -337,5 +368,5 @@ class MyAdapter(val list : List<BluetoothDevice>) : RecyclerView.Adapter<MyViewH
 
     override fun getItemCount(): Int {
         return list.size
-    }
+    }*/
 }
