@@ -10,6 +10,11 @@
 
     <!-- Login -->
     <string name="User_tab_title">Utilisateur</string>
+    <string name="textView_username_label">Compte</string>
+    <string name="textView_password_label">Mot de passe</string>
+    <string name="editText_username_hint">Betina.cortese</string>
+    <string name="btn_login_label">Se connecter</string>
+    <string name="textView_forgot_password_link">Mot de passe oublié ?</string>
 
     <!-- Home -->
     <string name="Home_tab_title">Home</string>
