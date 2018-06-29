@@ -21,13 +21,13 @@ class CustomFragmentPagerAdapter ( fragmentManager: FragmentManager, context : C
     override fun getItem(position: Int): Fragment? {
         when (position) {
             0 // Fragment # 0 - This will show FirstFragment
-            -> return Login_fragment.newInstance("caca", "Page # 1")
+            -> return UserFragment.newInstance("frag 1", "Page # 1")
             1 // Fragment # 0 - This will show FirstFragment different title
-            -> return GuidoConnexion.newInstance("pipi", "Page # 2")
+            -> return BluetoothFragment.newInstance("frag 2", "Page # 2")
             2 // Fragment # 0 - This will show FirstFragment different title
-            -> return GuidoConnexion.newInstance("pipi", "Page # 3")
+            -> return BluetoothFragment.newInstance("frag 3", "Page # 3")
             3 // Fragment # 0 - This will show FirstFragment different title
-            -> return GuidoConnexion.newInstance("pipi", "Page # 4")
+            -> return BluetoothFragment.newInstance("frag 4", "Page # 4")
             else -> return null
         }
     }

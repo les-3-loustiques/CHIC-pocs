@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
-     <item android:drawable="@color/cardview_light_background"/> <!-- set background color -->
-
+    <!-- set background color -->
+    <item android:drawable="@color/cardview_light_background"/>
+    <!-- set background image -->
     <item
         android:left="50dp"
         android:right="50dp">
         <bitmap
             android:gravity="center"
             android:src="@drawable/ic_launcher_splashscreen" />
-        <!-- set logo to center -->
+        <!-- gravity : set logo to center
+             src : set the background image-->
     </item>
-
 </layer-list>

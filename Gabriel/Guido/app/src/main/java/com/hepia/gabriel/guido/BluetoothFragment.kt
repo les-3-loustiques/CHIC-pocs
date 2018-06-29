@@ -17,13 +17,13 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [Login_fragment.OnFragmentInteractionListener] interface
+ * [BluetoothFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [Login_fragment.newInstance] factory method to
+ * Use the [BluetoothFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class Login_fragment : Fragment() {
+class BluetoothFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -40,7 +40,7 @@ class Login_fragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_guido_connexion, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -85,12 +85,12 @@ class Login_fragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment Login_fragment.
+         * @return A new instance of fragment BluetoothFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                Login_fragment().apply {
+                BluetoothFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)
