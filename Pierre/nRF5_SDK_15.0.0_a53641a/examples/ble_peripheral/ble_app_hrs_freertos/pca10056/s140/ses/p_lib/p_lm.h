@@ -20,13 +20,13 @@ static uint8_t       m_tx_buf[] = TEST_STRING;           /**< TX buffer. */
 static uint8_t       m_rx_buf[1];    /**< RX buffer. */
 static uint8_t m_length;        /**< Transfer length. */
 
-#define COLUMNS  40
+#define COLUMNS  45
 #define COLUMNSBYSPI  20
-#define ROWS 20
+#define ROWS 40
 #define LEDNUMBER (COLUMNS*ROWS)
 #define RESETOFFSET 40
 #define MATRIXSIZEWITHOUTOFFSET (LEDNUMBER*15)
-#define MAXLUMINOSITYSHIFTS 2
+#define MAXLUMINOSITYSHIFTS 0
 #define MATRIXSIZE (MATRIXSIZEWITHOUTOFFSET + RESETOFFSET)
 
 #define LM_SPI0_SS_PIN 0xFFFFFFFF

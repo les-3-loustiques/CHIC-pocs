@@ -65,8 +65,9 @@ void game_splashScreen() {
   const TickType_t xDelay2 = 1500;
   TickType_t xLastWakeTime;
   xLastWakeTime = xTaskGetTickCount();
-  lm_setLedColor(lm_colorBuilder(4, 4, 4));
-  int letterNumber = 5;
+  lm_setLedColor(lm_colorBuilder(0, 255, 0));
+  lm_spi_send();
+  int letterNumber = 0;
   int offsetX = 7;
   int offsetY = 5;
   int text[] = {6, 20, 8, 3, 14};
@@ -80,7 +81,7 @@ void game_splashScreen() {
       }
       int singleOffset = !((alpha[text[i]][0][j] + offsetX) % 2);
       lm_setSingleLedColor(alpha[text[i]][0][j] + offsetX, alpha[text[i]][1][j] + offsetY - singleOffset, lm_colorBuilder(i * 3, j * 3, 50));
-      //lm_setLedColor(lm_colorBuilder(20,30,40));
+      //lm_setLedColor(lm_colorBuilder(0,20,0));
       lm_spi_send();
       vTaskDelayUntil(&xLastWakeTime, xDelay);
       //nrf_delay_ms(100); //problematic value, you can't use a freertos primitive outside a task even if the task directly call that function
@@ -296,7 +297,7 @@ void game_initTasks() {
   xDisplayManagerReturned = xTaskCreate(
       vDisplayManager,         /* Function that implements the task. */
       "DisplayManager",        /* Text name for the task. */
-      256,                     /* Stack size in words, not bytes. */
+      180,                     /* Stack size in words, not bytes. */
       &gData,                  /* Parameter passed into the task. */
       3,                       //tskIDLE_PRIORITY, /* Priority at which the task is created. */
       &xDisplayManagerHandle); /* Used to pass out the created task's handle. */

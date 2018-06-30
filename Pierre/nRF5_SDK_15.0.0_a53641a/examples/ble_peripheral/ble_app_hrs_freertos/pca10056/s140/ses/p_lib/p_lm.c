@@ -68,7 +68,7 @@ char lm_oneZeroTranslation(bool one) {
 }
 
 int lm_colorBuilder(char r, char g, char b) {
-  int retVal = ((r << 8 - MAXLUMINOSITYSHIFTS) & 0b11111111 << 8) | ((b >> MAXLUMINOSITYSHIFTS) & 0b11111111) | ((g << 16 - MAXLUMINOSITYSHIFTS) & 0b11111111 << 16);
+  int retVal = ((r << 8 - MAXLUMINOSITYSHIFTS) & 0b11111111 << 8) | ((g >> MAXLUMINOSITYSHIFTS) & 0b11111111) | ((b << 16 - MAXLUMINOSITYSHIFTS) & 0b11111111 << 16);
 }
 
 void lm_waitForDataSent() {
