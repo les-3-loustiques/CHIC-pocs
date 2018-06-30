@@ -124,3 +124,8 @@ ENV/
 /build
 /captures
 .externalNativeBuild
+
+#segger
+./Pierre/nRF5_SDK_15.0.0_a53641a/examples/ble_peripheral/ble_app_hrs_freertos/pca10056/s140/ses/Output
+./Pierre/nRF5_SDK_15.0.0_a53641a/examples/ble_peripheral/ble_app_hrs_freertos/pca10056/s140/ses/ble_app_hrs_freertos_pca10056_s140.emSession
+*.emSession

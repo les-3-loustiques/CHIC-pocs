@@ -1,4 +1,5 @@
 <resources>
+    <!-- main -->
     <string name="app_name">Guido</string>
     <string name="bleNotSupported">BLE not supported</string>
     <string name="bNotSupported">Bluetooth not supported</string>
@@ -6,4 +7,23 @@
     <string name="stopScanBluetooth">Stop scanning</string>
     <string name="tstopScanBluetooth">Scanning in progress…</string>
     <string name="tstartScanBluetooth"> </string>
+
+    <!-- Login -->
+    <string name="User_tab_title">Utilisateur</string>
+    <string name="textView_username_label">Compte</string>
+    <string name="textView_password_label">Mot de passe</string>
+    <string name="editText_username_hint">Betina.cortese</string>
+    <string name="btn_login_label">Se connecter</string>
+    <string name="textView_forgot_password_link">Mot de passe oublié ?</string>
+
+    <!-- Home -->
+    <string name="Home_tab_title">Home</string>
+
+    <!-- Config exercise-->
+    <string name="Exercise_tab_title">Exercices</string>
+
+    <!-- connexion BLE -->
+    <string name="BLE_tab_title">Mon Guido</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

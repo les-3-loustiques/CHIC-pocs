@@ -5,7 +5,7 @@
 #include "g_lib_touch_panel.h"
 
 /**
-@brief Initialize the gpiote to catch an interrupt from the touch panel on the config[0]
+@brief Initialize the gpiote to catch an interrupt from touch panels on the config[0] and config[1]
 */
 void gpiote_init_TP();
 

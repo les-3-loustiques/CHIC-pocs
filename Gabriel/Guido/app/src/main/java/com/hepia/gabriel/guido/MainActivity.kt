@@ -4,44 +4,47 @@
 
 package com.hepia.gabriel.guido
 
-import android.Manifest
-import android.annotation.TargetApi
-import android.bluetooth.*
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import android.content.Intent
-import android.util.Log
-import java.lang.Thread.sleep
-import android.bluetooth.le.*
-import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Handler
-import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.view.View
-import android.widget.TextView
-import android.view.ViewGroup
-import android.widget.LinearLayout
 import kotlinx.android.synthetic.main.activity_main.*
 //import android.view.InputDevice.getDevice
 //import com.idevicesinc.sweetblue.BleManager
-import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
-import kotlinx.android.synthetic.main.recycle.view.*
-import android.bluetooth.BluetoothGattService
-import android.bluetooth.BluetoothGatt
-
-
-
+import android.net.Uri
+import android.support.v4.app.FragmentPagerAdapter
+import android.util.TypedValue
 
 const  val REQUEST_ENABLE_BT = 1
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),
+        UserFragment.OnFragmentInteractionListener,
+        BluetoothFragment.OnFragmentInteractionListener{
 
+    private lateinit var adapterViewPager : FragmentPagerAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        // Set logo on action bar
+        supportActionBar?.setLogo(R.mipmap.ic_launcher)
+        supportActionBar?.setDisplayUseLogoEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        adapterViewPager = CustomFragmentPagerAdapter(supportFragmentManager, this)
+        pager.adapter = adapterViewPager
+        pager_header.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 20f)
+        pager_header.drawFullUnderline = false
+        pager_header.setNonPrimaryAlpha(0.2f)
+        pager_header.setTextColor(ContextCompat.getColor(baseContext, R.color.colorBluePastel))
+        pager_header.tabIndicatorColor = ContextCompat.getColor(baseContext, R.color.colorBluePastel)
+    }
+
+    override fun onFragmentInteraction(uri : Uri){
+
+    }
+
+/*
     private lateinit var mBluetoothAdapter: BluetoothAdapter
     private lateinit var mLEScanner: BluetoothLeScanner
     private var mScanning: Boolean = false
@@ -57,12 +60,15 @@ class MainActivity : AppCompatActivity() {
     // Stops scanning after 10 seconds.
     private val SCAN_PERIOD: Long = 10000
 
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        recycleView = resultLeScan
+        //recycleView = resultLeScan
 
         //définit l'agencement des cellules, ici de façon verticale, comme une ListView
         recycleView.layoutManager = LinearLayoutManager(this)
@@ -337,5 +343,5 @@ class MyAdapter(val list : List<BluetoothDevice>) : RecyclerView.Adapter<MyViewH
 
     override fun getItemCount(): Int {
         return list.size
-    }
+    }*/
 }

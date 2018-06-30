@@ -9,12 +9,21 @@
 #include "string.h"
 
 #define ADDRESS_TOUCHPANEL_I2C 0x38 /**< Actual address of touchscreen */
-#define ADDRESS_REGISTER_TOUCH_1 0x03 /**< Address register in the controller of the first touch */
+#define ADDRESS_MUX_TOUCHPANEL 0x70 /**< Actual address of I2C multiplexer. Address is 0b1110'0000*/
+#define TOUCH_1_REGISTER 0x03 /**< Address register in the controller of the first touch */
 #define NUMBER_OF_TOUCHES_REGISTER 0x2 /**< Register storing the actual number of touches in the controller */
-#define TOUCHES_SIZE 0x1B /**< Sizes of buffer to store data for one touch */
+#define THRESHOLD_GROUP_REGISTER 0x80 /**< Register storing the threshold for ... */
+#define THRESHOLD_PEAK_REGISTER 0x81 /**< Register storing the peak threshold detection*/
+#define MAX_TOUCHES_SIZE 0x1C /**< Maximum size of buffer to contain 5 touches */
 
-#define INT_TOUCHPANEL_PORT 1 /**< Port of touch panel interrupt (1.10) */
-#define INT_TOUCHPANEL_PIN 10 /**< Pin of touch panel interrupt (1.10) */
+#define MUX_TOUCHPANEL_0 0x04 /**< Set register of Mux to channel 0 */
+#define MUX_TOUCHPANEL_1 0x05 /**< Set register of Mux to channel 1 */
+
+#define INT0_TOUCHPANEL_PORT 1 /**< Port of touch panel 0 interrupt (1.10) */
+#define INT0_TOUCHPANEL_PIN 10 /**< Pin of touch panel  0 interrupt (1.10) */
+#define INT1_TOUCHPANEL_PORT 1 /**< Port of touch panel 1 interrupt (1.11) */
+#define INT1_TOUCHPANEL_PIN 11 /**< Pin of touch panel  1 interrupt (1.11) */
+
 #define RESET_TP_PIN 45 /**< Pin for reset touch panel (1.13) */
 #define EN_TP_POWER_PIN 47 /**< Pin for activate the DC-DC converter for touch panel */
 
@@ -60,7 +69,7 @@ typedef  struct{
 
 @return void
 */
-ret_code_t touchpanel_get_values_of_touches(touchpoints_t* touchpoints, nrf_drv_twi_t* m_twi);
+ret_code_t touchpanel_get_values_of_touches(touchpoints_t* touchpoints, const nrf_drv_twi_t* m_twi,  uint8_t touchpanel);
 
 /**
 @brief Parse the raw data received from touch panel controller into a touchpoint_t structure
@@ -81,7 +90,7 @@ There is 8 buttons and a maximum of 5 touches, each bit of the uint8_t represent
 
 @return uint8_t Position of buttons pressed
 */
-uint8_t touchpanel_get_pressed_buttons();
+uint16_t touchpanel_get_pressed_buttons(uint8_t tp_activated);
 
 /**
 @brief Set a value to the touch regsiter 
@@ -92,7 +101,11 @@ uint8_t touchpanel_get_pressed_buttons();
 
 @return 0 id success otherwise you can cry
 */
-ret_code_t touchpanel_send_cmd(nrf_drv_twi_t* m_twi, uint8_t reg_address, uint8_t* data);
+ret_code_t touchpanel_send_cmd(const nrf_drv_twi_t* m_twi, uint8_t reg_address, uint8_t* data);
+
+ret_code_t touchpanel_send_twi(const nrf_drv_twi_t* m_twi, uint8_t touchpanel, uint8_t reg_address, uint8_t* data);
+
+ret_code_t mux_touchpanel_send_cmd(const nrf_drv_twi_t* m_twi, uint8_t data);
 
 /**
 @brief Get the value of a specific register of touch panel
@@ -103,7 +116,9 @@ ret_code_t touchpanel_send_cmd(nrf_drv_twi_t* m_twi, uint8_t reg_address, uint8_
 
 @return 0 id success otherwise you can cry
 */
-ret_code_t touchpanel_get_register_value(nrf_drv_twi_t* m_twi, uint8_t reg_address, uint8_t* data);
+ret_code_t touchpanel_get_register_value(const nrf_drv_twi_t* m_twi, uint8_t reg_address, uint8_t* data, uint8_t rx_data_size);
+
+ret_code_t touchpanel_get_twi(const nrf_drv_twi_t* m_twi, uint8_t touchpanel, uint8_t reg_address, uint8_t* data, uint8_t rx_data_size);
 
 /**
 @brief Initialize the Two wire interface instance, the interrupt, the reset and enable converter power  
