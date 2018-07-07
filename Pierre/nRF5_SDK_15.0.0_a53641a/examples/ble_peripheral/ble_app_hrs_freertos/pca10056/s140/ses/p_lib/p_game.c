@@ -65,8 +65,53 @@ void game_splashScreen() {
   const TickType_t xDelay2 = 1500;
   TickType_t xLastWakeTime;
   xLastWakeTime = xTaskGetTickCount();
-  lm_setLedColor(lm_colorBuilder(0, 255, 0));
+  lm_setLedColor(lm_colorBuilder(2, 2, 2));
   lm_spi_send();
+
+
+// bouton 1
+for(int i = 0; i < 42; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0xff, 0x00, 0x1a));
+}
+
+
+// bouton 2
+for(int i = 42; i < 84; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0xff, 0x00, 0xd9));
+}
+// bouton 3
+for(int i = 84; i < 126; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0x65, 0x00, 0xff));
+}
+// bouton 4
+for(int i = 126; i < 169; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0x00, 0x5a, 0xff));
+}
+// bouton 5
+for(int i = 168; i < 210; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0x00, 0xff, 0xe5));
+}
+// bouton 6
+for(int i = 210; i < 252; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0x00, 0xff, 0x25));
+}
+
+// bouton 7
+for(int i = 252; i < 294; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0x9a, 0xff, 0x00));
+}
+
+// bouton 8
+for(int i = 294; i < 336; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0xff, 0xa5, 0x00));
+}
+
+for(int i = 336; i < 850; i++){
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0x50, 0x50, 0x50));
+}
+
+	
+
   int letterNumber = 0;
   int offsetX = 7;
   int offsetY = 5;
@@ -280,7 +325,7 @@ void vSoundManager(void *pvParameters) {
 
 void game_initTasks() {
   game_initLedMatrix();
-  game_initTouchScreen();
+  //game_initTouchScreen();
   gData.gameState = 1;
   /* Create the task, storing the handle. */
   xGMainReturned = xTaskCreate(
@@ -309,18 +354,18 @@ void game_initTasks() {
     vTaskDelete(xDisplayManagerHandle);
   }
   /* Create the task, storing the handle. */
-  xTouchPanelReturned = xTaskCreate(
-      vTouchPanel,         /* Function that implements the task. */
-      "TouchPanel",        /* Text name for the task. */
-      30,                  /* Stack size in words, not bytes. */
-      &gData,              /* Parameter passed into the task. */
-      2,                   //tskIDLE_PRIORITY, /* Priority at which the task is created. */
-      &xTouchPanelHandle); /* Used to pass out the created task's handle. */
+ // xTouchPanelReturned = xTaskCreate(
+ //     vTouchPanel,         /* Function that implements the task. */
+  //    "TouchPanel",        /* Text name for the task. */
+ //     30,                  /* Stack size in words, not bytes. */
+ //     &gData,              /* Parameter passed into the task. */
+ //     2,                   //tskIDLE_PRIORITY, /* Priority at which the task is created. */
+ //     &xTouchPanelHandle); /* Used to pass out the created task's handle. */
 
-  if (xTouchPanelReturned != pdPASS) {
-    printf("error creating a task");
-    vTaskDelete(xTouchPanelHandle);
-  }
+ // if (xTouchPanelReturned != pdPASS) {
+ //   printf("error creating a task");
+  //  vTaskDelete(xTouchPanelHandle);
+  //}
   /* Create the task, storing the handle. */
   xSoundManagerReturned = xTaskCreate(
       vSoundManager,         /* Function that implements the task. */

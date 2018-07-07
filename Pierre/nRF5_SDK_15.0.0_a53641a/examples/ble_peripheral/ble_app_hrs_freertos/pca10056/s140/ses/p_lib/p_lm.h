@@ -26,12 +26,12 @@ static uint8_t m_length;        /**< Transfer length. */
 #define LEDNUMBER (COLUMNS*ROWS)
 #define RESETOFFSET 40
 #define MATRIXSIZEWITHOUTOFFSET (LEDNUMBER*15)
-#define MAXLUMINOSITYSHIFTS 0
+#define MAXLUMINOSITYSHIFTS 5
 #define MATRIXSIZE (MATRIXSIZEWITHOUTOFFSET + RESETOFFSET)
 
 #define LM_SPI0_SS_PIN 0xFFFFFFFF
-#define LM_SPI0_MISO_PIN 25
-#define LM_SPI0_MOSI_PIN 23
+#define LM_SPI0_MISO_PIN 23
+#define LM_SPI0_MOSI_PIN 25
 #define LM_SPI0_SCK_PIN 21
 
 //look at sdk_config.h to enable other SPI: "NRFX_SPIM0_ENABLED" and "NRFX_SPI0_ENABLED"

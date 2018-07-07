@@ -916,7 +916,6 @@ static void clock_init(void) {
 
   bool erase_bonds;
 
-
   // Initialize modules.
   //log_init();
 
