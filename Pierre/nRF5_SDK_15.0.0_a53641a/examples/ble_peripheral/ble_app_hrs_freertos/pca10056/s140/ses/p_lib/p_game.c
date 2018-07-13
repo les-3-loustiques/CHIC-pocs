@@ -65,7 +65,7 @@ void game_splashScreen() {
   const TickType_t xDelay2 = 1500;
   TickType_t xLastWakeTime;
   xLastWakeTime = xTaskGetTickCount();
-  lm_setLedColor(lm_colorBuilder(2, 2, 2));
+  lm_setLedsColor(lm_colorBuilder(2, 2, 2));
   lm_spi_send();
 
 

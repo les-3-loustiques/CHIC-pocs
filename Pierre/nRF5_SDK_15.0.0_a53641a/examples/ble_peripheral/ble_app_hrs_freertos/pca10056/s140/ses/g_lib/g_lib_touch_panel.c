@@ -85,10 +85,7 @@ void touchpanel_parse_touches(touchpoints_t *touchpoints, uint8_t *to_parse) {
     touchpoints->touchpoint[i].pos_y = ((to_parse[offset + TOUCH_Y_H_OFFSET] & TOUCH_Y_H_MASK) << 8) | to_parse[offset + TOUCH_Y_L_OFFSET];
   }
 }
-#define BUTTON_HEIGHT_TOUCHPANEL 100
-#define BUTTON_WIDTH_TOUCHPANEL (TOUCHPANEL_WIDTH >> 3)
-#define BUTTON_BOTTOM_LOCATION 470
-#define BUTTON_TOP_LOCATION (BUTTON_BOTTOM_LOCATION - BUTTON_HEIGHT_TOUCHPANEL)
+
 /*************************************************************************************************************************/
 uint16_t touchpanel_get_pressed_buttons(uint8_t tp_activated) {
   // we can check to 8 touchpanels

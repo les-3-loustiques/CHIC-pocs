@@ -20,10 +20,16 @@ static uint8_t       m_tx_buf[] = TEST_STRING;           /**< TX buffer. */
 static uint8_t       m_rx_buf[1];    /**< RX buffer. */
 static uint8_t m_length;        /**< Transfer length. */
 
+#define NUMBER_OF_BUTTONS 8
+#define LEDS_PER_BUTTONS 42
+#define OFFSET_PARTITION (NUMBER_OF_BUTTONS*LEDS_PER_BUTTONS)
+#define COLUMNS_BUTTONS 5
+#define ROWS_BUTTONS 9
+
 #define COLUMNS  45
 #define COLUMNSBYSPI  20
-#define ROWS 40
-#define LEDNUMBER (COLUMNS*ROWS)
+#define ROWS 12
+#define LEDNUMBER (COLUMNS*ROWS + OFFSET_PARTITION)
 #define RESETOFFSET 40
 #define MATRIXSIZEWITHOUTOFFSET (LEDNUMBER*15)
 #define MAXLUMINOSITYSHIFTS 5
@@ -31,8 +37,10 @@ static uint8_t m_length;        /**< Transfer length. */
 
 #define LM_SPI0_SS_PIN 0xFFFFFFFF
 #define LM_SPI0_MISO_PIN 23
-#define LM_SPI0_MOSI_PIN 25
-#define LM_SPI0_SCK_PIN 21
+#define LM_SPI0_MOSI_PIN 21
+#define LM_SPI0_SCK_PIN 25
+
+#define POSITIION_ERROR -1
 
 //look at sdk_config.h to enable other SPI: "NRFX_SPIM0_ENABLED" and "NRFX_SPI0_ENABLED"
 
@@ -92,12 +100,51 @@ void lm_spi0_event_handler(nrf_drv_spi_evt_t const * p_event,
 void lm_spi_send();
 
 void lm_setSingleLedColor(int x, int y, int color);
-void lm_setLedColor(int color);
+void lm_setLedsColor(int color);
 
 void lm_ledColorBuilder(int c, uint8_t *led);
 char lm_oneZeroTranslation(bool one);
 int lm_colorBuilder(char r, char g, char b);
 
+/**
+@brief Set the whole button to a color.
+buttons goes from 1 to 8
+*/
+void lm_setButtonsColor(int button, int color);
+/**
+@brief Set the whole partition to one color
+
+the coord of partitions goes like this:
+11,0 -> 11,44
+ ^       ^
+ |       |
+0,0 -> 0,44
+*/
+void lm_setPartitionColor(int color);
+
+void lm_setSingleLedColorOfPartition(int x, int y, int color);
+/**
+goes from 0 to COLUMNS
+*/
+void lm_setVerticalLineOfPartition(int column, int color);
+/**
+goes from 0 to ROWS
+*/
+void lm_setHorizontalLineOfPartition(int row, int color);
+void lm_setSingleLedColorOfButton(int x, int y, int button, int color);
+/**
+@brief Get the position in the matrix array of partition led (x,y)
+
+@return int Index of array or -1 if coordinates are incorrect
+*/
+int lm_getPosFromCoordinatesPartition(int x, int y);
+
+/**
+@brief Get the position in the matrix array of led (x,y) in a button
+
+@return int Index of array or -1 if coordinates are incorrect
+*/
+int lm_getPosFromCoordinatesButton(int x, int y);
 void lm_waitForDataSent();
 
 

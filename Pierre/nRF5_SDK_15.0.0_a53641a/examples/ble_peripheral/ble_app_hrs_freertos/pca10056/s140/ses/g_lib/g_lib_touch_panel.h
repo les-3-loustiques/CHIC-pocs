@@ -39,6 +39,11 @@
 #define TOUCHPANEL_WIDTH 1150 /**< Width resolution of touch panel */
 #define TOUCHPANEL_HEIGHT 480 /**< Height resolution of touch panel */
 
+#define BUTTON_HEIGHT_TOUCHPANEL 100
+#define BUTTON_WIDTH_TOUCHPANEL (TOUCHPANEL_WIDTH >> 3)
+#define BUTTON_BOTTOM_LOCATION 470
+#define BUTTON_TOP_LOCATION (BUTTON_BOTTOM_LOCATION - BUTTON_HEIGHT_TOUCHPANEL)
+
 
 typedef enum{
 	PUTDOWN = 0,
