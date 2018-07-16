@@ -110,17 +110,15 @@ for(int i = 336; i < 850; i++){
 	lm_setSingleLedColor(0,i,lm_colorBuilder(0x0, 0x0, 0x0));
 }
 */
-	
- // lm_setSingleLedColor(0,336,lm_colorBuilder(0x50, 0x0, 0x0));
- // lm_setSingleLedColorOfPartition(0,0,lm_colorBuilder(0x50, 0x50, 0x50));
- // lm_setLedsColor(lm_colorBuilder(0x50,0,0));
- // lm_setSingleLedColorOfButton(4, 1, 1, lm_colorBuilder(0x0, 0x50, 0));
- // lm_setVerticalLineOfPartition(39,lm_colorBuilder(0x0, 0x0, 0x50));
- // lm_setHorizontalLineOfPartition(8,lm_colorBuilder(0x0, 0x0, 0x50));
-lm_setButtonsColor(1,lm_colorBuilder(0x0, 0x0, 0x50));
-lm_setButtonsColor(3,lm_colorBuilder(0x0, 0x50, 0x0));
-lm_setButtonsColor(5,lm_colorBuilder(0x50, 0x0, 0x0));
-lm_setButtonsColor(7,lm_colorBuilder(0x50, 0x50, 0x50));
+  lm_setSingleLedColorOfPartition(1,1,lm_colorBuilder(0x50, 0x50, 0x50));
+  lm_setSingleLedColorOfButton(4, 1, 1, lm_colorBuilder(0x0, 0x50, 0));
+  lm_setVerticalLineOfPartition(9,lm_colorBuilder(0x0, 0x0, 0x50));
+  lm_setHorizontalLineOfPartition(5,lm_colorBuilder(0x0, 0x0, 0x50));
+  lm_setButtonsColor(1,lm_colorBuilder(0x0, 0x0, 0x50));
+  lm_setButtonsColor(3,lm_colorBuilder(0x0, 0x50, 0x0));
+  lm_setButtonsColor(5,lm_colorBuilder(0x50, 0x0, 0x0));
+  lm_setButtonsColor(7,lm_colorBuilder(0x50, 0x50, 0x50));
+
   int letterNumber = 0;
   int offsetX = 7;
   int offsetY = 5;
