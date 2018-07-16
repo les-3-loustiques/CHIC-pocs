@@ -65,10 +65,9 @@ void game_splashScreen() {
   const TickType_t xDelay2 = 1500;
   TickType_t xLastWakeTime;
   xLastWakeTime = xTaskGetTickCount();
-  lm_setLedsColor(lm_colorBuilder(2, 2, 2));
   lm_spi_send();
 
-
+/*
 // bouton 1
 for(int i = 0; i < 42; i++){
 	lm_setSingleLedColor(0,i,lm_colorBuilder(0xff, 0x00, 0x1a));
@@ -105,18 +104,28 @@ for(int i = 252; i < 294; i++){
 for(int i = 294; i < 336; i++){
 	lm_setSingleLedColor(0,i,lm_colorBuilder(0xff, 0xa5, 0x00));
 }
-
+*/
+/*
 for(int i = 336; i < 850; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0x50, 0x50, 0x50));
+	lm_setSingleLedColor(0,i,lm_colorBuilder(0x0, 0x0, 0x0));
 }
-
+*/
 	
-
+ // lm_setSingleLedColor(0,336,lm_colorBuilder(0x50, 0x0, 0x0));
+ // lm_setSingleLedColorOfPartition(0,0,lm_colorBuilder(0x50, 0x50, 0x50));
+ // lm_setLedsColor(lm_colorBuilder(0x50,0,0));
+ // lm_setSingleLedColorOfButton(4, 1, 1, lm_colorBuilder(0x0, 0x50, 0));
+ // lm_setVerticalLineOfPartition(39,lm_colorBuilder(0x0, 0x0, 0x50));
+ // lm_setHorizontalLineOfPartition(8,lm_colorBuilder(0x0, 0x0, 0x50));
+lm_setButtonsColor(1,lm_colorBuilder(0x0, 0x0, 0x50));
+lm_setButtonsColor(3,lm_colorBuilder(0x0, 0x50, 0x0));
+lm_setButtonsColor(5,lm_colorBuilder(0x50, 0x0, 0x0));
+lm_setButtonsColor(7,lm_colorBuilder(0x50, 0x50, 0x50));
   int letterNumber = 0;
   int offsetX = 7;
   int offsetY = 5;
   int text[] = {6, 20, 8, 3, 14};
-
+/*
   int j = 0, i = 0;
   for (i = 0; i < letterNumber; i++) {
     for (j = 0; j < alphaPointNumber; j++) {
@@ -132,7 +141,7 @@ for(int i = 336; i < 850; i++){
       //nrf_delay_ms(100); //problematic value, you can't use a freertos primitive outside a task even if the task directly call that function
     }
     offsetX += alphaWidth[text[i]] + 1;
-  }
+  }*/
   vTaskDelayUntil(&xLastWakeTime, xDelay2);
 }
 

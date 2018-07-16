@@ -74,13 +74,14 @@ int lm_getPosFromCoordinatesPartition(int x, int y){
     if ( x > 0 && x < COLUMNS-1) return y*COLUMNS + (x-3);
     else return POSITIION_ERROR;
   }else{
-    if ( x > 1 && x < COLUMNS-2) return y*COLUMNS + (x-6);
+    if ( x > 2 && x < COLUMNS-3) return y*COLUMNS + (x-7);
     else return POSITIION_ERROR;
   }
 }
 
 int lm_getPosFromCoordinatesButton(int x, int y){
   if(x > COLUMNS_BUTTONS || x < 0 || y > ROWS_BUTTONS || y < 0) return POSITIION_ERROR;
+  if(y % 2 == 1) x = COLUMNS_BUTTONS - 1 - x ;
 
   if(y < 7) return y * COLUMNS_BUTTONS + x;
   else if (y == 7){
@@ -106,12 +107,12 @@ void lm_setButtonsColor(int button, int color){
 
 void lm_setSingleLedColorOfPartition(int x, int y, int color){
   int pos = lm_getPosFromCoordinatesPartition(x,y);
-  if(pos != -1) lm_ledColorBuilder(color, &(m[pos * 15 + RESETOFFSET]));
+  if(pos != -1) lm_ledColorBuilder(color, &(m[(pos + OFFSET_PARTITION) * 15 + RESETOFFSET]));
 }
 
 void lm_setSingleLedColorOfButton(int x, int y, int button, int color){
   int pos = lm_getPosFromCoordinatesButton(x,y);
-  if(pos != -1) lm_ledColorBuilder(color, &(m[pos * 15 + RESETOFFSET]));
+  if(pos != -1) lm_ledColorBuilder(color, &(m[(pos + ((button-1) * LEDS_PER_BUTTONS) ) * 15 + RESETOFFSET]));
 }
 
 void lm_setVerticalLineOfPartition(int column, int color){

@@ -26,7 +26,7 @@ static uint8_t m_length;        /**< Transfer length. */
 #define COLUMNS_BUTTONS 5
 #define ROWS_BUTTONS 9
 
-#define COLUMNS  45
+#define COLUMNS  43
 #define COLUMNSBYSPI  20
 #define ROWS 12
 #define LEDNUMBER (COLUMNS*ROWS + OFFSET_PARTITION)
@@ -37,7 +37,7 @@ static uint8_t m_length;        /**< Transfer length. */
 
 #define LM_SPI0_SS_PIN 0xFFFFFFFF
 #define LM_SPI0_MISO_PIN 23
-#define LM_SPI0_MOSI_PIN 21
+#define LM_SPI0_MOSI_PIN 41
 #define LM_SPI0_SCK_PIN 25
 
 #define POSITIION_ERROR -1
