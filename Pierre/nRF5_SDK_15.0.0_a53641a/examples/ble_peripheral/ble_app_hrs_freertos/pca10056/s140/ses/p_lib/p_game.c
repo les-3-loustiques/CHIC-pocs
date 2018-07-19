@@ -67,63 +67,27 @@ void game_splashScreen() {
   xLastWakeTime = xTaskGetTickCount();
   lm_spi_send();
 
-/*
-// bouton 1
-for(int i = 0; i < 42; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0xff, 0x00, 0x1a));
-}
-
-
-// bouton 2
-for(int i = 42; i < 84; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0xff, 0x00, 0xd9));
-}
-// bouton 3
-for(int i = 84; i < 126; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0x65, 0x00, 0xff));
-}
-// bouton 4
-for(int i = 126; i < 169; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0x00, 0x5a, 0xff));
-}
-// bouton 5
-for(int i = 168; i < 210; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0x00, 0xff, 0xe5));
-}
-// bouton 6
-for(int i = 210; i < 252; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0x00, 0xff, 0x25));
-}
-
-// bouton 7
-for(int i = 252; i < 294; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0x9a, 0xff, 0x00));
-}
-
-// bouton 8
-for(int i = 294; i < 336; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0xff, 0xa5, 0x00));
-}
-*/
-/*
-for(int i = 336; i < 850; i++){
-	lm_setSingleLedColor(0,i,lm_colorBuilder(0x0, 0x0, 0x0));
-}
-*/
-  lm_setSingleLedColorOfPartition(1,1,lm_colorBuilder(0x50, 0x50, 0x50));
-  lm_setSingleLedColorOfButton(4, 1, 1, lm_colorBuilder(0x0, 0x50, 0));
-  lm_setVerticalLineOfPartition(9,lm_colorBuilder(0x0, 0x0, 0x50));
-  lm_setHorizontalLineOfPartition(5,lm_colorBuilder(0x0, 0x0, 0x50));
-  lm_setButtonsColor(1,lm_colorBuilder(0x0, 0x0, 0x50));
-  lm_setButtonsColor(3,lm_colorBuilder(0x0, 0x50, 0x0));
-  lm_setButtonsColor(5,lm_colorBuilder(0x50, 0x0, 0x0));
-  lm_setButtonsColor(7,lm_colorBuilder(0x50, 0x50, 0x50));
+  //lm_setLedsColor(lm_colorBuilder(0x50, 0x50, 0x50));
+  //  lm_setSingleLedColorOfPartition(1, 1, lm_colorBuilder(0x90, 0x50, 0x50));
+  //  lm_setSingleLedColorOfButton(4, 1, 1, lm_colorBuilder(0x0, 0x50, 0));
+  //  lm_setVerticalLineOfPartition(9, lm_colorBuilder(0x0, 0x0, 0x50));
+  lm_setHorizontalLineOfPartition(2, lm_colorBuilder(0x50, 0x50, 0x50));
+  lm_setHorizontalLineOfPartition(4, lm_colorBuilder(0x50, 0x50, 0x50));
+  lm_setHorizontalLineOfPartition(6, lm_colorBuilder(0x50, 0x50, 0x50));
+  lm_setHorizontalLineOfPartition(8, lm_colorBuilder(0x50, 0x50, 0x50));
+  lm_setHorizontalLineOfPartition(10, lm_colorBuilder(0x50, 0x50, 0x50));
+  //  lm_setButtonsColor(1, lm_colorBuilder(0x0, 0x0, 0x50));
+  //  lm_setButtonsColor(3, lm_colorBuilder(0x0, 0x50, 0x0));
+  //  lm_setButtonsColor(5, lm_colorBuilder(0x50, 0x0, 0x0));
+  //  lm_setButtonsColor(7, lm_colorBuilder(0x50, 0x50, 0x50));
+  //  lm_setLedsColor(lm_colorBuilder(0x50, 0x50, 0x50));
+  lm_spi_send();
 
   int letterNumber = 0;
   int offsetX = 7;
   int offsetY = 5;
   int text[] = {6, 20, 8, 3, 14};
-/*
+  /*
   int j = 0, i = 0;
   for (i = 0; i < letterNumber; i++) {
     for (j = 0; j < alphaPointNumber; j++) {
@@ -140,6 +104,12 @@ for(int i = 336; i < 850; i++){
     }
     offsetX += alphaWidth[text[i]] + 1;
   }*/
+  for (int i = 1; i < 9; i++) {
+    lm_setButtonsColor(i, lm_colorBuilder(i * 5 * 5, (i * 5), (i + 20) * 5));
+    lm_spi_send();
+    vTaskDelayUntil(&xLastWakeTime, xDelay);
+    xLastWakeTime = xTaskGetTickCount();
+  }
   vTaskDelayUntil(&xLastWakeTime, xDelay2);
 }
 
@@ -152,20 +122,27 @@ void vGameMain(void *pvParameters) {
   gameData *gData = (gameData *)pvParameters;
   uint32_t ulNotifiedValue;
   TickType_t xLastWakeTime;
-  const TickType_t xDelay = 10;
-  while (gData->gameState == 1) {
-    xLastWakeTime = xTaskGetTickCount();
-    xTaskNotifyWait(0x00,
-        0xff,
-        &ulNotifiedValue, /* Notified value pass out in
-                                              ulNotifiedValue. */
-        0);               /* Block indefinitely. */
-
-    if ((ulNotifiedValue & 0xff) != 0) {
-      printf(" buttons pressed : %x\n", ulNotifiedValue);
+  const TickType_t xDelay = 0;
+  while (gData->gameState >= 0) {
+    switch (gData->gameState) {
+    case 0:
+      gData->gameState = 1;
+      break;
+    case 1:
+      xLastWakeTime = xTaskGetTickCount();
+      //        xTaskNotifyWait(0x00,
+      //            0xff,
+      //            &ulNotifiedValue, /* Notified value pass out in
+      //                                                  ulNotifiedValue. */
+      //            0);               /* Block indefinitely. */
+      //
+      //        if ((ulNotifiedValue & 0xff) != 0) {
+      //          printf(" buttons pressed : %x\n", ulNotifiedValue);
+      //        }
+      xTaskNotify(xDisplayManagerHandle, 0x1, eSetBits); //send picture
+      vTaskDelayUntil(&xLastWakeTime, xDelay);
+      break;
     }
-    xTaskNotify(&xDisplayManagerHandle, 0x1, eSetBits); //send picture
-    vTaskDelayUntil(&xLastWakeTime, 500);
   }
 
   /* Tasks must not attempt to return from their implementing
@@ -182,17 +159,12 @@ void vDisplayManager(void *pvParameters) {
   /* The parameter value is expected to be 1 as 1 is passed in the
     pvParameters value in the call to xTaskCreate() below. */
   gameData *gData = (gameData *)pvParameters;
-  uint32_t ulNotifiedValue;
+  uint32_t ulNotifiedValue = 0;
   TickType_t xLastWakeTime;
   /* Block for 50ms. */
   game_splashScreen();
-  while ((ulNotifiedValue & 0x02) == 0) {
-    xTaskNotifyWait(0x00,
-        0x2,
-        &ulNotifiedValue,
-        portMAX_DELAY);
-  }
-  const TickType_t xDelay = 100;
+  const TickType_t xDelay = 0;
+  int z = 0;
   for (;;) {
     if (gData->gameState == 1) {
       ulNotifiedValue = 0;
@@ -202,27 +174,25 @@ void vDisplayManager(void *pvParameters) {
             0x1,
             &ulNotifiedValue, /* Notified value pass out in
                                               ulNotifiedValue. */
-            portMAX_DELAY);   /* Block indefinitely. */
+            0);             /* Block indefinitely. */
       }
       xLastWakeTime = xTaskGetTickCount();
-      /*for (int i = 0; i < COLUMNS; i++) {
-                                                    for (int j = 0; j < ROWS; j++) {
-                                                      lm_setSingleLedColor(i, j, lm_colorBuilder(i, j, z));
-                                                      //lm_setLedColor(lm_colorBuilder(z,0,0));
-                                                    }
-                                                  }
-                                                  z++;
-                                                  if (z > 120) {
-                                                    z = 0;
-                                                  }*/
+
+      lm_setHorizontalLineOfPartition(z % 12, lm_colorBuilder(10, z, z));
+
+      if (z > 120) {
+        z = 0;
+      }
       lm_spi_send();
+      z++;
+      ulNotifiedValue = 0;
       while ((ulNotifiedValue & 0x02) == 0) {
         /* Bit 0 was set - process whichever event is represented by bit 0. */
         xTaskNotifyWait(0x00,
             0x2,
             &ulNotifiedValue, /* Notified value pass out in
                                               ulNotifiedValue. */
-            portMAX_DELAY);   /* Block indefinitely. */
+            60);             /* Block indefinitely. */
       }
       vTaskDelayUntil(&xLastWakeTime, xDelay);
     }
@@ -241,10 +211,10 @@ void vTouchPanel(void *pvParameters) {
     pvParameters value in the call to xTaskCreate() below. */
   gameData *gData = (gameData *)pvParameters;
   while (gData->gameState == 1) {
-    ulTaskNotifyTake(pdTRUE,                                                         /* Clear the notification value before exiting. */
-        portMAX_DELAY);                                                              /* Block indefinitely. */
+    ulTaskNotifyTake(pdTRUE, /* Clear the notification value before exiting. */
+        portMAX_DELAY);      /* Block indefinitely. */
 
-		// à besoin d'être modifié avec une variable gloable ///////////////////////////////////////////////////////////////////////////////
+    //  besoin d'tre modifi avec une variable gloable ///////////////////////////////////////////////////////////////////////////////
     xTaskNotify(&xGMainHandle, (uint16_t)touchpanel_get_pressed_buttons(0), eSetBits); //send picture
   }
 
@@ -285,7 +255,7 @@ void vSoundManager(void *pvParameters) {
         portMAX_DELAY);   /* Block indefinitely. */
 
     /* Process any events that have been latched in the notified value. */
-      int i = 7;
+    int i = 7;
     if ((ulNotifiedValue & 0x01) != 0) {
       /* Bit 0 was set - process whichever event is represented by bit 0. */
     }
@@ -333,12 +303,12 @@ void vSoundManager(void *pvParameters) {
 void game_initTasks() {
   game_initLedMatrix();
   //game_initTouchScreen();
-  gData.gameState = 1;
+  gData.gameState = 0;
   /* Create the task, storing the handle. */
   xGMainReturned = xTaskCreate(
       vGameMain,      /* Function that implements the task. */
       "GameMain",     /* Text name for the task. */
-      40,             /* Stack size in words, not bytes. */
+      50,             /* Stack size in words, not bytes. */
       &gData,         /* Parameter passed into the task. */
       4,              /* Priority at which the task is created. */
       &xGMainHandle); /* Used to pass out the created task's handle. */
@@ -351,7 +321,7 @@ void game_initTasks() {
   xDisplayManagerReturned = xTaskCreate(
       vDisplayManager,         /* Function that implements the task. */
       "DisplayManager",        /* Text name for the task. */
-      180,                     /* Stack size in words, not bytes. */
+      880,                     /* Stack size in words, not bytes. */
       &gData,                  /* Parameter passed into the task. */
       3,                       //tskIDLE_PRIORITY, /* Priority at which the task is created. */
       &xDisplayManagerHandle); /* Used to pass out the created task's handle. */
@@ -361,23 +331,23 @@ void game_initTasks() {
     vTaskDelete(xDisplayManagerHandle);
   }
   /* Create the task, storing the handle. */
- // xTouchPanelReturned = xTaskCreate(
- //     vTouchPanel,         /* Function that implements the task. */
+  // xTouchPanelReturned = xTaskCreate(
+  //     vTouchPanel,         /* Function that implements the task. */
   //    "TouchPanel",        /* Text name for the task. */
- //     30,                  /* Stack size in words, not bytes. */
- //     &gData,              /* Parameter passed into the task. */
- //     2,                   //tskIDLE_PRIORITY, /* Priority at which the task is created. */
- //     &xTouchPanelHandle); /* Used to pass out the created task's handle. */
+  //     30,                  /* Stack size in words, not bytes. */
+  //     &gData,              /* Parameter passed into the task. */
+  //     2,                   //tskIDLE_PRIORITY, /* Priority at which the task is created. */
+  //     &xTouchPanelHandle); /* Used to pass out the created task's handle. */
 
- // if (xTouchPanelReturned != pdPASS) {
- //   printf("error creating a task");
+  // if (xTouchPanelReturned != pdPASS) {
+  //   printf("error creating a task");
   //  vTaskDelete(xTouchPanelHandle);
   //}
   /* Create the task, storing the handle. */
   xSoundManagerReturned = xTaskCreate(
       vSoundManager,         /* Function that implements the task. */
       "SoundManager",        /* Text name for the task. */
-      15,                    /* Stack size in words, not bytes. */
+      50,                    /* Stack size in words, not bytes. */
       &gData,                /* Parameter passed into the task. */
       1,                     //tskIDLE_PRIORITY, /* Priority at which the task is created. */
       &xSoundManagerHandle); /* Used to pass out the created task's handle. */
@@ -391,17 +361,17 @@ void game_initTasks() {
 // handler for GPIOTE
 void GPIOTE_IRQHandler(void) {
 
-	uint8_t event_0 = 0;
-	uint8_t event_1 = 0;
-  if ( (event_0 = nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)) || (event_1 = nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_1) << 1)) {
+  uint8_t event_0 = 0;
+  uint8_t event_1 = 0;
+  if ((event_0 = nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)) || (event_1 = nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_1) << 1)) {
 
-     // event_0 is an event generated by touchpanel 0
-     // event_1 is an event generated by touchpanel 1
-     uint8_t ulNotifiedValue = touchpanel_get_pressed_buttons(event_0 | event_1);
+    // event_0 is an event generated by touchpanel 0
+    // event_1 is an event generated by touchpanel 1
+    uint8_t ulNotifiedValue = touchpanel_get_pressed_buttons(event_0 | event_1);
 
     printf("sadfas %d\n", ulNotifiedValue);
 
-	int del = 150;
+    int del = 150;
     if ((ulNotifiedValue & 0x01) != 0) {
       nrf_gpio_pin_write(33, 1);
       nrf_delay_ms(del);
@@ -458,8 +428,10 @@ void GPIOTE_IRQHandler(void) {
       /* Bit 2 was set - process whichever event is represented by bit 7. */
     }
 
-    vTaskNotifyGiveFromISR(xTouchPanelHandle,pdTRUE);
-	if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0)) nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_0);
-    if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_1)) nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_1);
+    vTaskNotifyGiveFromISR(xTouchPanelHandle, pdTRUE);
+    if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_0))
+      nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_0);
+    if (nrf_gpiote_event_is_set(NRF_GPIOTE_EVENTS_IN_1))
+      nrf_gpiote_event_clear(NRF_GPIOTE_EVENTS_IN_1);
   }
 }

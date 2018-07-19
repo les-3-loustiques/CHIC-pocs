@@ -899,6 +899,9 @@ void vApplicationIdleHook(void) {
 #if NRF_LOG_ENABLED
   vTaskResume(m_logger_thread);
 #endif
+  while (1){
+    __NOP();
+  }
 }
 
 /**@brief Function for initializing the clock.
@@ -911,7 +914,7 @@ static void clock_init(void) {
 /**@brief Function for application main entry.
  */
 
-  int main(void) {
+int main(void) {
 
 
   bool erase_bonds;
@@ -932,7 +935,7 @@ static void clock_init(void) {
 #endif
 
   // Activate deep sleep mode.
-  //SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
+  SCB->SCR |= SCB_SCR_SLEEPDEEP_Msk;
   // Configure and initialize the BLE stack.
   ble_stack_init();
 

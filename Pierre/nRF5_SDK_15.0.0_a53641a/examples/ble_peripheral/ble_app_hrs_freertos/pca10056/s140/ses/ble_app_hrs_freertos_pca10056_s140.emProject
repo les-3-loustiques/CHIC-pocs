@@ -169,7 +169,10 @@
       <file file_name="../../../../../../components/softdevice/common/nrf_sdh_freertos.c" />
       <file file_name="../../../../../../components/softdevice/common/nrf_sdh_soc.c" />
     </folder>
-    <configuration Name="Release" build_dependency_file_name="" />
+    <configuration
+      Name="Release"
+      build_dependency_file_name=""
+      gcc_optimization_level="None" />
     <configuration Name="Debug" c_user_include_directories="" />
     <folder Name="nRF_BLE_Services">
       <file file_name="../../../../../../components/ble/ble_services/ble_bas/ble_bas.c" />

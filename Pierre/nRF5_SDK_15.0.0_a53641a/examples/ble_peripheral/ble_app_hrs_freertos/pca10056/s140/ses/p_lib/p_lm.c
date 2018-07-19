@@ -27,14 +27,14 @@ bool lm_init(int spiChannel0, int spiChannel1, TaskHandle_t *handle) {
  */
 void lm_spi0_event_handler(nrf_drv_spi_evt_t const *p_event,
     void *p_context) {
-  //xTaskGetHandle("DisplayManager")
-  //  xTaskNotifyFromISR(*xDisplayManagerHandleSPI, 0x2, eSetBits, pdFALSE);
+  xTaskNotifyFromISR(*xDisplayManagerHandleSPI, 0x2, eSetBits, pdFALSE);
 }
 
 void lm_spi_send() {
   //nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1);
- while(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1) == NRF_ERROR_BUSY);
- //APP_ERROR_CHECK(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1));
+  nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1);
+  //while(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1) == NRF_ERROR_BUSY);
+  //APP_ERROR_CHECK(nrf_drv_spi_transfer(&spi0, m, MATRIXSIZE, m_rx_buf, 1));
 }
 
 void lm_setSingleLedColor(int x, int y, int color) {
@@ -128,7 +128,8 @@ void lm_setHorizontalLineOfPartition(int row, int color){
 }
 
 void lm_ledColorBuilder(int c, uint8_t led[15]) {
-  for (int i = 0; i < 3; i++) {
+  int i;
+  for (i = 0; i < 3; i++) {
     led[0 + 5 * i] = (0b10000 | lm_oneZeroTranslation(c & (1 << (7 + 8 * i)))) << 3 | (0b10000 | lm_oneZeroTranslation(c & (1 << (6 + 8 * i)))) >> 2;
     led[1 + 5 * i] = (0b10000 | lm_oneZeroTranslation(c & (1 << (6 + 8 * i)))) << 6 | (0b10000 | lm_oneZeroTranslation(c & (1 << (5 + 8 * i)))) << 1 | (0b10000 | lm_oneZeroTranslation(c & (1 << (4 + 8 * i)))) >> 4;
     led[2 + 5 * i] = (0b10000 | lm_oneZeroTranslation(c & (1 << (4 + 8 * i)))) << 4 | (0b10000 | lm_oneZeroTranslation(c & (1 << (3 + 8 * i)))) >> 1;
@@ -146,7 +147,8 @@ char lm_oneZeroTranslation(bool one) {
 }
 
 int lm_colorBuilder(char r, char g, char b) {
-  int retVal = ((r << 8 - MAXLUMINOSITYSHIFTS) & 0b11111111 << 8) | ((g >> MAXLUMINOSITYSHIFTS) & 0b11111111) | ((b << 16 - MAXLUMINOSITYSHIFTS) & 0b11111111 << 16);
+  uint32_t retVal = ((r << 8 - MAXLUMINOSITYSHIFTS) & 0b11111111 << 8) | ((g >> MAXLUMINOSITYSHIFTS) & 0b11111111) | ((b << 16 - MAXLUMINOSITYSHIFTS) & 0b11111111 << 16);
+  return retVal;
 }
 
 void lm_waitForDataSent() {

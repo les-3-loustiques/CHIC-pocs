@@ -37,7 +37,7 @@ static uint8_t m_length;        /**< Transfer length. */
 
 #define LM_SPI0_SS_PIN 0xFFFFFFFF
 #define LM_SPI0_MISO_PIN 23
-#define LM_SPI0_MOSI_PIN 41
+#define LM_SPI0_MOSI_PIN 40
 #define LM_SPI0_SCK_PIN 25
 
 #define POSITIION_ERROR -1

@@ -59,7 +59,7 @@
 #include "app_error.h"
 
 #ifdef BSP_LED_0
-    #define GPIO_OUTPUT_PIN_NUMBER BSP_LED_0  /**< Pin number for output. */
+    #define GPIO_OUTPUT_PIN_NUMBER 12  /**< Pin number for output. */
 #endif
 #ifndef GPIO_OUTPUT_PIN_NUMBER
     #error "Please indicate output pin"
