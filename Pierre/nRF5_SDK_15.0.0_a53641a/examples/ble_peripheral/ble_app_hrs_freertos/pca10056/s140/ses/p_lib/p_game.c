@@ -61,7 +61,7 @@ void game_initTouchScreen() {
 }
 
 void game_splashScreen() {
-  const TickType_t xDelay = 5; // super effect of de la mort qui tue
+  const TickType_t xDelay = 150; // super effect of de la mort qui tue
   const TickType_t xDelay2 = 1500;
   TickType_t xLastWakeTime;
   xLastWakeTime = xTaskGetTickCount();
@@ -81,12 +81,12 @@ void game_splashScreen() {
   //  lm_setButtonsColor(5, lm_colorBuilder(0x50, 0x0, 0x0));
   //  lm_setButtonsColor(7, lm_colorBuilder(0x50, 0x50, 0x50));
   //  lm_setLedsColor(lm_colorBuilder(0x50, 0x50, 0x50));
-  lm_spi_send();
-
-  int letterNumber = 0;
-  int offsetX = 7;
-  int offsetY = 5;
-  int text[] = {6, 20, 8, 3, 14};
+//  lm_spi_send();
+//
+//  int letterNumber = 0;
+//  int offsetX = 7;
+//  int offsetY = 5;
+//  int text[] = {6, 20, 8, 3, 14};
   /*
   int j = 0, i = 0;
   for (i = 0; i < letterNumber; i++) {
@@ -104,12 +104,57 @@ void game_splashScreen() {
     }
     offsetX += alphaWidth[text[i]] + 1;
   }*/
-  for (int i = 1; i < 9; i++) {
-    lm_setButtonsColor(i, lm_colorBuilder(i * 5 * 5, (i * 5), (i + 20) * 5));
-    lm_spi_send();
-    vTaskDelayUntil(&xLastWakeTime, xDelay);
-    xLastWakeTime = xTaskGetTickCount();
-  }
+  vTaskDelayUntil(&xLastWakeTime, xDelay);
+  lm_setButtonsColor(1, lm_colorBuilder(0xff-0xf, 0x00-0xf, 0x1a-0xf));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
+  vTaskDelayUntil(&xLastWakeTime, xDelay);
+  lm_setButtonsColor(1, lm_colorBuilder(0xff, 0x00, 0x1a));  
+  lm_setButtonsColor(2, lm_colorBuilder(0xff-0xf, 0x00-0xf, 0xd9-0xf));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
+  lm_setButtonsColor(2, lm_colorBuilder(0xff, 0x00, 0xd9));
+  lm_setButtonsColor(3, lm_colorBuilder(0x65-0xf, 0x00-0xf, 0xff-0xf));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
+  vTaskDelayUntil(&xLastWakeTime, xDelay);
+  lm_setButtonsColor(3, lm_colorBuilder(0x65, 0x00, 0xff));
+  lm_setButtonsColor(4, lm_colorBuilder(0x00-0xf, 0x5a-0xf, 0xff-0xf));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
+  vTaskDelayUntil(&xLastWakeTime, xDelay);
+  lm_setButtonsColor(4, lm_colorBuilder(0x00, 0x5a, 0xff));
+  lm_setButtonsColor(5, lm_colorBuilder(0x00-0xf, 0xff-0xf, 0xe5-0xf));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
+  vTaskDelayUntil(&xLastWakeTime, xDelay);
+  lm_setButtonsColor(5, lm_colorBuilder(0x00, 0xff, 0xe5));
+  lm_setButtonsColor(6, lm_colorBuilder(0x00-0xf, 0xff-0xf, 0x25-0xf));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
+  vTaskDelayUntil(&xLastWakeTime, xDelay);
+  lm_setButtonsColor(6, lm_colorBuilder(0x00, 0xff, 0x25));
+  lm_setButtonsColor(7, lm_colorBuilder(0x9a-0xf, 0xff-0xf, 0x00-0xf));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
+  vTaskDelayUntil(&xLastWakeTime, xDelay);
+  lm_setButtonsColor(7, lm_colorBuilder(0x9a, 0xff, 0x00));
+  lm_setButtonsColor(8, lm_colorBuilder(0xff-0xf, 0xa5-0xf, 0x00-0xf));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
+  vTaskDelayUntil(&xLastWakeTime, xDelay);
+  lm_setButtonsColor(8, lm_colorBuilder(0xff, 0xa5, 0x00));
+  xLastWakeTime = xTaskGetTickCount();
+  lm_spi_send();
+
   vTaskDelayUntil(&xLastWakeTime, xDelay2);
 }
 
@@ -122,7 +167,7 @@ void vGameMain(void *pvParameters) {
   gameData *gData = (gameData *)pvParameters;
   uint32_t ulNotifiedValue;
   TickType_t xLastWakeTime;
-  const TickType_t xDelay = 0;
+  const TickType_t xDelay = 1;
   while (gData->gameState >= 0) {
     switch (gData->gameState) {
     case 0:
@@ -171,7 +216,7 @@ void vDisplayManager(void *pvParameters) {
       while ((ulNotifiedValue & 0x01) == 0) {
         /* Bit 0 was set - process whichever event is represented by bit 0. */
         xTaskNotifyWait(0x00,
-            0x1,
+            0x00,
             &ulNotifiedValue, /* Notified value pass out in
                                               ulNotifiedValue. */
             0);             /* Block indefinitely. */
